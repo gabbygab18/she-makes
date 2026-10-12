@@ -169,24 +169,50 @@
           </a>
         </div>
 
+        {%- comment -%}
+          The questions are the theme's own FAQ island — the same accordion,
+          the same ring that fills when a row opens and the same slide — so
+          this page answers questions the way every other page does.
+        {%- endcomment -%}
         {%- assign questions = section.blocks | where: 'type', 'question' -%}
         {%- if questions.size > 0 -%}
+          {%- liquid
+            assign faq_items = ''
+            for block in questions
+              assign q = block.settings.question | json
+              assign a = block.settings.answer | json
+              assign row = '{"question":' | append: q | append: ',"answer":' | append: a | append: '}'
+              if forloop.first
+                assign faq_items = row
+              else
+                assign faq_items = faq_items | append: ',' | append: row
+              endif
+            endfor
+          -%}
+          {%- capture faq_props -%}
+{ "heading": {{ section.settings.faq_heading | json }}, "body": {{ section.settings.faq_body | json }}, "items": [{{ faq_items }}], "limit": 20 }
+          {%- endcapture -%}
+          {%- capture faq_fallback -%}
+            <div class="sm-faq sm-faq--split">
+              <div class="sm-faq__head">
+                {% render 'sm-heading', text: section.settings.faq_heading, tag: 'h2', class: 'sm-heading' %}
+                {%- if section.settings.faq_body != blank -%}<p class="sm-body">{{ section.settings.faq_body }}</p>{%- endif -%}
+              </div>
+              <div class="sm-faq__list">
+                {%- for block in questions -%}
+                  <details class="sm-faq__item">
+                    <summary class="sm-faq__question">
+                      <span>{{ block.settings.question }}</span>
+                      <span class="sm-faq__marker" aria-hidden="true"><span class="sm-faq__bar"></span><span class="sm-faq__bar sm-faq__bar--up"></span></span>
+                    </summary>
+                    <div class="sm-faq__answer">{{ block.settings.answer }}</div>
+                  </details>
+                {%- endfor -%}
+              </div>
+            </div>
+          {%- endcapture -%}
           <div class="sm-ref__faq">
-            <div class="sm-ref__faq-head">
-              {% render 'sm-heading', text: section.settings.faq_heading, tag: 'h2', class: 'sm-heading sm-heading--sm' %}
-              {%- if section.settings.faq_body != blank -%}
-                <p class="sm-body">{{ section.settings.faq_body }}</p>
-              {%- endif -%}
-            </div>
-
-            <div class="sm-ref__faq-list">
-              {%- for block in questions -%}
-                <details class="sm-ref__q" {{ block.shopify_attributes }}>
-                  <summary>{{ block.settings.question }}</summary>
-                  <div class="sm-ref__a">{{ block.settings.answer }}</div>
-                </details>
-              {%- endfor -%}
-            </div>
+            {% render 'sm-island', name: 'faq', props: faq_props, fallback: faq_fallback %}
           </div>
         {%- endif -%}
       </div>

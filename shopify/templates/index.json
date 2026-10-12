@@ -490,6 +490,15 @@
         "strip": "Free shipping on orders $150+",
         "strip_url": "/policies/shipping-policy"
       }
+    },
+    "refer_strip": {
+      "type": "sm-strip",
+      "settings": {
+        "icon": "gift",
+        "text": "Refer a maker friend — they get 20% off, you get $20 in store credit.",
+        "label": "Refer a maker",
+        "url": "/pages/refer-a-maker?view=referral"
+      }
     }
   },
   "order": [
@@ -498,6 +507,7 @@
     "collection_tiles",
     "steps",
     "perks",
+    "refer_strip",
     "reviews_row",
     "reviews_app",
     "new_this_week",

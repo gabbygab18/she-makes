@@ -1,0 +1,45 @@
+{% comment %}
+  SHEmakes — a one-line strip with a button.
+
+  For a short offer that should be seen but not dwelt on: "Refer a maker,
+  get $20" between two homepage sections. One sentence, one link.
+{% endcomment %}
+
+{%- if section.settings.text != blank -%}
+<div class="sm-section sm-section--tight">
+  <div class="sm-container">
+    <a class="sm-strip" href="{{ section.settings.url | default: '#' }}">
+      <span class="sm-strip__icon" aria-hidden="true">{% render 'sm-icon', name: section.settings.icon %}</span>
+      <span class="sm-strip__text">{{ section.settings.text }}</span>
+      {%- if section.settings.label != blank -%}
+        <span class="sm-strip__button">{{ section.settings.label }} <span aria-hidden="true">&rarr;</span></span>
+      {%- endif -%}
+    </a>
+  </div>
+</div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "SHEmakes strip",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "icon",
+      "label": "Icon",
+      "options": [
+        { "value": "gift", "label": "Gift" },
+        { "value": "heart", "label": "Heart" },
+        { "value": "star", "label": "Star" },
+        { "value": "truck", "label": "Delivery" }
+      ],
+      "default": "gift"
+    },
+    { "type": "text", "id": "text", "label": "Text", "default": "Refer a maker friend — they get 20% off, you get $20 in store credit." },
+    { "type": "text", "id": "label", "label": "Button", "default": "Refer a maker" },
+    { "type": "url", "id": "url", "label": "Link" }
+  ],
+  "presets": [{ "name": "SHEmakes strip" }]
+}
+{% endschema %}

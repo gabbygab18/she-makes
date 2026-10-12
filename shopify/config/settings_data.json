@@ -481,7 +481,7 @@
             "settings": {
               "heading": "Quick links",
               "menu": "footer",
-              "links": "Free Sample | /pages/grab-your-free-sample\nContact Us | /pages/contact\nFAQs | /pages/faqs\nRefunds and Shipping Policies | /policies/refund-policy"
+              "links": "Free Sample | /pages/grab-your-free-sample\nRefer a Maker | /pages/refer-a-maker?view=referral\nContact Us | /pages/contact\nFAQs | /pages/faqs\nRefunds and Shipping Policies | /policies/refund-policy"
             }
           }
         },
@@ -562,6 +562,13 @@
               "label": "FAQs",
               "url": "/pages/faqs"
             }
+          },
+          "n9": {
+            "type": "nav",
+            "settings": {
+              "label": "Refer a Maker",
+              "url": "/pages/refer-a-maker?view=referral"
+            }
           }
         },
         "block_order": [
@@ -572,7 +579,8 @@
           "n5",
           "n6",
           "n7",
-          "n8"
+          "n8",
+          "n9"
         ],
         "settings": {
           "logo": "shopify://shop_images/logo-lockup.png",

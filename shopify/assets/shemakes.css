@@ -11664,18 +11664,31 @@ a.sm-perks__strip:focus-visible { opacity: 0.9; color: #fff; }
 
 .sm-ref__step { position: relative; text-align: center; }
 
-/* The drawn arrow between one step and the next. */
+/* The way from one step to the next: a dotted raspberry line from circle to
+   circle at the circles' own height, ending in a chevron at the next one.
+   Measured from the circles, not the column, so it always meets them. */
 .sm-ref__step + .sm-ref__step::before {
   content: '';
   position: absolute;
-  top: 26px;
-  left: -64px;
-  width: 92px;
-  height: 30px;
-  background: var(--sm-ink);
-  -webkit-mask: url('sm-stroke.png') center / 100% 100% no-repeat;
-  mask: url('sm-stroke.png') center / 100% 100% no-repeat;
+  top: 41px;
+  left: calc(-50% + 26px);
+  width: calc(100% - 82px);
+  height: 2px;
+  background: repeating-linear-gradient(90deg, var(--sm-brand) 0 6px, transparent 6px 12px);
   opacity: 0.55;
+}
+
+.sm-ref__step + .sm-ref__step::after {
+  content: '';
+  position: absolute;
+  top: 37px;
+  left: calc(50% - 64px);
+  width: 9px;
+  height: 9px;
+  border-top: 2px solid var(--sm-brand);
+  border-right: 2px solid var(--sm-brand);
+  transform: rotate(45deg);
+  opacity: 0.7;
 }
 
 .sm-ref__step-icon {
@@ -11789,43 +11802,17 @@ a.sm-perks__strip:focus-visible { opacity: 0.9; color: #fff; }
 .sm-ref__ready .sm-heading { margin: 0 0 16px; }
 
 .sm-ref__faq {
-  display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.4fr);
-  gap: 24px;
   padding: 26px;
   background: var(--sm-block-sage);
   border-radius: var(--sm-radius-card);
 }
 
-.sm-ref__faq-head .sm-heading { margin: 0 0 8px; }
-.sm-ref__faq-head .sm-body { margin: 0; font-size: 14px; }
-
-.sm-ref__faq-list { display: grid; gap: 10px; }
-
-.sm-ref__q {
-  background: var(--sm-shell);
-  border: 1px solid var(--sm-line-soft);
-  border-radius: var(--sm-radius-field);
-}
-
-.sm-ref__q summary {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 12px 16px;
-  cursor: pointer;
-  list-style: none;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--sm-ink);
-}
-
-.sm-ref__q summary::-webkit-details-marker { display: none; }
-.sm-ref__q summary::after { content: '+'; color: var(--sm-brand); font-size: 18px; line-height: 1; }
-.sm-ref__q[open] summary::after { content: '\2212'; }
-.sm-ref__a { padding: 0 16px 14px; font-size: 14px; line-height: 1.6; }
-.sm-ref__a p { margin: 0; }
-.sm-ref__a a { color: var(--sm-brand); }
+/* The shared FAQ island brings its own section and container padding; inside
+   this card they would double it. */
+.sm-ref__faq > [data-sm-island] > .sm-section,
+.sm-ref__faq .sm-section { padding: 0; background: none; }
+.sm-ref__faq .sm-container { padding: 0; max-width: none; }
+.sm-ref__faq .sm-faq__head .sm-heading { font-size: clamp(24px, 2.6vw, 32px); }
 
 /* ── a tablet and a phone ──────────────────────────────────────────────── */
 
@@ -11833,8 +11820,7 @@ a.sm-perks__strip:focus-visible { opacity: 0.9; color: #fff; }
   .sm-ref__hero-inner,
   .sm-ref__why-card,
   .sm-ref__quotes-inner,
-  .sm-ref__close-inner,
-  .sm-ref__faq { grid-template-columns: minmax(0, 1fr); }
+  .sm-ref__close-inner { grid-template-columns: minmax(0, 1fr); }
 
   .sm-ref__hero-media { order: -1; }
   .sm-ref__hero-media img { max-height: 300px; margin: 0 auto; }
@@ -11849,14 +11835,15 @@ a.sm-perks__strip:focus-visible { opacity: 0.9; color: #fff; }
   .sm-ref__cta { width: 100%; justify-content: center; }
 
   .sm-ref__steps { grid-template-columns: minmax(0, 1fr); gap: 26px; }
-  .sm-ref__step + .sm-ref__step::before { display: none; }
+  .sm-ref__step + .sm-ref__step::before,
+  .sm-ref__step + .sm-ref__step::after { display: none; }
 
   .sm-ref__why-card { padding: 22px 18px; }
   .sm-ref__reasons { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 18px; }
   .sm-ref__reason + .sm-ref__reason { border-left: 0; }
   .sm-ref__reason:nth-child(even) { border-left: 1px solid var(--sm-line); }
 
-  .sm-ref__faq { padding: 20px 16px; }
+  .sm-ref__faq { padding: 18px 14px; }
 }
 
 /* The three-steps heading wraps evenly: on a laptop it broke "Order your own /
@@ -12059,4 +12046,99 @@ a.sm-perks__strip:focus-visible { opacity: 0.9; color: #fff; }
 @media screen and (max-width: 749px) {
   .sm-cat__actions { flex-wrap: wrap; }
   .sm-cat__actions .sm-button { flex: 1 1 100%; padding: 11px 14px; font-size: 13.5px; }
+}
+
+/* The cream band starts behind the hero's curved foot, so the curve sits on
+   cream rather than on a strip of white page. */
+.sm-ref__hero { position: relative; z-index: 1; }
+.sm-ref__how { margin-top: -44px; padding-top: 108px; }
+@media screen and (max-width: 749px) { .sm-ref__how { margin-top: -28px; padding-top: 72px; } }
+
+/* The shirts photograph was cut straight across under the hand in the
+   original, and on the hero it read as a picture chopped off. Its foot fades
+   into the band instead. */
+.sm-ref__hero-media img {
+  -webkit-mask-image: linear-gradient(180deg, #000 72%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 72%, transparent 100%);
+}
+
+/* The hero's foot, drawn the way the shop sketched it: low on the left,
+   easing up across the middle, a rise near the right and a last lift at the
+   edge. Two mask layers — the body of the band, and the wave under it — so
+   the shape follows the line rather than an even curve. The cream band
+   underneath starts high enough to fill the scoop. */
+.sm-ref__hero {
+  border-radius: 0;
+  padding-bottom: 150px;
+  -webkit-mask:
+    linear-gradient(#000, #000) top / 100% calc(100% - 119px) no-repeat,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120' preserveAspectRatio='none'%3E%3Cpath d='M0 0V33C70 80 170 118 300 120C420 122 480 85 620 70C760 60 900 66 1040 76C1110 80 1130 50 1170 26C1220 4 1300 6 1360 10C1400 14 1420 10 1440 0Z'/%3E%3C/svg%3E") bottom / 100% 120px no-repeat;
+  mask:
+    linear-gradient(#000, #000) top / 100% calc(100% - 119px) no-repeat,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120' preserveAspectRatio='none'%3E%3Cpath d='M0 0V33C70 80 170 118 300 120C420 122 480 85 620 70C760 60 900 66 1040 76C1110 80 1130 50 1170 26C1220 4 1300 6 1360 10C1400 14 1420 10 1440 0Z'/%3E%3C/svg%3E") bottom / 100% 120px no-repeat;
+}
+
+.sm-ref__how { margin-top: -120px; padding-top: 150px; }
+
+@media screen and (max-width: 749px) {
+  .sm-ref__hero {
+    padding-bottom: 80px;
+    -webkit-mask:
+      linear-gradient(#000, #000) top / 100% calc(100% - 55px) no-repeat,
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120' preserveAspectRatio='none'%3E%3Cpath d='M0 0V33C70 80 170 118 300 120C420 122 480 85 620 70C760 60 900 66 1040 76C1110 80 1130 50 1170 26C1220 4 1300 6 1360 10C1400 14 1420 10 1440 0Z'/%3E%3C/svg%3E") bottom / 100% 56px no-repeat;
+    mask:
+      linear-gradient(#000, #000) top / 100% calc(100% - 55px) no-repeat,
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120' preserveAspectRatio='none'%3E%3Cpath d='M0 0V33C70 80 170 118 300 120C420 122 480 85 620 70C760 60 900 66 1040 76C1110 80 1130 50 1170 26C1220 4 1300 6 1360 10C1400 14 1420 10 1440 0Z'/%3E%3C/svg%3E") bottom / 100% 56px no-repeat;
+  }
+
+  .sm-ref__how { margin-top: -56px; padding-top: 84px; }
+}
+
+/* A one-line offer strip: blush pill-ended bar, the line in the middle, the
+   button at the end. The whole strip is the link. */
+.sm-strip {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 12px 12px 12px 18px;
+  border: 1px solid var(--sm-line-soft);
+  border-radius: var(--sm-radius-pill);
+  background: var(--sm-block-sage);
+  color: var(--sm-ink);
+  text-decoration: none;
+}
+
+.sm-strip__icon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 38px;
+  height: 38px;
+  border-radius: var(--sm-radius-pill);
+  background: var(--sm-brand);
+  color: #fff;
+}
+
+.sm-strip__icon svg { width: 18px; height: 18px; }
+.sm-strip__text { flex: 1 1 auto; font-size: 15px; font-weight: 600; line-height: 1.35; }
+
+.sm-strip__button {
+  flex: 0 0 auto;
+  padding: 10px 20px;
+  border-radius: var(--sm-radius-pill);
+  background: var(--sm-brand);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.sm-strip:hover .sm-strip__button { opacity: 0.9; }
+
+@media screen and (max-width: 749px) {
+  .sm-strip { flex-wrap: wrap; border-radius: var(--sm-radius-card); padding: 14px; gap: 10px 12px; }
+  .sm-strip__text { flex: 1 1 calc(100% - 52px); font-size: 14px; }
+  .sm-strip__button { flex: 1 1 100%; text-align: center; }
 }
