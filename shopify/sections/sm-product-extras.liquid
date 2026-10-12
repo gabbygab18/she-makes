@@ -1,0 +1,144 @@
+{% comment %}
+  SHEmakes — product extras, for a product on the stock section.
+
+  The Kixxl builder products keep the theme's original product section,
+  because the app's Create and Upload buttons are blocks of it. This adds
+  the redesigned page's foot under that: the rating-and-reviews list, the
+  review rail, "You might also like" and the closing card — the same snippet
+  the redesigned product section renders.
+
+  Keep the Judge.me "Review widget" app section directly below this one; the
+  reviews list reads its markup.
+{% endcomment %}
+
+<div class="sm-section sm-section--tight sm-product-extras">
+  <div class="sm-container">
+    {% render 'sm-product-tail', opts: section.settings, product: product, collection: collection %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "SHEmakes product extras",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_related",
+      "label": "\"You might also like\" row",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "related_heading",
+      "label": "Related row heading",
+      "default": "You might also *like*"
+    },
+    {
+      "type": "header",
+      "content": "Closing card"
+    },
+    {
+      "type": "text",
+      "id": "cta_eyebrow",
+      "label": "Eyebrow",
+      "default": "Still have a question?"
+    },
+    {
+      "type": "select",
+      "id": "cta_layout",
+      "label": "Layout",
+      "options": [
+        {
+          "value": "left",
+          "label": "Copy on the left"
+        },
+        {
+          "value": "centre",
+          "label": "Copy in the middle"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "image_picker",
+      "id": "cta_image",
+      "label": "Card photo",
+      "info": "A print from the shop floor ships with the theme."
+    },
+    {
+      "type": "text",
+      "id": "cta_heading",
+      "label": "Heading",
+      "default": "Not quite the *one*?"
+    },
+    {
+      "type": "textarea",
+      "id": "cta_body",
+      "label": "Body",
+      "default": "Send us the artwork and we print it. Custom DTF for fabric, UV DTF for hard surfaces — no minimum and no account."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button",
+      "default": "Start a custom order"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Button goes to"
+    },
+    {
+      "type": "text",
+      "id": "cta2_label",
+      "label": "Second button",
+      "default": "Browse ready to press"
+    },
+    {
+      "type": "url",
+      "id": "cta2_url",
+      "label": "Second button goes to"
+    },
+    {
+      "type": "text",
+      "id": "cta_email",
+      "label": "Email",
+      "default": "info@shemakestransfers.com"
+    },
+    {
+      "type": "textarea",
+      "id": "cta_hours",
+      "label": "Hours",
+      "info": "One line. Line breaks are printed as written.",
+      "default": "Business Hours\nMonday – Friday: 9:00 AM – 5:00 PM EST\nSaturday & Sunday: Closed"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_reviews",
+      "label": "Reviews below the product",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "reviews_heading",
+      "label": "Reviews heading",
+      "default": "Rating & reviews"
+    },
+    {
+      "type": "range",
+      "id": "reviews_shown",
+      "label": "Reviews shown at first",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "default": 3
+    }
+  ],
+  "presets": [
+    {
+      "name": "SHEmakes product extras"
+    }
+  ]
+}
+{% endschema %}

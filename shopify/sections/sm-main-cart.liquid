@@ -1,0 +1,122 @@
+{% comment %}
+  SHEmakes — the cart.
+
+  An island, because this is where a quantity change should not cost a page
+  load, and where the free-shipping countdown has to recalculate as it happens.
+
+  The whole cart is rendered by Liquid underneath as the fallback, including a
+  working quantity form — so the cart is usable before the bundle arrives, and
+  if it never does.
+{% endcomment %}
+
+{%- liquid
+  assign items = ''
+  for item in cart.items
+    assign k = item.key | json
+    assign pt = item.product.title | json
+    assign vt = item.variant.title | json
+    assign u = item.url | json
+    assign img = ''
+    if item.image != blank
+      assign img = item.image | image_url: width: 200
+    endif
+    assign img = img | json
+    assign row = '{"key":' | append: k | append: ',"product_title":' | append: pt | append: ',"variant_title":' | append: vt | append: ',"quantity":' | append: item.quantity | append: ',"final_line_price":' | append: item.final_line_price | append: ',"url":' | append: u | append: ',"image":' | append: img | append: '}'
+    if forloop.first
+      assign items = row
+    else
+      assign items = items | append: ',' | append: row
+    endif
+  endfor
+-%}
+
+<div class="sm-section sm-section--tight">
+  <div class="sm-container">
+    <h1 class="sm-heading sm-heading--md">Your cart</h1>
+
+    {%- capture props -%}
+{
+  "cart": {
+    "item_count": {{ cart.item_count }},
+    "total_price": {{ cart.total_price }},
+    "items": [{{ items }}]
+  },
+  "threshold": {{ settings.sm_free_shipping_threshold | default: 15000 }},
+  "currency": {{ cart.currency.iso_code | json }},
+  "checkoutUrl": {{ routes.cart_url | append: '/checkout' | json }}
+}
+    {%- endcapture -%}
+
+    {%- capture fallback -%}
+      {%- if cart.item_count == 0 -%}
+        <div class="sm-cart__empty">
+          <p>Nothing in the cart yet.</p>
+          <a href="{{ routes.all_products_collection_url }}" class="sm-button sm-button--primary">Browse ready to press</a>
+        </div>
+      {%- else -%}
+        <form action="{{ routes.cart_url }}" method="post" class="sm-cart">
+          <div class="sm-cart__lines">
+            {% render 'sm-shipping-bar', threshold: settings.sm_free_shipping_threshold %}
+
+            <ul class="sm-cart__list" role="list">
+              {%- for item in cart.items -%}
+                <li class="sm-cart__item">
+                  <a href="{{ item.url }}" class="sm-cart__thumb">
+                    {%- if item.image -%}
+                      <img src="{{ item.image | image_url: width: 200 }}" alt="" loading="lazy">
+                    {%- endif -%}
+                  </a>
+
+                  <div class="sm-cart__details">
+                    <a href="{{ item.url }}" class="sm-cart__name">{{ item.product.title }}</a>
+                    {%- unless item.variant.title == 'Default Title' -%}
+                      <p class="sm-mono">{{ item.variant.title }}</p>
+                    {%- endunless -%}
+
+                    <label class="visually-hidden" for="sm-qty-{{ forloop.index }}">Quantity</label>
+                    <input
+                      id="sm-qty-{{ forloop.index }}"
+                      type="number"
+                      name="updates[]"
+                      value="{{ item.quantity }}"
+                      min="0"
+                      class="sm-cart__qty-input"
+                    >
+                  </div>
+
+                  <span class="sm-cart__price">{{ item.final_line_price | money }}</span>
+                </li>
+              {%- endfor -%}
+            </ul>
+
+            <button type="submit" name="update" class="sm-button sm-button--secondary">Update cart</button>
+          </div>
+
+          <aside class="sm-cart__summary">
+            <h2>Order summary</h2>
+            <dl>
+              <div>
+                <dt>Subtotal</dt>
+                <dd>{{ cart.total_price | money }}</dd>
+              </div>
+            </dl>
+            <p class="sm-cart__note">Shipping and taxes are worked out at checkout.</p>
+            <button type="submit" name="checkout" class="sm-button sm-button--primary sm-cart__checkout">
+              Go to checkout
+            </button>
+          </aside>
+        </form>
+      {%- endif -%}
+    {%- endcapture -%}
+
+    {% render 'sm-island', name: 'cart', props: props, fallback: fallback %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "SHEmakes cart",
+  "tag": "section",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,858 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "current": {
+    "sm_free_shipping_threshold": 15000,
+    "final_price_color": "#8c0137",
+    "final_price_weight": true,
+    "compare_price_color": "#e74a86",
+    "compare_price_weight": true,
+    "colors_solid_button_labels": "#000",
+    "colors_accent_1": "#feeaea",
+    "colors_accent_2": "#f659a0",
+    "colors_accent_3": "#fbdb12",
+    "colors_accent_4": "#f00000",
+    "colors_accent_5": "#edcb6c",
+    "colors_accent_6": "#393636",
+    "colors_text": "#393636",
+    "colors_outline_button_labels": "#000000",
+    "colors_background_1": "#ffffff",
+    "colors_background_2": "#000",
+    "type_header_font": "poppins_n3",
+    "type_header_small": 17,
+    "type_header_medium": 25,
+    "type_header_large": 35,
+    "type_body_font": "poppins_n4",
+    "type_body_size": 15,
+    "enable_newsletter_popup": false,
+    "page_width": 1600,
+    "spacing_sections": 0,
+    "spacing_grid_horizontal": 24,
+    "spacing_grid_vertical": 24,
+    "card_image_padding": 0,
+    "card_text_alignment": "center",
+    "card_color_scheme": "background-1",
+    "card_shadow_opacity": 0,
+    "card_shadow_horizontal_offset": 0,
+    "card_shadow_vertical_offset": 0,
+    "card_shadow_blur": 0,
+    "badge_position": "top right",
+    "badge_corner_radius": 40,
+    "sale_badge_color_scheme": "accent-4",
+    "sold_out_badge_color_scheme": "background-1",
+    "accent_icons": "accent-4",
+    "accent_icons_hover": "accent-1",
+    "social_icon_color": "background-2",
+    "social_icon_color_hover": "accent-1",
+    "social_twitter_link": "",
+    "social_facebook_link": "https://m.facebook.com/shemakestransfers",
+    "social_pinterest_link": "",
+    "social_instagram_link": "http://www.instagram.com/shemakestransfers",
+    "social_tiktok_link": "http://tiktok.com/@shemakestransfers",
+    "social_tumblr_link": "",
+    "social_snapchat_link": "",
+    "social_youtube_link": "",
+    "social_vimeo_link": "",
+    "predictive_search_enabled": true,
+    "predictive_search_show_vendor": false,
+    "predictive_search_show_price": false,
+    "favicon": "shopify://shop_images/SHE_MAKES_transfers_Logo.png",
+    "cart_type": "drawer",
+    "show_cart_note": true,
+    "step1_title": "from Free Shipping!",
+    "step1_amount": "15000",
+    "step1_success_msg": "Congrats on your FREE Shipping!",
+    "step2_title": "",
+    "step2_amount": "",
+    "step2_success_msg": "",
+    "shipping_bg_color": "#f659a0",
+    "collection_title": "Best Sellers",
+    "cart_drawer_collection": "newly-added",
+    "show_notification": true,
+    "hide_notification_mb": true,
+    "notify_collection": "newly-added",
+    "notify_msg": "Someone Bought",
+    "location_msg": "",
+    "notify_location": "",
+    "notify_customer_name": "",
+    "notify_delay": "4000",
+    "notify_display": "40000",
+    "currency_code_enabled": true,
+    "quick_bg": "#fbdb12",
+    "icon_color": "#fff",
+    "badge_bg": "#000",
+    "badge_color": "#fff",
+    "checkout_logo_image": "shopify://shop_images/shemakes-transfers2.png",
+    "checkout_logo_position": "center",
+    "checkout_logo_size": "large",
+    "checkout_heading_font": "Helvetica Neue",
+    "checkout_body_font": "Helvetica Neue",
+    "checkout_accent_color": "#f659a0",
+    "checkout_button_color": "#f6bdd2",
+    "card_style": "standard",
+    "type_heading_medium": 26,
+    "type_heading_large": 32,
+    "heading_scale": 100,
+    "body_scale": 100,
+    "card_border_thickness": 0,
+    "card_border_opacity": 100,
+    "card_corner_radius": 0,
+    "inputs_border_thickness": 1,
+    "inputs_border_opacity": 55,
+    "inputs_radius": 0,
+    "inputs_shadow_opacity": 0,
+    "inputs_shadow_horizontal_offset": 0,
+    "inputs_shadow_vertical_offset": 4,
+    "inputs_shadow_blur": 5,
+    "variant_pills_border_thickness": 1,
+    "variant_pills_shadow_blur": 5,
+    "media_border_thickness": 1,
+    "media_border_opacity": 0,
+    "media_radius": 0,
+    "media_shadow_opacity": 0,
+    "media_shadow_horizontal_offset": 0,
+    "media_shadow_vertical_offset": 4,
+    "media_shadow_blur": 5,
+    "text_boxes_border_thickness": 0,
+    "text_boxes_shadow_opacity": 0,
+    "popup_border_thickness": 1,
+    "popup_shadow_opacity": 0,
+    "drawer_border_thickness": 1,
+    "drawer_shadow_vertical_offset": 4,
+    "buttons_border_thickness": 1,
+    "buttons_border_opacity": 100,
+    "buttons_radius": 0,
+    "buttons_solid_light_text": "background-2",
+    "buttons_solid_light_bg": "background-1",
+    "buttons_solid_light_hover_text": "accent-1",
+    "buttons_solid_light_hover_bg": "accent-5",
+    "gradient_accent_1": "",
+    "gradient_accent_2": "",
+    "gradient_background_1": "",
+    "gradient_background_2": "",
+    "sections": {
+      "announcement-bar": {
+        "type": "announcement-bar",
+        "blocks": {
+          "announcement-bar-0": {
+            "type": "announcement",
+            "disabled": true,
+            "settings": {
+              "text": "Thanksgiving Weekend - couriers and printing will resume Tues. - Oct. 14",
+              "color_scheme": "accent-5",
+              "font_color_scheme": "background-2",
+              "link": "shopify://pages/holidays-2024-and-shop-closure"
+            }
+          },
+          "1afea051-191b-48e5-b60a-b6b84c69fac4": {
+            "type": "announcement",
+            "disabled": true,
+            "settings": {
+              "text": "Due to the ongoing postal strike - courier delays may occur. No shipping option has a guaranteed arrival date. Please refer to our shipping policy.",
+              "color_scheme": "accent-6",
+              "font_color_scheme": "background-1",
+              "link": ""
+            }
+          },
+          "54130722-99d7-4f75-b806-876793ebf483": {
+            "type": "announcement",
+            "disabled": true,
+            "settings": {
+              "text": "Fall In Love With The Best Transfers - Free Sample",
+              "color_scheme": "accent-5",
+              "font_color_scheme": "background-2",
+              "link": "shopify://pages/grab-your-free-sample"
+            }
+          },
+          "announcement_gzcjVU": {
+            "type": "announcement",
+            "disabled": true,
+            "settings": {
+              "text": "50% OFF Fall Puff | Glow | Straw Toppers | & More",
+              "color_scheme": "accent-4",
+              "font_color_scheme": "background-1",
+              "link": "shopify://collections/speciality-transfers"
+            }
+          },
+          "announcement_K9TwWC": {
+            "type": "announcement",
+            "settings": {
+              "text": "⭐ 5 Star Reviewed - Order Custom DTF Transfers here",
+              "color_scheme": "accent-6",
+              "font_color_scheme": "background-1",
+              "link": "shopify://collections/custom-dtf-for-fabric"
+            }
+          },
+          "announcement_GYKKRT": {
+            "type": "announcement",
+            "disabled": true,
+            "settings": {
+              "text": "CLEARANCE SALE ending soon!",
+              "color_scheme": "accent-4",
+              "font_color_scheme": "background-1",
+              "link": "shopify://collections/christmas-in-july"
+            }
+          },
+          "announcement_Daeq4R": {
+            "type": "announcement",
+            "disabled": true,
+            "settings": {
+              "text": "6FOR1FREE/10FOR2FREE/20FOR5FREE",
+              "color_scheme": "accent-5",
+              "font_color_scheme": "background-2",
+              "link": ""
+            }
+          }
+        },
+        "block_order": [
+          "announcement-bar-0",
+          "1afea051-191b-48e5-b60a-b6b84c69fac4",
+          "54130722-99d7-4f75-b806-876793ebf483",
+          "announcement_gzcjVU",
+          "announcement_K9TwWC",
+          "announcement_GYKKRT",
+          "announcement_Daeq4R"
+        ],
+        "settings": {}
+      },
+      "header": {
+        "type": "header",
+        "settings": {
+          "color_scheme": "background-1",
+          "logo": "shopify://shop_images/SHE_MAKES_transfers_Logo.png",
+          "logo_width": 50,
+          "logo_position": "top-center",
+          "logo_padding_top": 100,
+          "logo_padding_bottom": 0,
+          "menu_background_color": "accent-6",
+          "menu": "new-theme-menu",
+          "menu_type_desktop": "mega",
+          "font_color": "background-2",
+          "font_hover_color": "background-2",
+          "font_weight": "700",
+          "heading_spacing": 2,
+          "enable_uppercase": true,
+          "show_menu_border": false,
+          "show_menu_underline": true,
+          "show_line_separator": false,
+          "enable_sticky_header": true,
+          "enable_sticky_menu": true,
+          "padding_top": 0,
+          "padding_bottom": 0,
+          "show_social": false,
+          "margin_bottom": 12
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "blocks": {
+          "footer-2": {
+            "type": "text",
+            "settings": {
+              "heading": "",
+              "font_color": "background-2",
+              "subtext": "",
+              "show_social": true
+            }
+          },
+          "footer-0": {
+            "type": "link_list",
+            "disabled": true,
+            "settings": {
+              "heading": "Quick links",
+              "menu": "footer"
+            }
+          },
+          "footer-1": {
+            "type": "link_list",
+            "settings": {
+              "heading": "QUICK LINKS",
+              "menu": "footer"
+            }
+          },
+          "newsletter_b6FhgK": {
+            "type": "newsletter",
+            "settings": {}
+          }
+        },
+        "block_order": [
+          "footer-2",
+          "footer-0",
+          "footer-1",
+          "newsletter_b6FhgK"
+        ],
+        "settings": {
+          "color_scheme": "background-1",
+          "footer_color_scheme": "background-1",
+          "heading_color_scheme": "background-2",
+          "heading_spacing": 0,
+          "font_weight": "400",
+          "link_color_scheme": "background-2",
+          "link_hover_color_scheme": "accent-6",
+          "newsletter_enable": true,
+          "newsletter_heading": "Let's Stay Connected!",
+          "newsletter_form_color": "background-2",
+          "newsletter_form_color_bg": "accent-5",
+          "button_text": "background-2",
+          "button_background": "accent-1",
+          "button_outline_style": false,
+          "button_hover": "background-1",
+          "button_hover_bg": "accent-2",
+          "enable_country_selector": true,
+          "enable_language_selector": true,
+          "payment_enable": true,
+          "margin_top": 0,
+          "padding_top": 20,
+          "padding_bottom": 0
+        }
+      },
+      "main-password-header": {
+        "type": "main-password-header",
+        "settings": {
+          "logo_max_width": 100,
+          "color_scheme": "background-1"
+        }
+      },
+      "main-password-footer": {
+        "type": "main-password-footer",
+        "settings": {
+          "color_scheme": "background-1"
+        }
+      },
+      "newsletter-popup": {
+        "type": "newsletter-popup",
+        "settings": {
+          "newsletter_popup": false,
+          "newsletter_pin": true,
+          "newsletter_pin_text": "GET 10% OFF",
+          "image": "shopify://shop_images/shemakes-transfers2_cfa291c6-f301-49c9-9ba3-2a62aa5757a8.png",
+          "mobile_image": "shopify://shop_images/email_1.png",
+          "title": "Here's your first coupon!",
+          "content": "Sign-up today and start receiving exclusive discounts & more!"
+        }
+      },
+      "slidding-announcement-bar": {
+        "type": "slidding-announcement-bar",
+        "blocks": {
+          "header_HpE8BN": {
+            "type": "header",
+            "settings": {
+              "message": "<p>Free Shipping on orders over $150.00 </p>",
+              "img": "shopify://shop_images/delivery-truck_1.png"
+            }
+          },
+          "header_6yBdLn": {
+            "type": "header",
+            "settings": {
+              "message": "<p>FAST TAT! Same Day or Next Business Day Completion| Rush Service Available</p>",
+              "img": "shopify://shop_images/Add_a_subheading-2.png"
+            }
+          },
+          "header_EWPLmF": {
+            "type": "header",
+            "settings": {
+              "message": "<p>Enjoy Discounted Flat Rate Shipping* </p>",
+              "img": "shopify://shop_images/Add_a_subheading-3.png"
+            }
+          }
+        },
+        "block_order": [
+          "header_HpE8BN",
+          "header_6yBdLn",
+          "header_EWPLmF"
+        ],
+        "custom_css": [],
+        "settings": {
+          "show_announcement_bar": true,
+          "autoplay": true,
+          "delay": "2000",
+          "colorBackground": "#feeaea",
+          "colorText": "#000000"
+        }
+      },
+      "mobile-announcement": {
+        "type": "mobile-announcement",
+        "blocks": {
+          "mobile-announcement-0": {
+            "type": "announcement",
+            "settings": {
+              "text": "Spend $150 and get FREE Shipping (CAD & USA)",
+              "link": "",
+              "color": "#000000",
+              "size": 16
+            }
+          },
+          "announcement_y4L3F6": {
+            "type": "announcement",
+            "settings": {
+              "text": "FAST | Same Day or Next Day Printing* Rush Service",
+              "link": "shopify://pages/faqs",
+              "color": "#000000",
+              "size": 16
+            }
+          },
+          "announcement_a9EVhc": {
+            "type": "announcement",
+            "disabled": true,
+            "settings": {
+              "text": "Welcome to our store",
+              "link": "",
+              "color": "#ffffff",
+              "size": 10
+            }
+          },
+          "announcement_D8E4mk": {
+            "type": "announcement",
+            "settings": {
+              "text": "Cheap Flat Rate Shipping",
+              "link": "",
+              "color": "#000000",
+              "size": 16
+            }
+          },
+          "announcement_c4jYAq": {
+            "type": "announcement",
+            "disabled": true,
+            "settings": {
+              "text": "Free Shipping on all CAD & US orders over $150.00",
+              "link": "",
+              "color": "#000000",
+              "size": 16
+            }
+          },
+          "announcement_mgPDW6": {
+            "type": "announcement",
+            "disabled": true,
+            "settings": {
+              "text": "FAST TAT of 1-3 Business Days/Rush Service Available",
+              "link": "",
+              "color": "#000000",
+              "size": 16
+            }
+          },
+          "announcement_GKPNpJ": {
+            "type": "announcement",
+            "disabled": true,
+            "settings": {
+              "text": "Enjoy Discounted Flat Rate Shipping* (PO boxes/Rural may be charged more)",
+              "link": "",
+              "color": "#000000",
+              "size": 16
+            }
+          }
+        },
+        "block_order": [
+          "mobile-announcement-0",
+          "announcement_y4L3F6",
+          "announcement_a9EVhc",
+          "announcement_D8E4mk",
+          "announcement_c4jYAq",
+          "announcement_mgPDW6",
+          "announcement_GKPNpJ"
+        ],
+        "settings": {
+          "background": "#feeaea"
+        }
+      },
+      "sm-footer": {
+        "type": "sm-footer",
+        "blocks": {
+          "shop": {
+            "type": "column",
+            "settings": {
+              "heading": "Shop",
+              "menu": "new-theme-menu",
+              "links": "NEW Arrivals | /collections/newly-added\nCustom Transfers | /collections/custom\nReady to Press | /collections?view=dtf\nBlanks | /collections?view=blanks\nSpeciality Transfers | /collections/speciality-transfers",
+              "hide_titles": "ALL Collections - DTF",
+              "extra_label": "Ready to Press Transfers",
+              "extra_url": "/collections",
+              "extra_after": "Custom Transfers"
+            }
+          },
+          "quick": {
+            "type": "column",
+            "settings": {
+              "heading": "Quick links",
+              "menu": "footer",
+              "links": "Free Sample | /pages/grab-your-free-sample\nContact Us | /pages/contact\nFAQs | /pages/faqs\nRefunds and Shipping Policies | /policies/refund-policy"
+            }
+          }
+        },
+        "block_order": [
+          "shop",
+          "quick"
+        ],
+        "settings": {
+          "logo": "shopify://shop_images/logo-lockup.png",
+          "tagline": "Specializing in custom DTF transfers and UV DTF, printed locally in Canada and shipped across the USA and CAD.",
+          "show_social": true,
+          "show_newsletter": true,
+          "newsletter_heading": "Let's stay connected",
+          "newsletter_body": "Never miss another sale or important notice.",
+          "pickup_hours": "",
+          "footer_note": "Owned and operated by SHEmakes Inc.",
+          "contact_hours": "Business Hours\nMonday – Friday: 9:00 AM – 5:00 PM EST\nSaturday & Sunday: Closed"
+        }
+      },
+      "sm-header": {
+        "type": "sm-header",
+        "blocks": {
+          "n1": {
+            "type": "nav",
+            "settings": {
+              "label": "Home",
+              "url": "/"
+            }
+          },
+          "n2": {
+            "type": "nav",
+            "settings": {
+              "label": "Custom Transfers",
+              "url": "/collections/custom",
+              "children": "DTF Transfers (heat press) | /collections/custom-dtf-for-fabric\nUV DTF (stick and apply) | /collections/custom-uv-dtf"
+            }
+          },
+          "n3": {
+            "type": "nav",
+            "settings": {
+              "label": "Ready to Press - DTF",
+              "url": "/collections?view=dtf",
+              "children": "Shop by theme | /collections?view=dtf\nNEW arrivals | /collections/newly-added\nFeatured collection | /collections/bestselling"
+            }
+          },
+          "n4": {
+            "type": "nav",
+            "settings": {
+              "label": "UV DTF Decals/Stickers",
+              "url": "/collections?view=uv",
+              "children": "Custom UV DTF | /collections/custom-uv-dtf\nCup Wraps + Decals | /collections/uv-dtf\n- ALL UV DTF | /collections/uv-dtf\n- New | /collections/new-uv-dtf\n- Bundles | /collections/bundles-uv-dtf\n- Christmas/Winter | /collections/christmas-winter-uv-dtf\n- Coquette | /collections/coquette-uv-dtf-1\n- Easter/Spring | /collections/easter-spring-uv-dtf\n- Education - Occupations | /collections/occupations-uv-dtf\n- Father's Day | /collections/fathers-day-uv-dtf\n- Halloween/Fall | /collections/halloween-fall-uv-dtf\n- Mama | /collections/mama-family-uv-dtf\n- Sports | /collections/sports-uv-dtf\n- Summer | /collections/coquette-uv-dtf\n- Self-Care/Inspiration | /collections/self-care-inspiration-uv-dtf\nOrnament & Santa Tray UV DTF | /collections/ornaments\nKeychain UV DTF | /collections/keychain-uv-dtf-decals\nBookmark UV DTF | /collections/bookmark-uv-dtf-decals"
+            }
+          },
+          "n5": {
+            "type": "nav",
+            "settings": {
+              "label": "Blanks",
+              "url": "/collections?view=blanks"
+            }
+          },
+          "n6": {
+            "type": "nav",
+            "settings": {
+              "label": "Custom Apparel",
+              "url": "/pages/printed-custom-apparel?view=custom-apparel"
+            }
+          },
+          "n7": {
+            "type": "nav",
+            "settings": {
+              "label": "FREE sample pack",
+              "url": "/pages/grab-your-free-sample"
+            }
+          },
+          "n8": {
+            "type": "nav",
+            "settings": {
+              "label": "FAQs",
+              "url": "/pages/faqs"
+            }
+          }
+        },
+        "block_order": [
+          "n1",
+          "n2",
+          "n3",
+          "n4",
+          "n5",
+          "n6",
+          "n7",
+          "n8"
+        ],
+        "settings": {
+          "logo": "shopify://shop_images/logo-lockup.png",
+          "logo_height": 48,
+          "menu": "new-theme-menu",
+          "max_categories": 5,
+          "more_label": "More",
+          "hide_titles": "ALL Collections - DTF",
+          "extra_label": "Ready to Press Transfers",
+          "extra_url": "/collections",
+          "extra_after": "Custom Transfers",
+          "show_search": true,
+          "search_placeholder": "Search designs, sizes…",
+          "cta_label": "Custom order",
+          "cta_url": "/collections/custom?view=choose"
+        }
+      },
+      "sm-ticker": {
+        "type": "sm-ticker",
+        "blocks": {
+          "c1": {
+            "type": "claim",
+            "settings": {
+              "text": "Printed same day/next business day"
+            }
+          },
+          "c2": {
+            "type": "claim",
+            "settings": {
+              "text": "Rush service"
+            }
+          },
+          "c3": {
+            "type": "claim",
+            "settings": {
+              "text": "Free shipping $150 & up"
+            }
+          },
+          "c4": {
+            "type": "claim",
+            "settings": {
+              "text": "Canada and USA flat rates"
+            }
+          },
+          "c5": {
+            "type": "claim",
+            "settings": {
+              "text": "Free samples"
+            }
+          },
+          "c6": {
+            "type": "claim",
+            "settings": {
+              "text": "Local pickup in London and St. Thomas"
+            }
+          }
+        },
+        "block_order": [
+          "c1",
+          "c2",
+          "c3",
+          "c4",
+          "c5",
+          "c6"
+        ],
+        "settings": {
+          "speed": 48
+        }
+      }
+    },
+    "content_for_index": [],
+    "blocks": {
+      "855628211100114053": {
+        "type": "shopify://apps/klaviyo-email-marketing-sms/blocks/klaviyo-onsite-embed/2632fe16-c075-4321-a88b-50b567f42507",
+        "disabled": false,
+        "settings": {}
+      },
+      "14060646107696862457": {
+        "type": "shopify://apps/judge-me-reviews/blocks/judgeme_core/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+        "disabled": false,
+        "settings": {}
+      },
+      "15181020662106344915": {
+        "type": "shopify://apps/judge-me-reviews/blocks/popup_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+        "disabled": false,
+        "settings": {}
+      },
+      "18228966181090706294": {
+        "type": "shopify://apps/selleasy/blocks/app-embed/790c1a03-a71f-4bc1-9869-00dad526d3c2",
+        "disabled": false,
+        "settings": {
+          "storefrontAccessToken": "e37355b7465ef2d32a27e4a7ce0903c0"
+        }
+      },
+      "12120936241911852800": {
+        "type": "shopify://apps/judge-me-reviews/blocks/reviews_tab/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+        "disabled": true,
+        "settings": {
+          "position": "right"
+        }
+      },
+      "13347113423253351200": {
+        "type": "shopify://apps/gang-sheet-builder/blocks/antigroDesigner/06545548-f5fc-4e9c-8f9f-f4f96aeb6b40",
+        "disabled": false,
+        "settings": {
+          "advancedConfig": "{buttonClasses:\"product-form__submit button button--full-width                                                            button-hover-background-1                          \t   button-text-background-2                         \t                             \t     button-accent-3\",displayInModal: true,}",
+          "legacyThemeConfig": ""
+        }
+      },
+      "7147999719060634790": {
+        "type": "shopify://apps/gsc-countdown-timer/blocks/countdown-bar/58dc5b1b-43d2-4209-b1f3-52aff31643ed",
+        "disabled": false,
+        "settings": {}
+      },
+      "319724205969189013": {
+        "type": "shopify://apps/hulk-form-builder/blocks/app-embed/b6b8dd14-356b-4725-a4ed-77232212b3c3",
+        "disabled": false,
+        "settings": {}
+      }
+    },
+    "sm_faq_extra": "<h3>What services do you provide?</h3>\n<ul><li>DTF printing</li><li>UV DTF printing</li><li>Wholesale blanks</li><li>Wholesale/bulk printed apparel or merch</li></ul>\n<h3>Where are you located? Where is local pickup?</h3>\n<p>Our print studio is in London, ON. We offer FREE local pickup in both London, ON and St. Thomas, ON. We also offer local delivery within London.</p>\n<p>Not local? No problem! We ship fast all across Canada and the USA.</p>\n<h3>What's your turnaround time?</h3>\n<p>We print and ship fast! You can expect your order to be printed within 1-2 business days, with rush orders completed within a guaranteed 24 hour turnaround.</p>\n<p>We print Monday to Friday.</p>\n<h3>What file requirements are needed for custom transfers?</h3>\n<p><strong>.PNG files with transparent backgrounds. Your images should be high-quality at 300 dpi.</strong> Refer to our Canva Pro guide on how to save your images for higher resolution. Refer to our <a href=\"/pages/dtf-uv-instructions?view=guide\">graphics help guide</a> for more artwork help and requirements.</p>\n<h3>What happens if there's an issue with my shipment?</h3>\n<p>Please contact the courier directly (i.e. UPS) and provide them with your tracking number. They will be the best first course of action.</p>\n<p>Find our <a href=\"/policies/shipping-policy\">Shipping Policy here</a>.</p>\n<h3>I want to discuss my recent order</h3>\n<ul><li>Please email <a href=\"mailto:info@shemakestransfers.com\">info@shemakestransfers.com</a></li><li>Provide your order number</li><li>Provide photos if applicable</li><li>Provide relevant information</li><li>Any complaints must be addressed within 48 hours of receiving your order.</li></ul>\n<p>We are very fair and will rectify any issues that are caused due to our part. We expect fairness and cooperation in return.</p>"
+  },
+  "presets": {
+    "Default": {
+      "colors_solid_button_labels": "#ffffff",
+      "colors_accent_1": "#121212",
+      "colors_accent_2": "#334fb4",
+      "colors_accent_3": "#E7B2A2",
+      "colors_accent_4": "#F2A87C",
+      "colors_accent_5": "#fff3eb",
+      "colors_accent_6": "#ffffff",
+      "colors_text": "#121212",
+      "colors_outline_button_labels": "#ffffff",
+      "colors_background_1": "#ffffff",
+      "colors_background_2": "#202020",
+      "type_header_font": "poppins_n4",
+      "heading_scale": 100,
+      "type_body_font": "poppins_n4",
+      "body_scale": 100,
+      "page_width": 1200,
+      "spacing_sections": 0,
+      "spacing_grid_horizontal": 8,
+      "spacing_grid_vertical": 8,
+      "buttons_shadow_opacity": 0,
+      "buttons_shadow_horizontal_offset": 0,
+      "buttons_shadow_vertical_offset": 4,
+      "buttons_shadow_blur": 5,
+      "inputs_border_thickness": 1,
+      "inputs_border_opacity": 55,
+      "inputs_radius": 0,
+      "inputs_shadow_opacity": 0,
+      "inputs_shadow_horizontal_offset": 0,
+      "inputs_shadow_vertical_offset": 4,
+      "inputs_shadow_blur": 5,
+      "card_style": "standard",
+      "card_image_padding": 0,
+      "card_text_alignment": "left",
+      "card_color_scheme": "background-2",
+      "card_border_thickness": 0,
+      "card_border_opacity": 10,
+      "card_corner_radius": 0,
+      "card_shadow_opacity": 0,
+      "card_shadow_horizontal_offset": 0,
+      "card_shadow_vertical_offset": 4,
+      "card_shadow_blur": 5,
+      "media_border_thickness": 1,
+      "media_border_opacity": 5,
+      "media_radius": 0,
+      "media_shadow_opacity": 0,
+      "media_shadow_horizontal_offset": 0,
+      "media_shadow_vertical_offset": 4,
+      "media_shadow_blur": 5,
+      "badge_position": "bottom left",
+      "badge_corner_radius": 40,
+      "sale_badge_color_scheme": "accent-2",
+      "sold_out_badge_color_scheme": "background-2",
+      "accent_icons": "text",
+      "social_twitter_link": "",
+      "social_facebook_link": "",
+      "social_pinterest_link": "",
+      "social_instagram_link": "",
+      "social_tiktok_link": "",
+      "social_tumblr_link": "",
+      "social_snapchat_link": "",
+      "social_youtube_link": "",
+      "social_vimeo_link": "",
+      "predictive_search_enabled": true,
+      "predictive_search_show_vendor": false,
+      "predictive_search_show_price": false,
+      "currency_code_enabled": true,
+      "gradient_accent_1": "",
+      "gradient_accent_2": "",
+      "gradient_background_1": "",
+      "gradient_background_2": "",
+      "sections": {
+        "announcement-bar": {
+          "type": "announcement-bar",
+          "blocks": {
+            "announcement-bar-0": {
+              "type": "announcement",
+              "settings": {
+                "text": "Welcome to our store",
+                "color_scheme": "background-1",
+                "link": ""
+              }
+            }
+          },
+          "block_order": [
+            "announcement-bar-0"
+          ],
+          "settings": {}
+        },
+        "header": {
+          "type": "header",
+          "settings": {
+            "color_scheme": "background-1",
+            "logo_width": 90,
+            "logo_position": "middle-left",
+            "menu": "main-menu",
+            "show_line_separator": true,
+            "enable_sticky_header": true,
+            "margin_bottom": 0
+          }
+        },
+        "footer": {
+          "type": "footer",
+          "blocks": {
+            "footer-0": {
+              "type": "link_list",
+              "settings": {
+                "heading": "Quick links",
+                "menu": "footer"
+              }
+            },
+            "footer-1": {
+              "type": "link_list",
+              "settings": {
+                "heading": "Info",
+                "menu": "footer"
+              }
+            },
+            "footer-2": {
+              "type": "text",
+              "settings": {
+                "heading": "Our mission",
+                "subtext": "<p>Share contact information, store details, and brand content with your customers.</p>"
+              }
+            }
+          },
+          "block_order": [
+            "footer-0",
+            "footer-1",
+            "footer-2"
+          ],
+          "settings": {
+            "color_scheme": "background-1",
+            "newsletter_enable": true,
+            "newsletter_heading": "Subscribe to our emails",
+            "enable_country_selector": false,
+            "enable_language_selector": false,
+            "payment_enable": true,
+            "margin_top": 48,
+            "padding_top": 36,
+            "padding_bottom": 36
+          }
+        },
+        "main-password-header": {
+          "type": "main-password-header",
+          "settings": {
+            "logo_max_width": 100,
+            "color_scheme": "background-1"
+          }
+        },
+        "main-password-footer": {
+          "type": "main-password-footer",
+          "settings": {
+            "color_scheme": "background-1"
+          }
+        }
+      }
+    }
+  }
+}

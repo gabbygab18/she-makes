@@ -1,0 +1,26 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "sm-page-faq",
+      "settings": {
+        "eyebrow": "Before you order",
+        "cta_label": "Still stuck? Talk to us",
+        "cta_url": "/pages/contact",
+        "cta_body": "We're a friendly team. Let us know how we can help you.",
+        "include_extra": true
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

@@ -1,0 +1,1955 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "174718445983904884": {
+      "type": "apps",
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "rich_text_PMG767": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_UtLndE": {
+          "type": "heading",
+          "disabled": true,
+          "settings": {
+            "heading": "Talk about your brand",
+            "heading_size": "heading-medium",
+            "font_weight": "400",
+            "letter_spacing": 0,
+            "heading_color_scheme": "background-2"
+          }
+        },
+        "text_j9ypXf": {
+          "type": "text",
+          "settings": {
+            "text": "<h6>Get affordable, high-quality DTF & UV transfers - <a href=\"/pages/free-local-pickup-in-london-ontario-and-st-thomas-ontario-dtf-transfers-and-uv-dtf\" title=\"Free local pickup in London Ontario and St. Thomas Ontario - DTF Transfers and UV DTF\">local pickup </a>in London, Ontario and St. Thomas, Ontario.</h6>",
+            "letter_spacing": 0,
+            "text_color_scheme": "background-2"
+          }
+        },
+        "button_TrM9U6": {
+          "type": "button",
+          "disabled": true,
+          "settings": {
+            "button_label": "Button label",
+            "button_link": "",
+            "button_text": "background-1",
+            "button_background": "accent-2",
+            "button_outline_style": false,
+            "button_hover": "background-1",
+            "button_hover_bg": "accent-3"
+          }
+        }
+      },
+      "block_order": [
+        "heading_UtLndE",
+        "text_j9ypXf",
+        "button_TrM9U6"
+      ],
+      "disabled": true,
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "color_scheme": "background-1",
+        "text_alignment": "center",
+        "full_width": true,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "1650582794fddf52a3": {
+      "type": "slideshow",
+      "blocks": {
+        "slide_tKrdGG": {
+          "type": "slide",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/Banner_2_729528d9-4795-4a5f-bc05-52ce8a0ed267.png",
+            "mobile_image": "shopify://shop_images/Banner_2-2.png",
+            "image_link": "shopify://collections/custom-dtf-for-fabric",
+            "heading": "",
+            "heading_size": "heading-small",
+            "font_weight": "300",
+            "heading_spacing": 0,
+            "subheading": "",
+            "font_color_scheme": "background-1",
+            "button_label": "",
+            "link": "",
+            "button_text": "accent-1",
+            "button_background": "background-1",
+            "button_outline_style": false,
+            "button_hover": "background-1",
+            "button_hover_bg": "accent-3",
+            "box_align": "middle-center",
+            "show_text_box": false,
+            "text_alignment": "center",
+            "color_scheme": "background-1",
+            "text_alignment_mobile": "center"
+          }
+        },
+        "slide_RrKwAg": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Banner_3-3_5684f0f9-1218-4fb7-9d3a-e887db566968.png",
+            "mobile_image": "shopify://shop_images/Copy_of_Banners_800_x_1000_px_-4.png",
+            "image_link": "shopify://collections/custom-dtf-for-fabric",
+            "heading": "",
+            "heading_size": "heading-small",
+            "font_weight": "400",
+            "heading_spacing": 0,
+            "subheading": "",
+            "font_color_scheme": "background-2",
+            "button_label": "",
+            "link": "",
+            "button_text": "accent-1",
+            "button_background": "background-1",
+            "button_outline_style": false,
+            "button_hover": "background-1",
+            "button_hover_bg": "accent-3",
+            "box_align": "middle-center",
+            "show_text_box": false,
+            "text_alignment": "center",
+            "color_scheme": "background-1",
+            "text_alignment_mobile": "center"
+          }
+        },
+        "6c1351a8-cf24-40df-8bbb-642a34eb57e3": {
+          "type": "slide",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/Banner_1_514f1ad6-a389-42e7-b5fa-ce66990bc2b3.png",
+            "mobile_image": "shopify://shop_images/Banner_1_11.png",
+            "image_link": "shopify://collections/custom",
+            "heading": "",
+            "heading_size": "heading-small",
+            "font_weight": "400",
+            "heading_spacing": 1,
+            "subheading": "",
+            "font_color_scheme": "background-2",
+            "button_label": "",
+            "link": "",
+            "button_text": "accent-1",
+            "button_background": "background-1",
+            "button_outline_style": false,
+            "button_hover": "background-1",
+            "button_hover_bg": "accent-3",
+            "box_align": "middle-center",
+            "show_text_box": false,
+            "text_alignment": "center",
+            "color_scheme": "background-1",
+            "text_alignment_mobile": "center"
+          }
+        },
+        "slide_4q4rEj": {
+          "type": "slide",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/About_3_e7d94341-faca-4e6f-8471-f1132c9557f2.png",
+            "mobile_image": "shopify://shop_images/Banner_3_1.png",
+            "image_link": "shopify://collections",
+            "heading": "",
+            "heading_size": "heading-small",
+            "font_weight": "400",
+            "heading_spacing": 1,
+            "subheading": "",
+            "font_color_scheme": "background-2",
+            "button_label": "",
+            "link": "",
+            "button_text": "accent-1",
+            "button_background": "background-1",
+            "button_outline_style": false,
+            "button_hover": "background-1",
+            "button_hover_bg": "accent-3",
+            "box_align": "middle-center",
+            "show_text_box": false,
+            "text_alignment": "center",
+            "color_scheme": "background-1",
+            "text_alignment_mobile": "center"
+          }
+        },
+        "69fab85f-469d-4c8f-8cef-d69e73319fee": {
+          "type": "slide",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/Blog_1.png",
+            "mobile_image": "shopify://shop_images/Blog_3.png",
+            "image_link": "shopify://collections",
+            "heading": "",
+            "heading_size": "heading-small",
+            "font_weight": "400",
+            "heading_spacing": 1,
+            "subheading": "",
+            "font_color_scheme": "background-2",
+            "button_label": "",
+            "link": "",
+            "button_text": "accent-1",
+            "button_background": "background-1",
+            "button_outline_style": false,
+            "button_hover": "background-1",
+            "button_hover_bg": "accent-3",
+            "box_align": "middle-center",
+            "show_text_box": false,
+            "text_alignment": "center",
+            "color_scheme": "background-1",
+            "text_alignment_mobile": "center"
+          }
+        }
+      },
+      "block_order": [
+        "slide_tKrdGG",
+        "slide_RrKwAg",
+        "6c1351a8-cf24-40df-8bbb-642a34eb57e3",
+        "slide_4q4rEj",
+        "69fab85f-469d-4c8f-8cef-d69e73319fee"
+      ],
+      "settings": {
+        "layout": "full_bleed",
+        "slide_height": "adapt_image",
+        "slider_visual": "dots",
+        "show_pagination": true,
+        "auto_rotate": true,
+        "change_slides_speed": 5,
+        "show_text_below": false,
+        "accessibility_info": ""
+      }
+    },
+    "video_banner_DBzxyf": {
+      "type": "video-banner",
+      "blocks": {
+        "heading_piDw7B": {
+          "type": "heading",
+          "settings": {
+            "heading": "The softest, butter peel transfers on the market!",
+            "heading_size": "h1",
+            "heading_color_scheme": "background-2",
+            "font_weight": "400",
+            "letter_spacing": 0
+          }
+        },
+        "text_JyWmnr": {
+          "type": "text",
+          "settings": {
+            "text": "See for yourself why so many of our customers keep coming back!",
+            "text_style": "body",
+            "text_color_scheme": "background-2",
+            "letter_spacing": 0
+          }
+        },
+        "buttons_7bJ6Nx": {
+          "type": "buttons",
+          "disabled": true,
+          "settings": {
+            "button_label": "Button label",
+            "button_link": "",
+            "button_text": "background-1",
+            "button_background": "accent-3",
+            "button_outline_style": false,
+            "button_hover": "background-1",
+            "button_hover_bg": "accent-3"
+          }
+        }
+      },
+      "block_order": [
+        "heading_piDw7B",
+        "text_JyWmnr",
+        "buttons_7bJ6Nx"
+      ],
+      "disabled": true,
+      "settings": {
+        "html_url": "https://cdn.shopify.com/videos/c/o/v/761495dfb3ba457091c4a9c9e1bd04ff.mp4",
+        "video_color_opacity": "#000000",
+        "video_overlay_opacity": 0,
+        "desktop_content_position": "middle-center",
+        "show_text_box": true,
+        "desktop_content_alignment": "center",
+        "color_scheme": "background-1",
+        "mobile_content_alignment": "center"
+      }
+    },
+    "ss_feature_1_GjeEqK": {
+      "type": "ss-feature-1",
+      "blocks": {
+        "image_nT4cpw": {
+          "type": "image",
+          "settings": {
+            "feature_title": "Free Shipping $150 +",
+            "feature_text": "<p>Discounted flat rates to USA and CAD.</p>",
+            "feature_url": "https://section.store/",
+            "hide_image": false
+          }
+        },
+        "image_gryFxj": {
+          "type": "image",
+          "settings": {
+            "feature_title": "Made In Canada",
+            "feature_text": "<p>Printed locally in London, ON.</p>",
+            "feature_image": "shopify://shop_images/canada-glass-heart-flag-icon_512x512x32.png",
+            "feature_url": "",
+            "hide_image": false
+          }
+        },
+        "image_tAnMmd": {
+          "type": "image",
+          "settings": {
+            "feature_title": "Satisfaction Guranteed",
+            "feature_text": "<p>Order with confidence.</p>",
+            "feature_image": "shopify://shop_images/icon-warranty.png",
+            "feature_url": "",
+            "hide_image": false
+          }
+        },
+        "image_FFFRkK": {
+          "type": "image",
+          "settings": {
+            "feature_title": "Real Reviews",
+            "feature_text": "<p>350+ 5.0 reviews</p>",
+            "feature_url": "",
+            "hide_image": false
+          }
+        }
+      },
+      "block_order": [
+        "image_nT4cpw",
+        "image_gryFxj",
+        "image_tAnMmd",
+        "image_FFFRkK"
+      ],
+      "name": "SS - Feature #1",
+      "settings": {
+        "feature_row": 2,
+        "feature_row_mobile": 4,
+        "feature_gap": 32,
+        "feature_gap_mobile": 10,
+        "feature_padding_horizontal": 0,
+        "feature_padding_vertical": 0,
+        "feature_radius": 0,
+        "feature_border_thickness": 0,
+        "feature_shadow": false,
+        "feature_heading_custom": false,
+        "feature_heading_font": "poppins_n4",
+        "feature_heading_size": 20,
+        "feature_heading_size_mobile": 12,
+        "feature_heading_height": 130,
+        "feature_heading_mt": 8,
+        "feature_text_custom": false,
+        "feature_text_font": "poppins_n4",
+        "feature_text_size": 16,
+        "feature_text_size_mobile": 10,
+        "feature_text_height": 100,
+        "feature_text_mt": 10,
+        "feature_icon_size": 30,
+        "feature_icon_size_mobile": 24,
+        "feature_bg": "#ffffff",
+        "feature_border_color": "#000000",
+        "feature_shadow_color": "#000000",
+        "feature_heading_color": "#000000",
+        "feature_text_color": "#000000",
+        "feature_icon_color": "#000000",
+        "background_color": "#ffffff",
+        "background_gradient": "",
+        "border_color": "#000000",
+        "margin_top": 52,
+        "margin_bottom": 0,
+        "padding_top": 20,
+        "padding_bottom": 16,
+        "padding_horizontal": 5,
+        "padding_horizontal_mobile": 1.5,
+        "full_width": false,
+        "content_width": 120,
+        "border_thickness": 0,
+        "lazy": true
+      }
+    },
+    "image_with_text_g9hFK7": {
+      "type": "image-with-text",
+      "blocks": {
+        "button_KPD6eM": {
+          "type": "button",
+          "settings": {
+            "button_label": "SHOP NOW",
+            "button_link": "shopify://collections/magical-collection",
+            "button_text": "background-1",
+            "button_background": "accent-2",
+            "button_outline_style": false,
+            "button_hover": "background-1",
+            "button_hover_bg": "accent-3"
+          }
+        },
+        "heading_c8XTkn": {
+          "type": "heading",
+          "settings": {
+            "heading": "Exclusive┃Limited Edition┃",
+            "heading_size": "heading-small",
+            "heading_color_scheme": "background-2",
+            "font_weight": "400",
+            "heading_spacing": 3
+          }
+        },
+        "text_ed4fNU": {
+          "type": "text",
+          "settings": {
+            "text": "<p>The hottest, trending designs are now here! Check out all the magical designs for DTF and UV transfers. Limited time only.</p>",
+            "text_color_scheme": "background-2",
+            "letter_spacing": 0.5
+          }
+        }
+      },
+      "block_order": [
+        "button_KPD6eM",
+        "heading_c8XTkn",
+        "text_ed4fNU"
+      ],
+      "disabled": true,
+      "settings": {
+        "image": "shopify://shop_images/Jan_20_36d0dd9f-b4b5-48e0-89b7-e0f7e79d70da.png",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "image_first",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "content_layout": "no-overlap",
+        "color_scheme": "background-1",
+        "mobile_content_alignment": "left",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "collection_list_nyRF9f": {
+      "type": "collection-list",
+      "blocks": {
+        "featured_collection_JgGYhC": {
+          "type": "featured_collection",
+          "disabled": true,
+          "settings": {
+            "collection": "",
+            "font_size": "heading-medium",
+            "font_weight": "400",
+            "letter_spacing": 0
+          }
+        },
+        "featured_collection_KzVTJa": {
+          "type": "featured_collection",
+          "disabled": true,
+          "settings": {
+            "collection": "ornaments",
+            "font_size": "heading-small",
+            "font_weight": "400",
+            "letter_spacing": 0
+          }
+        }
+      },
+      "block_order": [
+        "featured_collection_JgGYhC",
+        "featured_collection_KzVTJa"
+      ],
+      "settings": {
+        "title": "",
+        "heading_size": "h1",
+        "heading_color_scheme": "background-2",
+        "font_weight": "500",
+        "heading_spacing": 0,
+        "subheading": "",
+        "subheading_color_scheme": "background-2",
+        "text_alignment": "center",
+        "color_scheme": "background-1",
+        "image_ratio": "square",
+        "image_color_opacity": "#000000",
+        "image_overlay_opacity": 0,
+        "columns_desktop": 1,
+        "enable_title": false,
+        "font_color_scheme": "accent-6",
+        "card_color_scheme": "background-1",
+        "show_view_all": false,
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 12,
+        "padding_bottom": 0
+      }
+    },
+    "ss_scrolling_images_APbNKT": {
+      "type": "ss-scrolling-images",
+      "blocks": {
+        "image_Arp4aC": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/1720128208__img_4919__huge_f6e140a6-ad62-4538-863d-12df6644e26f.jpg",
+            "url": ""
+          }
+        },
+        "image_txDqqc": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/unnamed-3.jpg",
+            "url": ""
+          }
+        },
+        "image_WL8UUw": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/unnamed-6.jpg",
+            "url": ""
+          }
+        },
+        "image_7RfdRM": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/unnamed-4.jpg",
+            "url": ""
+          }
+        },
+        "image_xGcVHJ": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/1721869447__bc17d91f-1859-4aa5-9105-750dfa465ed5-1_a__huge.jpg",
+            "url": "shopify://collections/custom-dtf-for-fabric"
+          }
+        }
+      },
+      "block_order": [
+        "image_Arp4aC",
+        "image_txDqqc",
+        "image_WL8UUw",
+        "image_7RfdRM",
+        "image_xGcVHJ"
+      ],
+      "name": "SS - Scrolling images",
+      "settings": {
+        "heading": "<h4><strong>Happy Customers - Picture Reviews </strong></h4>",
+        "heading_custom": false,
+        "heading_font": "poppins_n4",
+        "heading_size": 18,
+        "heading_height": 50,
+        "heading_align": "center",
+        "slider_speed": 27,
+        "slider_gap": 28,
+        "slider_gap_mobile": 10,
+        "slider_mt": 50,
+        "slider_direction": "left",
+        "pause_hover": true,
+        "image_width_desktop": 300,
+        "image_width_mobile": 120,
+        "image_height_desktop": 400,
+        "image_height_mobile": 200,
+        "image_radius": 10,
+        "use_content": true,
+        "content_position": "center",
+        "content_max_width": 340,
+        "content_max_width_mobile": 340,
+        "content_padding_vertical": 30,
+        "content_padding_horizontal": 30,
+        "content_distance": 60,
+        "content_radius": 10,
+        "content_border_thickness": 0,
+        "use_shadow": true,
+        "text": "<p><a href=\"/collections/custom-dtf-for-fabric\" title=\"Custom DTF Transfers (for fabric)\"><strong>Order your custom transfers!</strong> 350+ ⭐ 5 Star Reviews </a></p>",
+        "text_custom": false,
+        "text_font": "assistant_n4",
+        "text_size": 20,
+        "text_height": 130,
+        "heading_color": "#000000",
+        "content_bg": "#ffffff",
+        "content_border_color": "#000000",
+        "text_color": "#000000",
+        "background_color": "#ffffff",
+        "background_gradient": "",
+        "border_color": "#000000",
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "padding_horizontal": 0,
+        "padding_horizontal_mobile": 0,
+        "full_width": true,
+        "content_width": 120,
+        "border_thickness": 0,
+        "lazy": true
+      }
+    },
+    "ss_featured_collection_aEKfhX": {
+      "type": "ss-featured-collection",
+      "disabled": true,
+      "name": "SS - Featured Collection",
+      "settings": {
+        "items_mt": 32,
+        "collection": "",
+        "product_list": [
+          "holiday-gang-sheet-deal-limited-time-offer",
+          "best-sellers-gang-sheet-deal-limited-time-offer-copy",
+          "plaid-tree-skirt-blank-copy",
+          "farmhouse-pom-pom-tree-skirt-blank",
+          "red-plaid-trim-pillow-cases",
+          "white-black-plaid-trim-pillow-cases"
+        ],
+        "stack_products": true,
+        "show_bar": true,
+        "top_bar": false,
+        "product_show": 50,
+        "product_per_desktop": 4,
+        "product_per_mobile": "1.3",
+        "image_radius": 12,
+        "image_ration": "square",
+        "use_custom_height": false,
+        "image_height_desktop": 400,
+        "image_height_mobile": 200,
+        "show_second": true,
+        "use_shadow": false,
+        "use_radius": false,
+        "card_padding_horizontal": 4,
+        "card_padding_vertical": 16,
+        "card_title_custom": false,
+        "card_title_font": "poppins_n4",
+        "card_title_size": 20,
+        "card_title_letter": 0,
+        "card_title_height": 100,
+        "heading": "Current Offers",
+        "heading_custom": false,
+        "heading_font": "poppins_n4",
+        "heading_size": 30,
+        "heading_letter": 0,
+        "heading_height": 100,
+        "heading_align": "center",
+        "sub_heading": "",
+        "sub_heading_custom": false,
+        "sub_heading_font": "assistant_n4",
+        "sub_heading_size": 12,
+        "sub_heading_letter": 0,
+        "sub_heading_height": 100,
+        "sub_heading_align": "center",
+        "invert_content": false,
+        "link": "View all",
+        "link_url": "shopify://collections/magical-collection",
+        "link_custom": false,
+        "link_font": "poppins_n4",
+        "link_size": 18,
+        "link_letter": 0,
+        "link_height": 100,
+        "link_position": false,
+        "link_mobile": true,
+        "card_price_from": "From",
+        "card_price_custom": false,
+        "card_price_font": "assistant_n4",
+        "card_price_size": 16,
+        "card_price_letter": 0,
+        "card_price_height": 100,
+        "card_price_mt": 12,
+        "arrow_size": 50,
+        "arrow_size_mobile": 40,
+        "arrow_hide_mobile": false,
+        "link_color": "#000000",
+        "link_hover_color": "#000000",
+        "link_arrow_color": "#000000",
+        "link_background_color": "#e6e6e6",
+        "link_background_hover_color": "#000000",
+        "card_content_bg_color": "#ffffff",
+        "card_title_color": "#000000",
+        "card_price_color": "#000000",
+        "arrow_color": "#000000",
+        "arrow_hover_color": "#000000",
+        "arrow_bg_color": "#f2f2f2",
+        "arrow_bg_hover_color": "#f2f2f2",
+        "arrow_border_color": "#c4c4c4",
+        "arrow_border_hover_color": "#c4c4c4",
+        "progress_color": "#000000",
+        "heading_color": "#000000",
+        "sub_heading_color": "#000000",
+        "background_color": "#ffffff",
+        "background_gradient": "",
+        "border_color": "#000000",
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "padding_horizontal": 5,
+        "padding_horizontal_mobile": 1.5,
+        "full_width": false,
+        "content_width": 130,
+        "border_thickness": 0
+      }
+    },
+    "17052795004b2bb33e": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_featured_carousel_PXqHaJ": {
+          "type": "shopify://apps/judge-me-reviews/blocks/featured_carousel/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "maxwidth": 1080
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_featured_carousel_PXqHaJ"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "featured_collection_tabs_3_N8nLXr": {
+      "type": "featured-collection-tabs-3",
+      "blocks": {
+        "tab_qPjfNw": {
+          "type": "tab",
+          "disabled": true,
+          "settings": {
+            "tab": "Ornaments",
+            "collection": "ornament-blanks",
+            "collection_show": 40,
+            "products": [],
+            "main_text": "<p>Best Sellers all year round! Decorate them with our ornament decals or personalize them with our custom uv dtf.</p>",
+            "button": "View all",
+            "button_url": "",
+            "main_card_bg_color": "#f4f4f4"
+          }
+        },
+        "tab_iNLraH": {
+          "type": "tab",
+          "disabled": true,
+          "settings": {
+            "tab": "Ornament Decals",
+            "collection": "ornaments",
+            "collection_show": 10,
+            "products": [],
+            "main_text": "<p>Just peel and stick these on!<br/><br/>Pre-cut and sized to fit our acrylic bookmarks just perfectly. </p>",
+            "button": "View all",
+            "button_url": "shopify://collections/bookmark-uv-dtf-decals",
+            "main_card_bg_color": "#ffedf4"
+          }
+        },
+        "tab_qydjbN": {
+          "type": "tab",
+          "settings": {
+            "tab": "Keychain UV DTF",
+            "collection": "keychain-uv-dtf-decals",
+            "collection_show": 40,
+            "products": [],
+            "main_text": "<p>Just peel and stick these on!<br/><br/>Pre-cut and sized to fit our acrylic keychains just perfectly. </p>",
+            "button": "View all",
+            "button_url": "shopify://collections/keychain-uv-dtf-decals",
+            "main_card_bg_color": "#ffedf4"
+          }
+        },
+        "tab_3MHBmW": {
+          "type": "tab",
+          "settings": {
+            "tab": "Blanks",
+            "collection": "blanks",
+            "collection_show": 10,
+            "products": [],
+            "main_text": "<p>Gorgeous blanks you simply won't find anywhere else!<br/><br/>HINT: Keychains and bookmarks are a hot seller this season. <br/><br/>Decorate them with our UV DTF!</p>",
+            "button": "View all",
+            "button_url": "shopify://collections/blanks",
+            "main_card_bg_color": "#ffedf4"
+          }
+        },
+        "tab_Tc8jNi": {
+          "type": "tab",
+          "settings": {
+            "tab": "Bookmark UV DTF",
+            "collection": "bookmark-uv-dtf-decals",
+            "collection_show": 10,
+            "products": [],
+            "main_text": "<p>Just peel and stick these on!<br/><br/>Pre-cut and sized to fit our acrylic bookmarks just perfectly. </p>",
+            "button": "View all",
+            "button_url": "shopify://collections/bookmark-uv-dtf-decals",
+            "main_card_bg_color": "#ffedf4"
+          }
+        },
+        "tab_z3ycCp": {
+          "type": "tab",
+          "settings": {
+            "tab": "Puffs & Patches",
+            "collection": "speciality-transfers",
+            "collection_show": 40,
+            "products": [],
+            "main_text": "<p>Easy to apply with just a heat press!<br/><br/>Stand out with unique apparel using our Glow in the Dark Puff Transfers, Spangled Transfers, Patches and more.</p>",
+            "button": "View all",
+            "button_url": "shopify://collections/speciality-transfers",
+            "main_card_bg_color": "#ffedf4"
+          }
+        }
+      },
+      "block_order": [
+        "tab_qPjfNw",
+        "tab_iNLraH",
+        "tab_qydjbN",
+        "tab_3MHBmW",
+        "tab_Tc8jNi",
+        "tab_z3ycCp"
+      ],
+      "disabled": true,
+      "name": "SS - Featured collection (tabs) #3",
+      "settings": {
+        "heading": "<h2>BLANKS & UV DTF</h2>",
+        "heading_custom": false,
+        "heading_font": "poppins_n4",
+        "heading_size": 48,
+        "heading_size_mobile": 28,
+        "heading_height": 130,
+        "heading_align": "center",
+        "heading_align_mobile": "center",
+        "tabs_gap": 30,
+        "tabs_gap_mobile": 30,
+        "tabs_mt": 20,
+        "tabs_mt_mobile": 20,
+        "tabs_align": "center",
+        "tabs_align_mobile": "center",
+        "tab_custom": false,
+        "tab_font": "poppins_n4",
+        "tab_size": 24,
+        "tab_size_mobile": 20,
+        "tab_height": 130,
+        "tab_line_height": 5,
+        "slider_view": 3,
+        "slider_view_mobile": 1.3,
+        "slider_gap": 20,
+        "slider_gap_mobile": 20,
+        "slider_mt": 20,
+        "slider_mt_mobile": 20,
+        "main_card_padding_horizontal": 36,
+        "main_card_padding_horizontal_mobile": 26,
+        "main_card_padding_vertical": 36,
+        "main_card_padding_vertical_mobile": 26,
+        "main_card_radius": 24,
+        "main_card_border_thickness": 0,
+        "main_card_align": "left",
+        "main_card_align_mobile": "left",
+        "main_card_hide_mobile": true,
+        "main_card_text_custom": false,
+        "main_card_text_font": "poppins_n4",
+        "main_card_text_size": 24,
+        "main_card_text_size_mobile": 20,
+        "main_card_text_height": 150,
+        "main_card_button_custom": false,
+        "main_card_button_font": "poppins_n4",
+        "main_card_button_size": 15,
+        "main_card_button_size_mobile": 15,
+        "main_card_button_height": 100,
+        "main_card_button_padding_horizontal": 20,
+        "main_card_button_padding_horizontal_mobile": 20,
+        "main_card_button_padding_vertical": 14,
+        "main_card_button_padding_vertical_mobile": 14,
+        "main_card_button_radius": 100,
+        "main_card_button_border_thickness": 2,
+        "main_card_button_style": "outline_arrow",
+        "image_radius": 24,
+        "image_border_thickness": 0,
+        "image_ratio": "square",
+        "image_ratio_mobile": "square",
+        "second_image_hover": true,
+        "badge_padding_horizontal": 18,
+        "badge_padding_horizontal_mobile": 18,
+        "badge_padding_vertical": 10,
+        "badge_padding_vertical_mobile": 10,
+        "badge_radius": 100,
+        "badge_border_thickness": 2,
+        "badge_border_style": "dotted",
+        "badge_custom": false,
+        "badge_font": "poppins_n4",
+        "badge_size": 14,
+        "badge_size_mobile": 14,
+        "badge_height": 100,
+        "product_button": "",
+        "product_button_custom": false,
+        "product_button_font": "poppins_n4",
+        "product_button_size": 14,
+        "product_button_size_mobile": 14,
+        "product_button_height": 100,
+        "product_button_padding_vertical": 12,
+        "product_button_padding_vertical_mobile": 12,
+        "product_button_padding_horizontal": 20,
+        "product_button_padding_horizontal_mobile": 20,
+        "product_button_radius": 100,
+        "product_button_border_thickness": 2,
+        "product_button_mt_mobile": 16,
+        "product_button_style": "outline",
+        "product_button_align": "center",
+        "product_button_align_mobile": "left",
+        "title_custom": false,
+        "title_font": "poppins_n4",
+        "title_size": 40,
+        "title_size_mobile": 18,
+        "title_height": 130,
+        "title_mt": 20,
+        "title_mt_mobile": 16,
+        "product_info_top_mt": 10,
+        "product_info_top_mt_mobile": 10,
+        "tagline_custom": false,
+        "tagline_font": "poppins_n4",
+        "tagline_size": 16,
+        "tagline_size_mobile": 16,
+        "tagline_height": 130,
+        "price_custom": false,
+        "price_font": "poppins_n4",
+        "price_size": 14,
+        "price_size_mobile": 14,
+        "price_height": 130,
+        "price_compare": true,
+        "product_info_bottom_mt": 10,
+        "product_info_bottom_mt_mobile": 10,
+        "text_custom": false,
+        "text_font": "poppins_n4",
+        "text_size": 15,
+        "text_size_mobile": 15,
+        "text_height": 150,
+        "text_length": 10,
+        "link": "ADD TO CART",
+        "link_custom": false,
+        "link_font": "poppins_n4",
+        "link_size": 15,
+        "link_size_mobile": 15,
+        "link_height": 150,
+        "arrow_size": 48,
+        "arrow_size_mobile": 38,
+        "arrow_icon_size": 10,
+        "arrow_icon_size_mobile": 8,
+        "arrow_border_thickness": 0,
+        "arrow_radius": 100,
+        "arrow_hover_effect": "color",
+        "arrow_show_desktop": true,
+        "arrow_show_mobile": true,
+        "tab_color": "#000000",
+        "tab_line_color": "#feeaea",
+        "tab_active_line_color": "#000000",
+        "main_card_text_color": "#676565",
+        "main_card_border_color": "#000000",
+        "main_card_button_color": "#000000",
+        "main_card_button_hover_color": "#ffffff",
+        "main_card_button_bg_color": "#ffffff",
+        "main_card_button_bg_hover_color": "#000000",
+        "main_card_button_border_color": "#000000",
+        "main_card_button_border_hover_color": "#000000",
+        "title_color": "#000000",
+        "tagline_color": "#000000",
+        "price_color": "#000000",
+        "price_original_color": "#f00000",
+        "text_color": "#000000",
+        "link_color": "#000000",
+        "image_border_color": "#000000",
+        "badge_color": "#000000",
+        "badge_bg_color": "rgba(0,0,0,0)",
+        "badge_border_color": "#000000",
+        "product_button_color": "#ffffff",
+        "product_button_hover_color": "#000000",
+        "product_button_bg_color": "#000000",
+        "product_button_bg_hover_color": "#ffffff",
+        "product_button_border_color": "#000000",
+        "product_button_border_hover_color": "#000000",
+        "arrow_color": "#ffffff",
+        "arrow_hover_color": "#000000",
+        "arrow_bg_color": "#000000",
+        "arrow_bg_hover_color": "#e6e6e6",
+        "arrow_border_color": "#000000",
+        "arrow_border_hover_color": "#000000",
+        "heading_color": "#000000",
+        "background_color": "#ffffff",
+        "background_gradient": "",
+        "border_color": "#000000",
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "margin_horizontal": 0,
+        "margin_horizontal_mobile": 0,
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "padding_horizontal": 5,
+        "padding_horizontal_mobile": 1.5,
+        "full_width": true,
+        "content_width": 1200,
+        "border_thickness": 0,
+        "section_radius": 0,
+        "lazy": true
+      }
+    },
+    "featured_collection_tabs_3_NWQwPr": {
+      "type": "featured-collection-tabs-3",
+      "blocks": {
+        "tab_FW7TkC": {
+          "type": "tab",
+          "disabled": true,
+          "settings": {
+            "tab": "Ornaments",
+            "collection": "ornament-blanks",
+            "collection_show": 40,
+            "products": [],
+            "main_text": "<p>Best Sellers all year round! Decorate them with our ornament decals or personalize them with our custom uv dtf.</p>",
+            "button": "View all",
+            "button_url": "",
+            "main_card_bg_color": "#f4f4f4"
+          }
+        },
+        "tab_DdXwLG": {
+          "type": "tab",
+          "disabled": true,
+          "settings": {
+            "tab": "Ornament Decals",
+            "collection": "ornaments",
+            "collection_show": 10,
+            "products": [],
+            "main_text": "<p>Just peel and stick these on!<br/><br/>Pre-cut and sized to fit our acrylic bookmarks just perfectly. </p>",
+            "button": "View all",
+            "button_url": "shopify://collections/bookmark-uv-dtf-decals",
+            "main_card_bg_color": "#ffedf4"
+          }
+        },
+        "tab_cnCPMh": {
+          "type": "tab",
+          "settings": {
+            "tab": "limited time offer.",
+            "collection": "christmas-in-july",
+            "collection_show": 40,
+            "products": [],
+            "main_text": "",
+            "button": "View all",
+            "button_url": "shopify://collections/christmas-in-july",
+            "main_card_bg_color": "#ffedf4"
+          }
+        },
+        "tab_yQQDU6": {
+          "type": "tab",
+          "disabled": true,
+          "settings": {
+            "tab": "Blanks",
+            "collection": "blanks",
+            "collection_show": 10,
+            "products": [],
+            "main_text": "<p>Gorgeous blanks you simply won't find anywhere else!<br/><br/>HINT: Keychains and bookmarks are a hot seller this season. <br/><br/>Decorate them with our UV DTF!</p>",
+            "button": "View all",
+            "button_url": "shopify://collections/blanks",
+            "main_card_bg_color": "#ffedf4"
+          }
+        },
+        "tab_VtX7c7": {
+          "type": "tab",
+          "disabled": true,
+          "settings": {
+            "tab": "Bookmark UV DTF",
+            "collection": "bookmark-uv-dtf-decals",
+            "collection_show": 10,
+            "products": [],
+            "main_text": "<p>Just peel and stick these on!<br/><br/>Pre-cut and sized to fit our acrylic bookmarks just perfectly. </p>",
+            "button": "View all",
+            "button_url": "shopify://collections/bookmark-uv-dtf-decals",
+            "main_card_bg_color": "#ffedf4"
+          }
+        },
+        "tab_4YzKxN": {
+          "type": "tab",
+          "disabled": true,
+          "settings": {
+            "tab": "Puffs & Patches",
+            "collection": "speciality-transfers",
+            "collection_show": 40,
+            "products": [],
+            "main_text": "<p>Easy to apply with just a heat press!<br/><br/>Stand out with unique apparel using our Glow in the Dark Puff Transfers, Spangled Transfers, Patches and more.</p>",
+            "button": "View all",
+            "button_url": "shopify://collections/speciality-transfers",
+            "main_card_bg_color": "#ffedf4"
+          }
+        }
+      },
+      "block_order": [
+        "tab_FW7TkC",
+        "tab_DdXwLG",
+        "tab_cnCPMh",
+        "tab_yQQDU6",
+        "tab_VtX7c7",
+        "tab_4YzKxN"
+      ],
+      "disabled": true,
+      "name": "SS - Featured collection (tabs) #3",
+      "settings": {
+        "heading": "<h2><strong>🎄</strong>CHRISTMAS IN JULY</h2>",
+        "heading_custom": false,
+        "heading_font": "poppins_n4",
+        "heading_size": 48,
+        "heading_size_mobile": 28,
+        "heading_height": 130,
+        "heading_align": "center",
+        "heading_align_mobile": "center",
+        "tabs_gap": 30,
+        "tabs_gap_mobile": 30,
+        "tabs_mt": 20,
+        "tabs_mt_mobile": 20,
+        "tabs_align": "center",
+        "tabs_align_mobile": "center",
+        "tab_custom": false,
+        "tab_font": "poppins_n4",
+        "tab_size": 24,
+        "tab_size_mobile": 20,
+        "tab_height": 130,
+        "tab_line_height": 5,
+        "slider_view": 3,
+        "slider_view_mobile": 1.3,
+        "slider_gap": 20,
+        "slider_gap_mobile": 20,
+        "slider_mt": 20,
+        "slider_mt_mobile": 20,
+        "main_card_padding_horizontal": 36,
+        "main_card_padding_horizontal_mobile": 26,
+        "main_card_padding_vertical": 36,
+        "main_card_padding_vertical_mobile": 26,
+        "main_card_radius": 24,
+        "main_card_border_thickness": 0,
+        "main_card_align": "left",
+        "main_card_align_mobile": "left",
+        "main_card_hide_mobile": true,
+        "main_card_text_custom": false,
+        "main_card_text_font": "poppins_n4",
+        "main_card_text_size": 24,
+        "main_card_text_size_mobile": 20,
+        "main_card_text_height": 150,
+        "main_card_button_custom": false,
+        "main_card_button_font": "poppins_n4",
+        "main_card_button_size": 15,
+        "main_card_button_size_mobile": 15,
+        "main_card_button_height": 100,
+        "main_card_button_padding_horizontal": 20,
+        "main_card_button_padding_horizontal_mobile": 20,
+        "main_card_button_padding_vertical": 14,
+        "main_card_button_padding_vertical_mobile": 14,
+        "main_card_button_radius": 100,
+        "main_card_button_border_thickness": 2,
+        "main_card_button_style": "outline_arrow",
+        "image_radius": 24,
+        "image_border_thickness": 0,
+        "image_ratio": "square",
+        "image_ratio_mobile": "square",
+        "second_image_hover": true,
+        "badge_padding_horizontal": 18,
+        "badge_padding_horizontal_mobile": 18,
+        "badge_padding_vertical": 10,
+        "badge_padding_vertical_mobile": 10,
+        "badge_radius": 100,
+        "badge_border_thickness": 2,
+        "badge_border_style": "dotted",
+        "badge_custom": false,
+        "badge_font": "poppins_n4",
+        "badge_size": 14,
+        "badge_size_mobile": 14,
+        "badge_height": 100,
+        "product_button": "",
+        "product_button_custom": false,
+        "product_button_font": "poppins_n4",
+        "product_button_size": 14,
+        "product_button_size_mobile": 14,
+        "product_button_height": 100,
+        "product_button_padding_vertical": 12,
+        "product_button_padding_vertical_mobile": 12,
+        "product_button_padding_horizontal": 20,
+        "product_button_padding_horizontal_mobile": 20,
+        "product_button_radius": 100,
+        "product_button_border_thickness": 2,
+        "product_button_mt_mobile": 16,
+        "product_button_style": "outline",
+        "product_button_align": "center",
+        "product_button_align_mobile": "left",
+        "title_custom": false,
+        "title_font": "poppins_n4",
+        "title_size": 40,
+        "title_size_mobile": 18,
+        "title_height": 130,
+        "title_mt": 20,
+        "title_mt_mobile": 16,
+        "product_info_top_mt": 10,
+        "product_info_top_mt_mobile": 10,
+        "tagline_custom": false,
+        "tagline_font": "poppins_n4",
+        "tagline_size": 16,
+        "tagline_size_mobile": 16,
+        "tagline_height": 130,
+        "price_custom": false,
+        "price_font": "poppins_n4",
+        "price_size": 14,
+        "price_size_mobile": 14,
+        "price_height": 130,
+        "price_compare": true,
+        "product_info_bottom_mt": 10,
+        "product_info_bottom_mt_mobile": 10,
+        "text_custom": false,
+        "text_font": "poppins_n4",
+        "text_size": 15,
+        "text_size_mobile": 15,
+        "text_height": 150,
+        "text_length": 10,
+        "link": "ADD TO CART",
+        "link_custom": false,
+        "link_font": "poppins_n4",
+        "link_size": 15,
+        "link_size_mobile": 15,
+        "link_height": 150,
+        "arrow_size": 48,
+        "arrow_size_mobile": 38,
+        "arrow_icon_size": 10,
+        "arrow_icon_size_mobile": 8,
+        "arrow_border_thickness": 0,
+        "arrow_radius": 100,
+        "arrow_hover_effect": "color",
+        "arrow_show_desktop": true,
+        "arrow_show_mobile": true,
+        "tab_color": "#000000",
+        "tab_line_color": "#feeaea",
+        "tab_active_line_color": "#000000",
+        "main_card_text_color": "#676565",
+        "main_card_border_color": "#000000",
+        "main_card_button_color": "#000000",
+        "main_card_button_hover_color": "#ffffff",
+        "main_card_button_bg_color": "#ffffff",
+        "main_card_button_bg_hover_color": "#000000",
+        "main_card_button_border_color": "#000000",
+        "main_card_button_border_hover_color": "#000000",
+        "title_color": "#000000",
+        "tagline_color": "#000000",
+        "price_color": "#000000",
+        "price_original_color": "#f00000",
+        "text_color": "#000000",
+        "link_color": "#000000",
+        "image_border_color": "#000000",
+        "badge_color": "#000000",
+        "badge_bg_color": "rgba(0,0,0,0)",
+        "badge_border_color": "#000000",
+        "product_button_color": "#ffffff",
+        "product_button_hover_color": "#000000",
+        "product_button_bg_color": "#000000",
+        "product_button_bg_hover_color": "#ffffff",
+        "product_button_border_color": "#000000",
+        "product_button_border_hover_color": "#000000",
+        "arrow_color": "#ffffff",
+        "arrow_hover_color": "#000000",
+        "arrow_bg_color": "#000000",
+        "arrow_bg_hover_color": "#e6e6e6",
+        "arrow_border_color": "#000000",
+        "arrow_border_hover_color": "#000000",
+        "heading_color": "#000000",
+        "background_color": "#ffffff",
+        "background_gradient": "",
+        "border_color": "#000000",
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "margin_horizontal": 0,
+        "margin_horizontal_mobile": 0,
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "padding_horizontal": 5,
+        "padding_horizontal_mobile": 1.5,
+        "full_width": true,
+        "content_width": 1200,
+        "border_thickness": 0,
+        "section_radius": 0,
+        "lazy": true
+      }
+    },
+    "collection_list_YmkDDF": {
+      "type": "collection-list",
+      "blocks": {
+        "featured_collection_3JfXNr": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "custom",
+            "font_size": "heading-small",
+            "font_weight": "400",
+            "letter_spacing": 0
+          }
+        },
+        "featured_collection_HKJwWw": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "custom-uv-dtf",
+            "font_size": "heading-small",
+            "font_weight": "400",
+            "letter_spacing": 0
+          }
+        },
+        "featured_collection_dbjyJ9": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "blanks",
+            "font_size": "heading-small",
+            "font_weight": "400",
+            "letter_spacing": 0
+          }
+        },
+        "featured_collection_RPzKja": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "uv-dtf",
+            "font_size": "heading-small",
+            "font_weight": "400",
+            "letter_spacing": 0
+          }
+        },
+        "featured_collection_KUjqeE": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "speciality-transfers",
+            "font_size": "heading-medium",
+            "font_weight": "400",
+            "letter_spacing": 0
+          }
+        },
+        "featured_collection_k43PTt": {
+          "type": "featured_collection",
+          "disabled": true,
+          "settings": {
+            "collection": "bookmark-uv-dtf-decals",
+            "font_size": "heading-medium",
+            "font_weight": "400",
+            "letter_spacing": 0
+          }
+        }
+      },
+      "block_order": [
+        "featured_collection_3JfXNr",
+        "featured_collection_HKJwWw",
+        "featured_collection_dbjyJ9",
+        "featured_collection_RPzKja",
+        "featured_collection_KUjqeE",
+        "featured_collection_k43PTt"
+      ],
+      "settings": {
+        "title": "POPULAR PICKS",
+        "heading_size": "h1",
+        "heading_color_scheme": "background-2",
+        "font_weight": "500",
+        "heading_spacing": 0,
+        "subheading": "",
+        "subheading_color_scheme": "background-2",
+        "text_alignment": "center",
+        "color_scheme": "background-1",
+        "image_ratio": "square",
+        "image_color_opacity": "#000000",
+        "image_overlay_opacity": 0,
+        "columns_desktop": 5,
+        "enable_title": false,
+        "font_color_scheme": "accent-6",
+        "card_color_scheme": "background-1",
+        "show_view_all": true,
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "padding_top": 36,
+        "padding_bottom": 20
+      }
+    },
+    "16545525587b0ace4e": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "fall & spooky",
+        "heading_color_scheme": "accent-6",
+        "heading_size": "heading-medium",
+        "font_weight": "500",
+        "heading_spacing": 0,
+        "enable_uppercase": true,
+        "text_alignment": "center",
+        "description": "<p>READY TO PRESS TRANSFERS.</p>",
+        "description_color_scheme": "background-2",
+        "show_description": false,
+        "collection": "fall-halloween",
+        "products_to_show": 12,
+        "columns_desktop": 4,
+        "full_width": false,
+        "show_view_all": true,
+        "button_text": "background-2",
+        "button_background": "accent-1",
+        "button_outline_style": false,
+        "button_hover": "background-1",
+        "button_hover_bg": "accent-2",
+        "enable_desktop_slider": true,
+        "color_scheme": "background-1",
+        "image_ratio": "square",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": true,
+        "enable_quick_add": true,
+        "card_title_size": "body-small",
+        "card_title_color_scheme": "background-2",
+        "card_price_color_scheme": "background-2",
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "padding_top": 32,
+        "padding_bottom": 24
+      }
+    },
+    "abc57e67-34e2-4a51-8ebb-a5ef713cdf8b": {
+      "type": "featured-collection",
+      "disabled": true,
+      "settings": {
+        "title": "BLANKS",
+        "heading_color_scheme": "background-2",
+        "heading_size": "heading-medium",
+        "font_weight": "500",
+        "heading_spacing": 0,
+        "enable_uppercase": true,
+        "text_alignment": "center",
+        "description": "<p>One-of-a kind premium blanks for affordable prices!<br/>EXCLUSIVE TO SHEMAKES</p>",
+        "description_color_scheme": "background-2",
+        "show_description": false,
+        "collection": "blanks",
+        "products_to_show": 12,
+        "columns_desktop": 5,
+        "full_width": false,
+        "show_view_all": true,
+        "button_text": "background-2",
+        "button_background": "accent-1",
+        "button_outline_style": false,
+        "button_hover": "background-1",
+        "button_hover_bg": "accent-3",
+        "enable_desktop_slider": true,
+        "color_scheme": "background-1",
+        "image_ratio": "adapt",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": true,
+        "enable_quick_add": true,
+        "card_title_size": "body-small",
+        "card_title_color_scheme": "accent-6",
+        "card_price_color_scheme": "background-2",
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "16505828025450e52a": {
+      "type": "newsletter",
+      "blocks": {
+        "1650582802873be2f4-1": {
+          "type": "paragraph",
+          "settings": {
+            "text": "<h2><strong>DON'T MISS ANOTHER SALE</strong><br/><br/>Be the first to know about new drops and exclusive offers!</h2>",
+            "text_color_scheme": "background-2",
+            "letter_spacing": 0
+          }
+        },
+        "1650582802873be2f4-2": {
+          "type": "email_form",
+          "settings": {
+            "newsletter_color_scheme": "background-2",
+            "newsletter_background": "background-1",
+            "button_text": "background-2",
+            "button_background": "background-1",
+            "button_outline_style": false,
+            "button_hover": "background-1",
+            "button_hover_bg": "accent-3"
+          }
+        }
+      },
+      "block_order": [
+        "1650582802873be2f4-1",
+        "1650582802873be2f4-2"
+      ],
+      "settings": {
+        "color_scheme": "accent-5",
+        "full_width": true,
+        "padding_top": 0,
+        "padding_bottom": 52
+      }
+    },
+    "collection_list_tDHhaw": {
+      "type": "collection-list",
+      "blocks": {
+        "featured_collection_D8NGcg": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "uv-dtf",
+            "font_size": "heading-small",
+            "font_weight": "400",
+            "letter_spacing": 0
+          }
+        },
+        "featured_collection_RWtEgf": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "bookmark-uv-dtf-decals",
+            "font_size": "heading-small",
+            "font_weight": "400",
+            "letter_spacing": 0
+          }
+        },
+        "featured_collection_9tj4xX": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "keychain-uv-dtf-decals",
+            "font_size": "heading-small",
+            "font_weight": "400",
+            "letter_spacing": 0
+          }
+        },
+        "featured_collection_gdNLkc": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "ornaments",
+            "font_size": "heading-small",
+            "font_weight": "400",
+            "letter_spacing": 0
+          }
+        },
+        "featured_collection_jgWNJF": {
+          "type": "featured_collection",
+          "disabled": true,
+          "settings": {
+            "collection": "misc",
+            "font_size": "heading-medium",
+            "font_weight": "400",
+            "letter_spacing": 0
+          }
+        },
+        "featured_collection_M3zqF4": {
+          "type": "featured_collection",
+          "disabled": true,
+          "settings": {
+            "collection": "occupations",
+            "font_size": "heading-medium",
+            "font_weight": "400",
+            "letter_spacing": 0
+          }
+        }
+      },
+      "block_order": [
+        "featured_collection_D8NGcg",
+        "featured_collection_RWtEgf",
+        "featured_collection_9tj4xX",
+        "featured_collection_gdNLkc",
+        "featured_collection_jgWNJF",
+        "featured_collection_M3zqF4"
+      ],
+      "settings": {
+        "title": "UV DTF",
+        "heading_size": "h1",
+        "heading_color_scheme": "background-2",
+        "font_weight": "500",
+        "heading_spacing": 0,
+        "subheading": "Ready to Apply. No Heat Needed.",
+        "subheading_color_scheme": "background-2",
+        "text_alignment": "center",
+        "color_scheme": "background-1",
+        "image_ratio": "square",
+        "image_color_opacity": "#000000",
+        "image_overlay_opacity": 0,
+        "columns_desktop": 5,
+        "enable_title": false,
+        "font_color_scheme": "accent-6",
+        "card_color_scheme": "background-1",
+        "show_view_all": true,
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "padding_top": 0,
+        "padding_bottom": 20
+      }
+    },
+    "rich_text": {
+      "type": "rich-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "YOU'LL FALL IN LOVE",
+            "heading_size": "heading-medium",
+            "font_weight": "400",
+            "letter_spacing": 0,
+            "heading_color_scheme": "accent-2"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>with our </strong><em><strong>Quality Transfer</strong></em><strong>s that'll take your business to the next level.</strong></p><p>SHEmakes is a family-owned, small business located in London, Ontario, Canada. <br/><br/>Our <a href=\"/collections/custom-dtf-for-fabric\" title=\"Custom DTF Transfers (for fabric)\">DTF</a> and <a href=\"/collections/custom-uv-dtf\" title=\"Custom UV DTF\">UV DTF</a> transfers are carefully made using the latest commercial printing equipment. Customer satisfaction is always guaranteed.</p><p>We offer <a href=\"/pages/free-local-pickup-in-london-ontario-and-st-thomas-ontario-dtf-transfers-and-uv-dtf\" title=\"Free local pickup in London Ontario and St. Thomas Ontario - DTF Transfers and UV DTF\">free local pickup</a> in London, Ontario or St. Thomas, Ontario.<br/><br/>We ship across Canada and the USA for discounted flat rates or free shipping for orders over $150.<br/><br/>Try our transfers today and see the difference!</p>",
+            "letter_spacing": 0,
+            "text_color_scheme": "background-2"
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text"
+      ],
+      "settings": {
+        "color_scheme": "accent-1",
+        "text_alignment": "center",
+        "full_width": true,
+        "padding_top": 20,
+        "padding_bottom": 20
+      }
+    },
+    "946ec83d-0265-4a5f-a18a-1e13f949ad39": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "FALL & HALLOWEEN DECALS",
+        "heading_color_scheme": "accent-6",
+        "heading_size": "heading-medium",
+        "font_weight": "500",
+        "heading_spacing": 0,
+        "enable_uppercase": true,
+        "text_alignment": "center",
+        "description": "<p>READY TO PRESS TRANSFERS.</p>",
+        "description_color_scheme": "background-2",
+        "show_description": false,
+        "collection": "halloween-fall-uv-dtf",
+        "products_to_show": 8,
+        "columns_desktop": 4,
+        "full_width": false,
+        "show_view_all": true,
+        "button_text": "background-2",
+        "button_background": "accent-1",
+        "button_outline_style": false,
+        "button_hover": "background-1",
+        "button_hover_bg": "background-1",
+        "enable_desktop_slider": true,
+        "color_scheme": "background-1",
+        "image_ratio": "adapt",
+        "show_secondary_image": false,
+        "show_vendor": true,
+        "show_rating": true,
+        "enable_quick_add": true,
+        "card_title_size": "body-small",
+        "card_title_color_scheme": "background-2",
+        "card_price_color_scheme": "background-2",
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "featured_collection_9VQBnB": {
+      "type": "featured-collection",
+      "name": "t:sections.featured-collection.presets.name",
+      "settings": {
+        "title": "CANADA",
+        "heading_color_scheme": "background-2",
+        "heading_size": "heading-medium",
+        "font_weight": "500",
+        "heading_spacing": 0,
+        "enable_uppercase": false,
+        "text_alignment": "center",
+        "description": "<p>READY TO PRESS TRANSFERS.</p>",
+        "description_color_scheme": "background-2",
+        "show_description": false,
+        "collection": "canada-day-independence-day",
+        "products_to_show": 12,
+        "columns_desktop": 4,
+        "full_width": false,
+        "show_view_all": true,
+        "button_text": "background-2",
+        "button_background": "accent-1",
+        "button_outline_style": false,
+        "button_hover": "background-1",
+        "button_hover_bg": "accent-3",
+        "enable_desktop_slider": false,
+        "color_scheme": "background-1",
+        "image_ratio": "adapt",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": true,
+        "enable_quick_add": true,
+        "card_title_size": "body-small",
+        "card_title_color_scheme": "background-2",
+        "card_price_color_scheme": "background-2",
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "featured_collection": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "ALL UV DTF",
+        "heading_color_scheme": "background-2",
+        "heading_size": "heading-medium",
+        "font_weight": "400",
+        "heading_spacing": 0,
+        "enable_uppercase": true,
+        "text_alignment": "center",
+        "description": "",
+        "description_color_scheme": "background-2",
+        "show_description": false,
+        "collection": "valentines-uv-dtf",
+        "products_to_show": 8,
+        "columns_desktop": 4,
+        "full_width": false,
+        "show_view_all": true,
+        "button_text": "background-2",
+        "button_background": "accent-1",
+        "button_outline_style": false,
+        "button_hover": "background-1",
+        "button_hover_bg": "accent-1",
+        "enable_desktop_slider": true,
+        "color_scheme": "background-1",
+        "image_ratio": "square",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": true,
+        "enable_quick_add": true,
+        "card_title_size": "body-small",
+        "card_title_color_scheme": "background-2",
+        "card_price_color_scheme": "background-2",
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "padding_top": 24,
+        "padding_bottom": 24
+      }
+    },
+    "collection_list_bnEpcT": {
+      "type": "collection-list",
+      "blocks": {
+        "featured_collection_JqRBRR": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "christmas-winter",
+            "font_size": "heading-small",
+            "font_weight": "400",
+            "letter_spacing": 0
+          }
+        },
+        "featured_collection_iw44Yx": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "coquette",
+            "font_size": "heading-small",
+            "font_weight": "400",
+            "letter_spacing": 0
+          }
+        },
+        "featured_collection_wN4FRc": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "country-western",
+            "font_size": "heading-small",
+            "font_weight": "400",
+            "letter_spacing": 0
+          }
+        },
+        "featured_collection_fqYmHh": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "faith",
+            "font_size": "heading-small",
+            "font_weight": "400",
+            "letter_spacing": 0
+          }
+        },
+        "featured_collection_ymB6tm": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "mama",
+            "font_size": "heading-medium",
+            "font_weight": "400",
+            "letter_spacing": 0
+          }
+        },
+        "featured_collection_7xt8gz": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "misc",
+            "font_size": "heading-medium",
+            "font_weight": "400",
+            "letter_spacing": 0
+          }
+        },
+        "featured_collection_gnQCpj": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "canada-day-independence-day",
+            "font_size": "heading-medium",
+            "font_weight": "400",
+            "letter_spacing": 0
+          }
+        },
+        "featured_collection_4tpqJB": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "occupations",
+            "font_size": "heading-medium",
+            "font_weight": "400",
+            "letter_spacing": 0
+          }
+        }
+      },
+      "block_order": [
+        "featured_collection_JqRBRR",
+        "featured_collection_iw44Yx",
+        "featured_collection_wN4FRc",
+        "featured_collection_fqYmHh",
+        "featured_collection_ymB6tm",
+        "featured_collection_7xt8gz",
+        "featured_collection_gnQCpj",
+        "featured_collection_4tpqJB"
+      ],
+      "settings": {
+        "title": "DTF by Collection",
+        "heading_size": "h1",
+        "heading_color_scheme": "background-2",
+        "font_weight": "500",
+        "heading_spacing": 0,
+        "subheading": "",
+        "subheading_color_scheme": "background-2",
+        "text_alignment": "center",
+        "color_scheme": "background-1",
+        "image_ratio": "square",
+        "image_color_opacity": "#000000",
+        "image_overlay_opacity": 0,
+        "columns_desktop": 4,
+        "enable_title": false,
+        "font_color_scheme": "accent-6",
+        "card_color_scheme": "background-1",
+        "show_view_all": true,
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "padding_top": 0,
+        "padding_bottom": 20
+      }
+    },
+    "rich_text_zix8XL": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_Cqk9nE": {
+          "type": "heading",
+          "settings": {
+            "heading": "COME SEE WHAT THE HYPE IS ALL ABOUT!",
+            "heading_size": "heading-medium",
+            "font_weight": "400",
+            "letter_spacing": 0,
+            "heading_color_scheme": "background-1"
+          }
+        },
+        "text_Q76bgB": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "text": "",
+            "letter_spacing": 0,
+            "text_color_scheme": "background-2"
+          }
+        },
+        "button_JyVzRq": {
+          "type": "button",
+          "settings": {
+            "button_label": "@SHEMAKESTRANSFERS",
+            "button_link": "http://www.shemakestransfers.com",
+            "button_text": "background-1",
+            "button_background": "accent-2",
+            "button_outline_style": false,
+            "button_hover": "background-1",
+            "button_hover_bg": "accent-3"
+          }
+        }
+      },
+      "block_order": [
+        "heading_Cqk9nE",
+        "text_Q76bgB",
+        "button_JyVzRq"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "color_scheme": "background-2",
+        "text_alignment": "center",
+        "full_width": true,
+        "padding_top": 12,
+        "padding_bottom": 28
+      }
+    },
+    "instafeed_n6VEgN": {
+      "type": "instafeed",
+      "name": "Instafeed App",
+      "settings": {
+        "heading_size": 15,
+        "feed_width": 100,
+        "html_area": ""
+      }
+    },
+    "collection_list_dMQgLF": {
+      "type": "collection-list",
+      "blocks": {
+        "featured_collection_Q9F3FJ": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "custom-uv-dtf",
+            "font_size": "heading-medium",
+            "font_weight": "400",
+            "letter_spacing": 0
+          }
+        },
+        "featured_collection_zfnt73": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "custom-dtf-for-fabric",
+            "font_size": "heading-medium",
+            "font_weight": "400",
+            "letter_spacing": 0
+          }
+        },
+        "featured_collection_Q4xerj": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "uv-dtf",
+            "font_size": "heading-medium",
+            "font_weight": "400",
+            "letter_spacing": 0
+          }
+        }
+      },
+      "block_order": [
+        "featured_collection_Q9F3FJ",
+        "featured_collection_zfnt73",
+        "featured_collection_Q4xerj"
+      ],
+      "disabled": true,
+      "name": "t:sections.collection-list.presets.name",
+      "settings": {
+        "title": "OUR SPECIALITIES",
+        "heading_size": "h1",
+        "heading_color_scheme": "background-2",
+        "font_weight": "400",
+        "heading_spacing": 5,
+        "subheading": "",
+        "subheading_color_scheme": "background-2",
+        "text_alignment": "center",
+        "color_scheme": "accent-1",
+        "image_ratio": "square",
+        "image_color_opacity": "#000",
+        "image_overlay_opacity": 0,
+        "columns_desktop": 3,
+        "enable_title": false,
+        "font_color_scheme": "background-2",
+        "card_color_scheme": "accent-2",
+        "show_view_all": false,
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "174718445983904884",
+    "rich_text_PMG767",
+    "1650582794fddf52a3",
+    "video_banner_DBzxyf",
+    "ss_feature_1_GjeEqK",
+    "image_with_text_g9hFK7",
+    "collection_list_nyRF9f",
+    "ss_scrolling_images_APbNKT",
+    "ss_featured_collection_aEKfhX",
+    "17052795004b2bb33e",
+    "featured_collection_tabs_3_N8nLXr",
+    "featured_collection_tabs_3_NWQwPr",
+    "collection_list_YmkDDF",
+    "16545525587b0ace4e",
+    "abc57e67-34e2-4a51-8ebb-a5ef713cdf8b",
+    "16505828025450e52a",
+    "collection_list_tDHhaw",
+    "rich_text",
+    "946ec83d-0265-4a5f-a18a-1e13f949ad39",
+    "featured_collection_9VQBnB",
+    "featured_collection",
+    "collection_list_bnEpcT",
+    "rich_text_zix8XL",
+    "instafeed_n6VEgN",
+    "collection_list_dMQgLF"
+  ]
+}

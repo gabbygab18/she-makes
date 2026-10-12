@@ -1,0 +1,91 @@
+{% comment %}
+  SHEmakes — the claims ticker.
+
+  Replaces the static announcement bar. One claim per block, looping, so the
+  shop can say six things in the space of one line.
+
+  The list is rendered twice: the second copy is what makes the loop seamless,
+  so it is hidden from assistive technology rather than read out again.
+{% endcomment %}
+{%- liquid
+  assign claims = ''
+  for block in section.blocks
+    assign item = block.settings.text | json
+    if forloop.first
+      assign claims = item
+    else
+      assign claims = claims | append: ',' | append: item
+    endif
+  endfor
+-%}
+{%- capture props -%}
+{ "claims": [{{ claims }}], "speed": {{ section.settings.speed | default: 48 }} }
+{%- endcapture -%}
+
+{%- comment -%}
+  The Liquid below is the fallback: it renders the whole section, so the
+  page is complete before the bundle arrives and stays complete if it
+  never does. React replaces it on mount.
+{%- endcomment -%}
+{%- capture fallback -%}
+{%- if section.blocks.size > 0 -%}
+  <div class="sm-ticker" style="--sm-ticker-duration: {{ section.settings.speed | default: 48 }}s">
+    <div class="sm-ticker__track">
+      {%- for pass in (1..2) -%}
+        <ul class="sm-ticker__list" {% if pass == 2 %}aria-hidden="true"{% endif %}>
+          {%- for block in section.blocks -%}
+            <li class="sm-ticker__item" {{ block.shopify_attributes }}>
+              <span>{{ block.settings.text }}</span>
+              <span class="sm-ticker__dot" aria-hidden="true"></span>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endfor -%}
+    </div>
+  </div>
+{%- endif -%}
+{%- endcapture -%}
+
+{% render 'sm-island', name: 'ticker', props: props, fallback: fallback %}
+
+{% schema %}
+{
+  "name": "SHEmakes ticker",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "speed",
+      "label": "Seconds per loop",
+      "info": "Higher is slower.",
+      "min": 20,
+      "max": 90,
+      "step": 2,
+      "default": 48,
+      "unit": "s"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "claim",
+      "name": "Claim",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Claim", "default": "No minimum order" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SHEmakes ticker",
+      "blocks": [
+        { "type": "claim", "settings": { "text": "No minimum order" } },
+        { "type": "claim", "settings": { "text": "Free sample pack available" } },
+        { "type": "claim", "settings": { "text": "Free local pickup" } },
+        { "type": "claim", "settings": { "text": "Same-day rush available" } },
+        { "type": "claim", "settings": { "text": "Free shipping over $150" } },
+        { "type": "claim", "settings": { "text": "Hot peel, every sheet checked by hand" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

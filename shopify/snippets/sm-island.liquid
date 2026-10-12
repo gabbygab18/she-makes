@@ -1,0 +1,48 @@
+{% comment %}
+  Mount point for a React island.
+
+  Liquid owns the data and renders a real fallback; React replaces it once the
+  bundle arrives. That ordering is the whole design:
+
+    • the page is complete before any JavaScript runs, so crawlers and a failed
+      bundle both get real content
+    • the props are JSON on the element, so there is exactly one source of
+      truth and no second fetch on load
+
+  The props travel in a <script type="application/json"> rather than a data
+  attribute. An attribute has to survive HTML escaping on the way out and
+  un-escaping on the way back, and any character that does not round-trip
+  leaves the island with unparseable props — it then mounts empty, having
+  already replaced the fallback. A script tag has no such problem: the only
+  hazard is the literal sequence that would close it early, which is escaped
+  below.
+
+  Usage:
+    {% capture fallback %}…markup…{% endcapture %}
+    {% render 'sm-island', name: 'hero', props: props_json, fallback: fallback %}
+
+  name     — key in the registry in src/islands.jsx
+  props    — a JSON string, normally built with Liquid's `| json` filter
+  fallback — optional markup shown until React mounts
+{% endcomment %}
+
+{%- liquid
+  assign open_brace = '{'
+  assign close_brace = '}'
+  assign empty_object = open_brace | append: close_brace
+
+  assign island_props = props
+  if island_props == blank
+    assign island_props = empty_object
+  endif
+
+  comment
+    A closing script tag inside the JSON would end the element early.
+  endcomment
+  assign island_props = island_props | replace: '</', '<\/'
+-%}
+
+<div data-sm-island="{{ name }}">
+  <script type="application/json" data-sm-props>{{ island_props }}</script>
+  {{- fallback -}}
+</div>

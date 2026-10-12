@@ -1,0 +1,135 @@
+<style>
+.AnnouncementBar {
+  position: relative;
+  text-align: center;
+  z-index: 1; }
+.AnnouncementBar__Wrapper {
+  padding: 12px 15px; }
+.AnnouncementBar__Content {
+  color: inherit;
+  margin: 0;
+  font-weight: 400; }
+.AnimatedAnnouncementBar {
+  white-space: nowrap;
+  height: 42px;
+  overflow: hidden; }
+.AnimatedAnnouncementBar--animate {
+  visibility: hidden;
+  animation: ticker 25s linear 5s infinite; }
+.AnimatedAnnouncementBar__Wrapper {
+  visibility: initial;
+  white-space: nowrap;
+  width: auto;
+  max-width: none;
+  display: inline-block;
+  margin: 0;
+  line-height: 42px;
+  overflow: hidden; }
+.AnimatedAnnouncementBar__Content {
+  display: inline-block;margin:0; }
+.AnimatedAnnouncementBar__Content a{
+  text-decoration:none;
+}
+.AnimatedAnnouncementBar__Wrapper span {
+  display: inline-block;
+   }
+.AnimatedAnnouncementBar__Wrapper a,
+.AnimatedAnnouncementBar__Wrapper span {
+  padding-right: 50px;
+  padding-left: 16px; }
+@media screen and (min-width: 768px) {
+  .AnimatedAnnouncementBar__Wrapper a,
+  .AnimatedAnnouncementBar__Wrapper span {
+    padding-right: 300px;
+    padding-left: 24px; } }
+@keyframes ticker {
+  0% {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    visibility: visible; }
+  to {
+    -webkit-transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-100%, 0, 0); } }
+  @media(min-width:768px){
+    .ann_mobile_main{
+      display:none;
+    }
+  }
+</style>
+<section class="ann_mobile_main" id="section-animated-announcement" data-section-id="animated-announcement" data-section-type="animated-announcement-bar" style="background-color:{{ section.settings.background }}">
+  <div class="AnimatedAnnouncementBar">
+    <div class="AnimatedAnnouncementBar__Wrapper AnimatedAnnouncementBar--animate">
+    {%for block in section.blocks%}
+         <p class="AnimatedAnnouncementBar__Content Heading"><a href="{{ block.settings.link }}" style="font-size:{{ block.settings.size }}px; color: {{ block.settings.color }};">{{ block.settings.text }}</a></p>
+      {%endfor%}
+      </div>
+      <div class="AnimatedAnnouncementBar__Wrapper AnimatedAnnouncementBar--animate">
+      {%for block in section.blocks%}
+         <p class="AnimatedAnnouncementBar__Content Heading"><a href="{{ block.settings.link }}" style="font-size:{{ block.settings.size }}px; color: {{ block.settings.color }};">{{ block.settings.text }}</a></p>
+      {%endfor%}
+      </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Mobile Announcement",
+  "max_blocks": 10,
+    "settings": [
+            {
+          "type": "color",
+          "id": "background",
+          "label": "Select Background",
+          "default": "#000"
+        }
+              ],
+  "blocks": [
+    {
+      "type": "announcement",
+      "name": "Moving Announcement",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "default": "Welcome to our store",
+          "label": "Enter Text"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Enter Link"
+        },
+
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Select Text Color",
+           "default": "#fff"
+        },
+        {
+          "type": "range",
+          "id": "size",
+          "min": 8,
+          "max": 20,
+          "step": 1,
+          "unit": "px",
+          "label": "Select Font size",
+          "default": 10
+        }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      {
+        "type": "announcement"
+      }
+    ]
+  }
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

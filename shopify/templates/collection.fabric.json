@@ -1,0 +1,264 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "banner": {
+      "type": "main-collection-banner",
+      "settings": {
+        "enable_title": true,
+        "show_collection_description": false,
+        "show_collection_image": false,
+        "color_scheme": "background-1",
+        "text_alignment": "center",
+        "heading_size": "heading-medium",
+        "font_weight": "400",
+        "letter_spacing": 0,
+        "heading_color_scheme": "background-2",
+        "enable_uppercase": true,
+        "padding_top": 0,
+        "padding_bottom": 0
+      },
+      "disabled": true
+    },
+    "image_banner_tF4PAX": {
+      "type": "image-banner",
+      "disabled": true,
+      "name": "t:sections.image-banner.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/how_to_submit_customs-6.png",
+        "mobile_image": "shopify://shop_images/how_to_submit_customs_Instagram_Post_-5.png",
+        "image_color_opacity": "#000000",
+        "image_overlay_opacity": 0,
+        "image_height": "large",
+        "adapt_height_first_image": true,
+        "desktop_content_position": "middle-center",
+        "show_text_box": true,
+        "desktop_content_alignment": "center",
+        "color_scheme": "background-1",
+        "mobile_content_alignment": "center",
+        "show_text_below": true
+      }
+    },
+    "rich_text_3HcTXi": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_tF7CTF": {
+          "type": "heading",
+          "disabled": true,
+          "settings": {
+            "heading": "The Best Transfers Ever!",
+            "heading_size": "heading-medium",
+            "font_weight": "400",
+            "letter_spacing": 0,
+            "heading_color_scheme": "background-2"
+          }
+        },
+        "text_aWA78a": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>WHICH LISTING TO USE:</strong></p><p><strong>Auto Builder </strong>(beginner friendly)</p><ul><li>Builds your sheets for you</li><li>Just upload graphics, size them and add quantities</li></ul><p><strong>Build Your Own </strong></p><ul><li>You organize and build your own gang sheet</li></ul><p><strong>Upload Your Own </strong></p><ul><li>Upload a completed gang sheet or email us the completed sheets</li></ul>",
+            "letter_spacing": 0,
+            "text_color_scheme": "background-2"
+          }
+        },
+        "button_t8b83q": {
+          "type": "button",
+          "disabled": true,
+          "settings": {
+            "button_label": "Button label",
+            "button_link": "",
+            "button_text": "background-1",
+            "button_background": "accent-2",
+            "button_outline_style": false,
+            "button_hover": "background-1",
+            "button_hover_bg": "accent-3"
+          }
+        }
+      },
+      "block_order": [
+        "heading_tF7CTF",
+        "text_aWA78a",
+        "button_t8b83q"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "color_scheme": "background-1",
+        "text_alignment": "center",
+        "full_width": true,
+        "padding_top": 0,
+        "padding_bottom": 0
+      },
+      "disabled": true
+    },
+    "product-grid": {
+      "type": "sm-main-collection",
+      "blocks": {
+        "theme": {
+          "type": "filter",
+          "settings": {
+            "label": "Theme",
+            "values": "Fall, Halloween, Christmas, Winter, Easter, Spring, Summer, Coquette, MAMA, Family, Faith, Sports, Teacher, Coffee, Western, Pets, Small Business, Bundles"
+          }
+        }
+      },
+      "block_order": [
+        "theme"
+      ],
+      "settings": {
+        "prompt_heading": "Are you a screen print shop? A DTF print shop?",
+        "prompt_body": "You may qualify for our B2B account. Send us an email and let’s chat!",
+        "prompt_label": "Let's chat",
+        "prompt_url": "/pages/contact",
+        "how_label": "How to order",
+        "prompt_handles": "custom, custom-dtf-for-fabric, custom-uv-dtf",
+        "filter_overrides": "ornaments: Ornaments=ornament, Santa Trays=santa"
+      }
+    },
+    "how_to_steps": {
+      "type": "sm-steps",
+      "blocks": {
+        "s1": {
+          "type": "step",
+          "settings": {
+            "label": "Step",
+            "title": "Click the auto builder listing",
+            "body": "It sizes and lays out the sheet for you - start there if this is your first order."
+          }
+        },
+        "s2": {
+          "type": "step",
+          "settings": {
+            "label": "Step",
+            "title": "Upload your .PNG files and size them",
+            "body": "Transparent background, 300 DPI at the size you want printed."
+          }
+        },
+        "s3": {
+          "type": "step",
+          "settings": {
+            "label": "Step",
+            "title": "Review your order and pay",
+            "body": "The sheets come through to us automatically once the order is placed."
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "settings": {
+        "eyebrow": "Custom orders",
+        "heading": "How to submit your *custom print*",
+        "tint": true,
+        "cta_label": "How-to guide for beginners",
+        "cta_url": "/pages/faqs?view=guide",
+        "secondary_label": "Open the builder",
+        "secondary_url": "/products/auto-gang-sheet-builder-tool-custom-dtf-kixxl"
+      }
+    },
+    "options": {
+      "type": "sm-options",
+      "blocks": {
+        "o1": {
+          "type": "option",
+          "settings": {
+            "label": "Easiest",
+            "title": "Auto Builder Tool",
+            "note": "It builds the sheets for you — upload your graphics, size them, add quantities.",
+            "url": "/products/auto-gang-sheet-builder-tool-custom-dtf-kixxl"
+          }
+        },
+        "o2": {
+          "type": "option",
+          "settings": {
+            "label": "For beginners",
+            "title": "Build your own gang sheet",
+            "note": "You lay the sheet out yourself in the free builder, with the space shown as you go.",
+            "url": "/products/auto-gang-sheet-builder-tool-custom-dtf"
+          }
+        },
+        "o3": {
+          "type": "option",
+          "settings": {
+            "label": "For advanced users",
+            "title": "Upload your own",
+            "note": "Already have a finished gang sheet? Send it as it is — no builder needed.",
+            "url": "/products/custom-gang-sheet-22x60-2"
+          }
+        }
+      },
+      "block_order": [
+        "o1",
+        "o2",
+        "o3"
+      ],
+      "settings": {
+        "eyebrow": "Custom orders",
+        "heading": "Which listing to *use*",
+        "body": "All three sheet builders are free to use. Pick the one that matches how you want to work."
+      }
+    },
+    "perks": {
+      "type": "sm-perks",
+      "blocks": {
+        "k1": {
+          "type": "perk",
+          "settings": {
+            "icon": "image",
+            "title": "Free transfer mockups",
+            "body": "Promote your products with watermark-free mockups."
+          }
+        },
+        "k2": {
+          "type": "perk",
+          "settings": {
+            "icon": "folder",
+            "title": "Free design library",
+            "body": "Use our design library when creating your gang sheets."
+          }
+        },
+        "k3": {
+          "type": "perk",
+          "settings": {
+            "icon": "gift",
+            "title": "Free sample pack",
+            "body": "New customers can try our premium transfers on us!",
+            "url": "/pages/grab-your-free-sample"
+          }
+        }
+      },
+      "block_order": [
+        "k1",
+        "k2",
+        "k3"
+      ],
+      "settings": {
+        "handles": "custom, custom-dtf-for-fabric",
+        "tint": "none",
+        "eyebrow": "SHEmakes perks",
+        "heading": "We don't just print your transfers. *We help you grow your business too.*",
+        "subheading": "",
+        "note": "Free tools and extras to help you create, market, and grow.",
+        "strip": "Free shipping on orders $150+",
+        "strip_url": "/policies/shipping-policy"
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "image_banner_tF4PAX",
+    "rich_text_3HcTXi",
+    "product-grid",
+    "perks",
+    "options",
+    "how_to_steps"
+  ]
+}

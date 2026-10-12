@@ -1,0 +1,199 @@
+{% comment %}
+  SHEmakes — a row of option cards.
+
+  The same strip the beginner's guide opens with — label, the thing itself, a
+  line underneath — but each card can carry a link, so it does the job the
+  collections were doing with a centred wall of bullet points: "which listing
+  do I use, and why".
+
+  Plain Liquid. A card with no link renders as a card; one with a link renders
+  as the same card, clickable.
+
+  Ticking "Side-by-side comparison" swaps the strip for two decision cards
+  with a VS between them — a badge, an icon, the surfaces it is for, and a
+  button of its own. The custom transfers page sells one decision, and it has
+  to be told apart at a glance rather than read carefully. The whole card
+  stops being the link there, because a card cannot hold a button and be one.
+{% endcomment %}
+
+<div class="sm-section sm-section--tight">
+  <div class="sm-container">
+    {%- if section.settings.heading != blank or section.settings.eyebrow != blank -%}
+      <div class="sm-options__head">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="sm-eyebrow">{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.heading != blank -%}
+          {% render 'sm-heading', text: section.settings.heading, tag: 'h2', class: 'sm-heading sm-heading--md' %}
+        {%- endif -%}
+
+        {%- if section.settings.body != blank -%}
+          <p class="sm-body sm-options__intro">{{ section.settings.body }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 and section.settings.compare -%}
+      <div class="sm-options sm-options--compare">
+        {%- for block in section.blocks -%}
+          {%- comment -%}
+            The surfaces this one is for, one per line. A list rather than a
+            sentence: "can I put this on a glass mug" is answered by scanning.
+          {%- endcomment -%}
+          {%- assign surfaces = '' | split: ',' -%}
+          {%- if block.settings.surfaces != blank -%}
+            {%- assign surfaces = block.settings.surfaces | newline_to_br | split: '<br />' -%}
+          {%- endif -%}
+
+          {%- comment -%}
+            The peeled corner goes on the card that sells a sticker. The icon
+            is what says which one that is, so the card follows the icon
+            rather than the position — the two cards can be reordered in the
+            editor and the corner stays with the decal.
+          {%- endcomment -%}
+          <div class="sm-options__card{% if block.settings.featured %} sm-options__card--featured{% endif %}{% if block.settings.icon == 'tumbler' %} sm-options__card--peel{% endif %}" {{ block.shopify_attributes }}>
+            {%- if block.settings.badge != blank -%}
+              {%- comment -%}
+                The badge sits on the card's own top edge rather than inside
+                it: a label that straddles the border reads as applied to the
+                card, and a label stacked inside it reads as the first line of
+                the card's content.
+              {%- endcomment -%}
+              <p class="sm-badge sm-options__badge">{{ block.settings.badge }}</p>
+            {%- endif -%}
+
+            {%- if block.settings.icon != blank and block.settings.icon != 'none' -%}
+              <span class="sm-options__icon" aria-hidden="true">
+                {% render 'sm-icon', name: block.settings.icon %}
+              </span>
+            {%- endif -%}
+
+            <p class="sm-options__title">{{ block.settings.title }}</p>
+
+            {%- if block.settings.note != blank -%}
+              <p class="sm-options__note">{{ block.settings.note }}</p>
+            {%- endif -%}
+
+            {%- if surfaces.size > 0 -%}
+              <ul class="sm-options__surfaces" role="list">
+                {%- for row in surfaces -%}
+                  {%- assign surface = row | strip -%}
+                  {%- if surface != blank -%}
+                    <li>{{ surface }}</li>
+                  {%- endif -%}
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+
+            {%- if block.settings.url != blank -%}
+              <a class="sm-button sm-button--primary sm-options__cta" href="{{ block.settings.url }}">
+                {{ block.settings.cta_label | default: 'Browse' }}
+                <span aria-hidden="true">&rarr;</span>
+              </a>
+            {%- endif -%}
+          </div>
+
+          {%- comment -%}
+            The divider only makes sense between two things, and only once.
+          {%- endcomment -%}
+          {%- if forloop.first and section.blocks.size == 2 -%}
+            <span class="sm-options__vs" aria-hidden="true">VS</span>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- elsif section.blocks.size > 0 -%}
+      <div class="sm-options">
+        {%- for block in section.blocks -%}
+          {%- if block.settings.url != blank -%}
+            <a class="sm-options__card" href="{{ block.settings.url }}" {{ block.shopify_attributes }}>
+          {%- else -%}
+            <div class="sm-options__card" {{ block.shopify_attributes }}>
+          {%- endif -%}
+
+            {%- if block.settings.label != blank -%}
+              <p class="sm-mono sm-options__label">{{ block.settings.label }}</p>
+            {%- endif -%}
+
+            <p class="sm-options__title">{{ block.settings.title }}</p>
+
+            {%- if block.settings.note != blank -%}
+              <p class="sm-options__note">{{ block.settings.note }}</p>
+            {%- endif -%}
+
+            {%- if block.settings.url != blank -%}
+              <span class="sm-options__go" aria-hidden="true">&rarr;</span>
+            {%- endif -%}
+
+          {%- if block.settings.url != blank -%}
+            </a>
+          {%- else -%}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "SHEmakes option cards",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Custom orders" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Which listing to *use*" },
+    { "type": "textarea", "id": "body", "label": "Intro" },
+    {
+      "type": "checkbox",
+      "id": "compare",
+      "label": "Side-by-side comparison",
+      "info": "Two decision cards with a VS between them. Uses the badge, icon, surfaces and button below.",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "option",
+      "name": "Option",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Easiest" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Auto Builder Tool" },
+        { "type": "text", "id": "note", "label": "Note" },
+        { "type": "url", "id": "url", "label": "Link" },
+        { "type": "header", "content": "Comparison card" },
+        { "type": "text", "id": "badge", "label": "Badge", "info": "Only shown in the side-by-side layout. Sits on the card's top edge." },
+        {
+          "type": "checkbox",
+          "id": "featured",
+          "label": "Pick this one out",
+          "info": "Draws this card in ink while the others stay on the canvas. One card at most, or nothing is picked out.",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "none", "label": "None" },
+            { "value": "shirt", "label": "T-shirt" },
+            { "value": "tumbler", "label": "Peel and stick" },
+            { "value": "printer", "label": "Printer" },
+            { "value": "upload", "label": "Upload" },
+            { "value": "star", "label": "Star" }
+          ],
+          "default": "none"
+        },
+        { "type": "textarea", "id": "surfaces", "label": "What it is for", "info": "One per line." },
+        { "type": "text", "id": "cta_label", "label": "Button label" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SHEmakes option cards",
+      "blocks": [{ "type": "option" }, { "type": "option" }, { "type": "option" }]
+    }
+  ]
+}
+{% endschema %}

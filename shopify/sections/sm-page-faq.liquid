@@ -1,0 +1,132 @@
+{% comment %}
+  SHEmakes — a content page rendered as an accordion.
+
+  For the FAQ and the policy pages, where the shop writes one long column of
+  bold question / answer / bold question. As prose that is a wall; as an
+  accordion it is scannable, and it is the same accordion as the homepage.
+
+  The page content is handed to the island untouched and parsed in the browser,
+  which has a real HTML parser. The Liquid fallback below is the page exactly
+  as it is written, so nothing is hidden if the bundle never arrives.
+
+  Assign this template to a page in Shopify admin:
+  Online Store → Pages → the page → Theme template.
+{% endcomment %}
+
+{%- liquid
+  comment
+    The closing card takes the same treatment as the collection heads: the
+    last word of the heading in the script face, on a photograph. A heading
+    the shop has already marked up itself is left exactly as written.
+  endcomment
+  assign cta_heading = section.settings.cta_heading
+  unless cta_heading contains '*'
+    assign heading_words = cta_heading | split: ' '
+    if heading_words.size > 1
+      assign last_word = heading_words | last
+      assign heading_start = cta_heading | remove_last: last_word
+      assign cta_heading = heading_start | append: '*' | append: last_word | append: '*'
+    else
+      assign cta_heading = '*' | append: cta_heading | append: '*'
+    endif
+  endunless
+
+  if section.settings.cta_image
+    assign cta_image_url = section.settings.cta_image | image_url: width: 1800
+  else
+    assign cta_image_url = 'sm-cta.jpg' | asset_url
+  endif
+-%}
+
+{%- liquid
+  comment
+    The questions the shop keeps in the theme (Theme settings → SHEmakes
+    redesign → FAQ) go ahead of the page's own, on the page that asks for
+    them. The policy pages use this section too and do not.
+  endcomment
+  assign faq_html = page.content
+  if section.settings.include_extra and settings.sm_faq_extra != blank
+    assign faq_html = settings.sm_faq_extra | append: page.content
+  endif
+-%}
+
+{%- capture props -%}
+{
+  "title": {{ page.title | json }},
+  "eyebrow": {{ section.settings.eyebrow | json }},
+  "html": {{ faq_html | json }},
+  "cta": {
+    "heading": {{ cta_heading | json }},
+    "image": {{ cta_image_url | json }},
+    "body": {{ section.settings.cta_body | json }},
+    "label": {{ section.settings.cta_label | json }},
+    "url": {{ section.settings.cta_url | default: '#' | json }}
+  }
+}
+{%- endcapture -%}
+
+{%- capture fallback -%}
+<div class="sm-section sm-section--lilac">
+  <div class="sm-container sm-faq-page">
+    <header class="sm-page__head">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="sm-eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      <h1 class="sm-heading sm-heading--md">{{ page.title }}</h1>
+    </header>
+
+    <div class="sm-prose rte">{{ faq_html }}</div>
+
+    {%- if section.settings.cta_label != blank -%}
+      <div class="sm-page__cta sm-page__cta--photo">
+        <div class="sm-page__cta-media" aria-hidden="true">
+          <img src="{{ cta_image_url }}" alt="" loading="lazy">
+          <span class="sm-page__cta-scrim"></span>
+        </div>
+
+        <div>
+          {% render 'sm-heading', text: cta_heading, tag: 'h2', class: 'sm-heading sm-heading--md' %}
+          {%- if section.settings.cta_body != blank -%}
+            <p class="sm-body">{{ section.settings.cta_body }}</p>
+          {%- endif -%}
+        </div>
+        <a href="{{ section.settings.cta_url | default: '#' }}" class="sm-button sm-button--primary">
+          {{ section.settings.cta_label }}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+{%- endcapture -%}
+
+<div class="sm-reveal">
+  {% render 'sm-island', name: 'page-faq', props: props, fallback: fallback %}
+</div>
+
+{% schema %}
+{
+  "name": "SHEmakes page accordion",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "include_extra",
+      "label": "Add the theme's extra questions",
+      "info": "Theme settings → SHEmakes redesign → FAQ. For the FAQ page; leave off on policy pages.",
+      "default": false
+    },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Before you order" },
+    { "type": "header", "content": "Closing card" },
+    { "type": "text", "id": "cta_heading", "label": "Heading", "default": "Still not sure?" },
+    { "type": "image_picker", "id": "cta_image", "label": "Card photo", "info": "A print from the shop floor ships with the theme." },
+    {
+      "type": "textarea",
+      "id": "cta_body",
+      "label": "Body",
+      "default": "Send us the file and what you are pressing it on. We answer the same working day."
+    },
+    { "type": "text", "id": "cta_label", "label": "Button", "default": "Talk to us" },
+    { "type": "url", "id": "cta_url", "label": "Button link" }
+  ]
+}
+{% endschema %}

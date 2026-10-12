@@ -1,0 +1,266 @@
+{% comment %}
+  SHEmakes — hero.
+
+  A React island, with the full hero rendered by Liquid underneath as the
+  fallback. Until the bundle arrives — or if it never does — the page still
+  shows the heading, the copy and both buttons. React takes over to count the
+  statistics up as they are scrolled to.
+{% endcomment %}
+
+{%- liquid
+  comment
+    The video: whichever the shop picked, else the file that ships with the
+    theme. Empty turns it off and the hero is the photograph again.
+  endcomment
+  assign hero_video = ''
+  if section.settings.show_video
+    if section.settings.video_url != blank
+      assign hero_video = section.settings.video_url
+    else
+      assign hero_video = 'sm-hero-video.mp4' | asset_url
+    endif
+  endif
+
+  assign hero_image = ''
+  if section.settings.image != blank
+    assign hero_image = section.settings.image | image_url: width: 1800
+  endif
+
+  assign stats = ''
+  for block in section.blocks
+    assign v = block.settings.value | json
+    assign l = block.settings.label | json
+    assign ic = block.settings.icon | default: '' | json
+    assign nt = block.settings.note | default: '' | json
+    assign lk = block.settings.url | default: '' | json
+    assign row = '{"value":' | append: v | append: ',"label":' | append: l | append: ',"icon":' | append: ic | append: ',"note":' | append: nt | append: ',"url":' | append: lk | append: '}'
+    if forloop.first
+      assign stats = row
+    else
+      assign stats = stats | append: ',' | append: row
+    endif
+  endfor
+-%}
+
+{%- capture props -%}
+{
+  "image": {{ hero_image | json }},
+  "video": {{ hero_video | json }},
+  "pill": {{ section.settings.pill | json }},
+  "heading": {{ section.settings.heading | json }},
+  "body": {{ section.settings.body | json }},
+  "rating": {{ section.settings.rating | json }},
+  "ratingUrl": {{ section.settings.rating_url | default: '' | json }},
+  "ratingHeading": {{ section.settings.rating_heading | default: '' | json }},
+  "primary": { "label": {{ section.settings.primary_label | json }}, "url": {{ section.settings.primary_url | default: '#' | json }} },
+  "secondary": { "label": {{ section.settings.secondary_label | json }}, "url": {{ section.settings.secondary_url | default: '#' | json }} },
+  "stats": [{{ stats }}]
+}
+{%- endcapture -%}
+
+{%- capture fallback -%}
+  <div class="sm-hero">
+    {%- if hero_video != blank -%}
+      <video
+        class="sm-hero__video"
+        src="{{ hero_video }}"
+        {% if section.settings.image %}poster="{{ section.settings.image | image_url: width: 1800 }}"{% endif %}
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="none"
+        aria-hidden="true"
+        tabindex="-1"
+      ></video>
+    {%- endif -%}
+
+    {%- if section.settings.image -%}
+      <img
+        src="{{ section.settings.image | image_url: width: 1800 }}"
+        alt=""
+        width="{{ section.settings.image.width }}"
+        height="{{ section.settings.image.height }}"
+        class="sm-hero__image"
+        loading="eager"
+        fetchpriority="high"
+      >
+    {%- endif -%}
+
+    <div class="sm-hero__scrim"></div>
+    <div class="sm-hero__scrim sm-hero__scrim--foot"></div>
+
+    <div class="sm-container">
+      <div class="sm-hero__inner">
+        {%- if section.settings.pill != blank -%}
+          <span class="sm-hero__pill">{{ section.settings.pill }}</span>
+        {%- endif -%}
+
+        {%- if section.settings.heading != blank -%}
+          <h1 class="sm-hero__heading">{{ section.settings.heading }}</h1>
+        {%- endif -%}
+
+        {%- if section.settings.body != blank -%}
+          <p class="sm-hero__body">{{ section.settings.body }}</p>
+        {%- endif -%}
+
+        <div class="sm-hero__actions">
+          {%- if section.settings.primary_label != blank -%}
+            <a href="{{ section.settings.primary_url | default: '#' }}" class="sm-button sm-button--primary">
+              {{ section.settings.primary_label }}
+            </a>
+          {%- endif -%}
+          {%- if section.settings.secondary_label != blank -%}
+            <a href="{{ section.settings.secondary_url | default: '#' }}" class="sm-button sm-button--ghost-light">
+              {{ section.settings.secondary_label }}
+            </a>
+          {%- endif -%}
+        </div>
+
+        {%- if section.settings.rating != blank -%}
+          <div class="sm-hero__rating sm-hero__rating--band">
+            {%- if section.settings.rating_heading != blank -%}
+              <p class="sm-hero__rating-heading">{{ section.settings.rating_heading }}</p>
+            {%- endif -%}
+            <span class="sm-hero__stars" aria-hidden="true">
+              {%- for i in (1..5) -%}
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 3 2.8 5.8 6.4.9-4.6 4.5 1.1 6.4L12 17.6l-5.7 3 1.1-6.4-4.6-4.5 6.4-.9z"/></svg>
+              {%- endfor -%}
+            </span>
+            {%- if section.settings.rating_url != blank -%}
+              <a class="sm-hero__rating-score" href="{{ section.settings.rating_url }}">{{ section.settings.rating }}</a>
+            {%- else -%}
+              <p class="sm-hero__rating-score">{{ section.settings.rating }}</p>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+
+  {%- if section.blocks.size > 0 -%}
+    <div class="sm-stats">
+      <div class="sm-container">
+        <dl class="sm-stats__grid">
+          {%- for block in section.blocks -%}
+            <div class="sm-stats__cell">
+              {%- if block.settings.url != blank -%}
+                <a class="sm-stats__cover" href="{{ block.settings.url }}" aria-label="{{ block.settings.value | escape }} {{ block.settings.label | escape }}"></a>
+              {%- endif -%}
+              {%- if block.settings.icon != blank and block.settings.icon != 'none' -%}
+                <span class="sm-stats__icon" aria-hidden="true">{% render 'sm-icon', name: block.settings.icon %}</span>
+              {%- endif -%}
+
+              <div class="sm-stats__text">
+                {%- if block.settings.value != blank -%}
+                  <dd class="sm-stats__value">{{ block.settings.value }}</dd>
+                {%- endif -%}
+                {%- if block.settings.label != blank -%}
+                  <dt class="sm-stats__label">{{ block.settings.label }}</dt>
+                {%- endif -%}
+                {%- if block.settings.note != blank -%}
+                  <p class="sm-stats__note">{{ block.settings.note }}</p>
+                {%- endif -%}
+              </div>
+            </div>
+          {%- endfor -%}
+        </dl>
+      </div>
+    </div>
+  {%- endif -%}
+{%- endcapture -%}
+
+{% render 'sm-island', name: 'hero', props: props, fallback: fallback %}
+
+{% schema %}
+{
+  "name": "SHEmakes hero",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_video",
+      "label": "Play a video behind the hero",
+      "info": "Muted and looping, with the photograph as its poster. Hidden on phones, where it would be a large download for decoration.",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "video_url",
+      "label": "Video file",
+      "info": "Leave empty to use the video that ships with the theme."
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background photograph",
+      "info": "A calm, evenly lit shot works best — the heading sits on top of it. A blank garment beats a printed one, which competes with the type."
+    },
+    {
+      "type": "text",
+      "id": "pill",
+      "label": "Location line",
+      "default": "Printed in London, Ontario · shipped across Canada & the USA"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Your artwork, printed and out the door tomorrow"
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body",
+      "default": "DTF and UV DTF transfers for small businesses and makers. Upload a file, check it in the browser, and press it this week — no minimums."
+    },
+    { "type": "header", "content": "Buttons" },
+    { "type": "text", "id": "primary_label", "label": "Primary button", "default": "Start a custom order" },
+    { "type": "url", "id": "primary_url", "label": "Primary link" },
+    { "type": "text", "id": "secondary_label", "label": "Secondary button", "default": "Browse ready to press" },
+    { "type": "url", "id": "secondary_url", "label": "Secondary link" },
+    { "type": "header", "content": "Proof" },
+    { "type": "text", "id": "rating_heading", "label": "Rating heading", "default": "Real customers. Real feedback." },
+    { "type": "text", "id": "rating", "label": "Rating line", "default": "4.9/5 from 367 customers" },
+    { "type": "url", "id": "rating_url", "label": "Rating line link", "info": "Where the rating takes people — the reviews on the page, e.g. #sm-reviews." }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Statistic",
+      "limit": 3,
+      "settings": [
+        { "type": "text", "id": "value", "label": "Figure", "default": "1–2" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Business days" },
+        { "type": "text", "id": "note", "label": "Small print", "info": "One quiet line under the label." },
+        { "type": "url", "id": "url", "label": "Link", "info": "Optional — the rating, say, can take people to the reviews." },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "none", "label": "No icon" },
+            { "value": "time", "label": "Clock" },
+            { "value": "star", "label": "Star" },
+            { "value": "cloud", "label": "Cloud" },
+            { "value": "truck", "label": "Delivery" },
+            { "value": "shield", "label": "Checked" },
+            { "value": "maple", "label": "Maple leaf" }
+          ],
+          "default": "none"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SHEmakes hero",
+      "blocks": [
+        { "type": "stat", "settings": { "icon": "time", "value": "1–2", "label": "Business days", "note": "Typical turnaround · 24-hour rush available" } },
+        { "type": "stat", "settings": { "icon": "star", "value": "4.9/5", "label": "Customer rating", "note": "367 real customer reviews" } },
+        { "type": "stat", "settings": { "icon": "cloud", "value": "Soft + durable", "label": "", "note": "Premium transfers. Soft feel. Made to last." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

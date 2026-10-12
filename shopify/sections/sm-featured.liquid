@@ -1,0 +1,138 @@
+{% comment %}
+  SHEmakes — a strip of products from one collection ("New this week").
+
+  Replaces the theme's featured-collection, which shipped with no collection
+  chosen and so rendered a heading over nothing.
+
+  Plain Liquid: a row of cards has no state. Shopify's own image_url does the
+  responsive sizing, and the cards are the same ones the browse grid uses, so
+  the two never drift apart.
+{% endcomment %}
+
+{%- liquid
+  assign featured = collections[section.settings.collection]
+
+  comment
+    With nothing chosen, fall back to the newest products in the shop rather
+    than rendering a heading over an empty row.
+  endcomment
+  if featured == blank or featured.products_count == 0
+    assign featured = collections.all
+  endif
+-%}
+
+<div class="sm-section">
+  <div class="sm-container">
+    <div class="sm-featured__head">
+      <div>
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="sm-eyebrow">{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+        {% render 'sm-heading', text: section.settings.heading, tag: 'h2', class: 'sm-heading sm-heading--md' %}
+      </div>
+
+      {%- if section.settings.cta_label != blank -%}
+        <a href="{{ section.settings.cta_url | default: featured.url }}" class="sm-button sm-button--secondary">
+          {{ section.settings.cta_label }}
+        </a>
+      {%- endif -%}
+    </div>
+
+    {%- if featured.products.size > 0 -%}
+      {%- liquid
+        comment
+          The same row the browse grid sends, from the same snippet — the strip
+          drew a hand-written copy of the card before, and that copy had no
+          variant id and so no add to cart.
+        endcomment
+        assign rows = ''
+      -%}
+      {%- for product in featured.products limit: section.settings.count -%}
+        {%- capture row %}{% render 'sm-product-json', product: product %}{% endcapture -%}
+        {%- if forloop.first -%}
+          {%- assign rows = row -%}
+        {%- else -%}
+          {%- assign rows = rows | append: ',' | append: row -%}
+        {%- endif -%}
+      {%- endfor -%}
+
+      {%- capture props -%}
+{ "products": [{{ rows }}], "currency": {{ cart.currency.iso_code | json }} }
+      {%- endcapture -%}
+
+      {%- capture fallback -%}
+        <div class="sm-browse__grid">
+          {%- for product in featured.products limit: section.settings.count -%}
+            <a class="sm-card" href="{{ product.url }}">
+              <div class="sm-card__media">
+                {%- if product.featured_image -%}
+                  <img
+                    src="{{ product.featured_image | image_url: width: 600 }}"
+                    srcset="{{ product.featured_image | image_url: width: 400 }} 400w, {{ product.featured_image | image_url: width: 800 }} 800w"
+                    sizes="(min-width: 990px) 24vw, 45vw"
+                    alt="{{ product.title | escape }}"
+                    loading="lazy"
+                  >
+                {%- else -%}
+                  <div class="sm-card__placeholder"></div>
+                {%- endif -%}
+
+                {%- if product.compare_at_price > product.price -%}
+                  <div class="sm-card__badges">
+                    <span class="sm-badge sm-badge--signal">Sale</span>
+                  </div>
+                {%- endif -%}
+              </div>
+
+              <div class="sm-card__body">
+                <h3 class="sm-card__title">{{ product.title }}</h3>
+                <p class="sm-card__price">
+                  {{ product.price | money }}
+                  {%- if product.compare_at_price > product.price -%}
+                    <span class="sm-card__compare">{{ product.compare_at_price | money }}</span>
+                  {%- endif -%}
+                </p>
+
+                {%- comment -%}
+                  No-JS: the form posts to the cart the way Shopify does it.
+                {%- endcomment -%}
+                {%- if product.available and product.variants.size == 1 -%}
+                  <form method="post" action="{{ routes.cart_add_url }}">
+                    <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                    <button type="submit" class="sm-quickadd"><span class="sm-quickadd__label">Add to cart</span></button>
+                  </form>
+                {%- endif -%}
+              </div>
+            </a>
+          {%- endfor -%}
+        </div>
+      {%- endcapture -%}
+
+      {% render 'sm-island', name: 'product-strip', props: props, fallback: fallback %}
+    {%- else -%}
+      <p class="sm-body">{{ section.settings.empty_body }}</p>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "SHEmakes featured",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Just landed" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "New this week" },
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "range", "id": "count", "label": "Designs to show", "min": 2, "max": 12, "step": 1, "default": 4 },
+    { "type": "text", "id": "cta_label", "label": "Button", "default": "See everything" },
+    { "type": "url", "id": "cta_url", "label": "Button link" },
+    {
+      "type": "text",
+      "id": "empty_body",
+      "label": "Text when the collection is empty",
+      "default": "Nothing here yet — new designs land every Tuesday."
+    }
+  ],
+  "presets": [{ "name": "SHEmakes featured" }]
+}
+{% endschema %}

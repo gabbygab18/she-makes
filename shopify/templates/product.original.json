@@ -1,0 +1,280 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "174718329921db6b0c": {
+      "type": "apps",
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {
+            "heading_size": "heading-medium",
+            "font_weight": "400",
+            "letter_spacing": 0,
+            "title_color_scheme": "background-2"
+          }
+        },
+        "caption": {
+          "type": "text",
+          "settings": {
+            "text": "{{ product.metafields.descriptors.subtitle.value }}",
+            "text_style": "subtitle"
+          }
+        },
+        "jedi_stock_counter_stock_counter_wP7UWM": {
+          "type": "shopify://apps/jedi-stock-counter/blocks/stock_counter/3cb229cd-7886-4c0a-b596-0b268868882a",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "bf9d8155-1268-4e91-b614-33349b971d2b": {
+          "type": "inventory_alert",
+          "disabled": true,
+          "settings": {}
+        },
+        "bulletpoints_JBGBjb": {
+          "type": "bulletpoints",
+          "settings": {
+            "stock": "{{ product.metafields.custom.stock_text.value }}",
+            "usp1": "<p><strong>Fast Processing Times</strong></p>",
+            "svg1": "shopify://shop_images/delivery-truck_1.png",
+            "usp2": "<p><strong>Customer Satisfaction Guaranteed</strong></p>",
+            "svg2": "shopify://shop_images/shield_1.png",
+            "usp3": ""
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button"
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": false,
+            "button_text": "background-2",
+            "button_background": "accent-3",
+            "button_outline_style": false,
+            "button_hover_bg": "background-1"
+          }
+        },
+        "14bd7926-cc97-4347-a470-0ca0b3c2d367": {
+          "type": "stockbar",
+          "settings": {
+            "stockbar_box": false,
+            "background_color": "#f6a6c6",
+            "text_color": "#3e3e3e"
+          }
+        },
+        "custom_liquid_UREKXx": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "{{ product.description }}"
+          }
+        },
+        "description": {
+          "type": "description",
+          "disabled": true,
+          "settings": {
+            "title": "Description",
+            "icon": "check_mark"
+          }
+        },
+        "reviews_d33Vtf": {
+          "type": "reviews",
+          "settings": {
+            "title": "Customer Feedback",
+            "icon": "star"
+          }
+        },
+        "collapsible_tab1_iW9GV6": {
+          "type": "collapsible_tab1",
+          "settings": {
+            "heading": "{{ product.metafields.custom.dropdown_title_2.value }} Sizing",
+            "icon": "ruler",
+            "content": "<p><strong>DTF Transfer sizes:</strong></p><ul><li>Adult 10.5-11\" wide or tall, whichever number comes first</li><li>Youth 7.5 - 8\" wide or tall, whichever number comes first</li><li>Toddler 6-6.5\" wide or tall, whichever number comes first</li><li>Pocket/Koozie Size 3.5-4\" wide or tall, whichever number comes first<br/><br/><strong>UV DTF:</strong></li><li>Full Wraps 9-9.5\" inches wide by 3.5-4.0\" inches tall</li><li>Decals are 2.85\"-4\" wide or tall, whichever number comes first<br/></li></ul><p><em>These are approximate sizes and sizing will vary based on design.</em></p>",
+            "page": ""
+          }
+        },
+        "collapsible_tab2_D3h3Vm": {
+          "type": "collapsible_tab2",
+          "settings": {
+            "heading": "DTF Pressing Instructions",
+            "icon": "iron",
+            "content": "<p><strong>DTF Pressing Instructions</strong></p><ul><li>Each order comes with pressing instructions<br/></li><li>It’s always a good idea to test your transfer first to find the ideal time + temp that works for your press as <br/>each heat press is made differently.  <br/></li><li>We highly recommend using a commercial heat press. <br/></li><li>Apply HEAVY pressure. It should take two hands to pull your press shut.<br/></li><li><strong>Peel your transfer swiftly, with confidence. Do not peel slowly if peeling hot.</strong> Think of it as ripping off a wax strip when you go to peel.<br/></li><li>Alternatively, you can wait for the transfer to cool and then peel.<strong><br/><br/>Material</strong>\t <strong>      Temp</strong>\t<strong>Time</strong><br/>100% Cotton\t300°F   10secs<br/>50/50 Blends\t300°F   10secs<br/>100% Polyester 275-300F 10secs            <br/><br/><strong>SPECIFIC STEPS: <br/>Follow each step to ensure best results.</strong></li></ul><p>1. Pre press your material at time and temp above (300F for 5-10 seconds)</p><p>2. Apply the transfer face down, ensure heavy pressure, and press at 300F for 10 seconds<br/><br/>3. Swiftly peel the transfer off. Peeling it with confidence (not slowly) while it's hot OR wait for it to cool down and then peel</p><p>4. Give it a second press at 300F for 10 seconds but this time, place a piece of parchment paper/butcher paper or old t-shirt on top of your transfer and press. That's it! A stunning, matte and durable transfer is the end result.</p><p>Ideally, wait 24 hours before washing. <br/><br/><strong>Care Instructions - DTF transfers:</strong></p><ul><li>Wash inside out</li><li>Wait 24 hours before washing</li><li>Do NOT iron over design</li><li>Hang to dry or tumble dry low</li><li>Do NOT bleach</li><li>Do NOT dry clean</li></ul>",
+            "page": ""
+          }
+        },
+        "collapsible_tab5_GRwFeB": {
+          "type": "collapsible_tab5",
+          "settings": {
+            "heading": "UV DTF Application",
+            "icon": "check_mark",
+            "content": "<p><span style=\"text-decoration:underline\"><strong>INSTRUCTIONS:</strong></span></p><p>Gently peel back the carrier sheet (the bottom layer)</p><p>Apply the sticky decal to your surface</p><p>Use your fingers to rub over the transfer really well. You can also use a squeegee. </p><p>Peel off the top layer</p><p>Do not wash for at least 24 hours to allow for a better cure<br/><br/><strong>For items (i.e. glass cups) using UV DTF:</strong></p><p><strong>Care Instructions:</strong></p><ul><li>Hand wash only</li><li>Use warm water and soft sponge or washcloth</li><li>Avoid abrasive/harsh cleansers</li><li>Do not soak</li></ul>",
+            "page": ""
+          }
+        },
+        "collapsible_tab3_BFQJLj": {
+          "type": "collapsible_tab3",
+          "settings": {
+            "heading": "Shipping & Turnaround",
+            "icon": "stopwatch",
+            "content": "<ul><li>All orders ship within 1-3 business days</li><li>Free shipping on orders over $150 OR;</li><li>Discounted flat rates </li><li>Free local pickup in London, Ontario or St. Thomas, Ontario</li></ul>",
+            "page": ""
+          }
+        },
+        "collapsible_tab4_tNzpN4": {
+          "type": "collapsible_tab4",
+          "settings": {
+            "heading": "Return Policy/Disclaimer",
+            "icon": "heart",
+            "content": "<p>Due to the custom nature of transfers, <span style=\"text-decoration:underline\">all sales are final</span>. If your items arrive damaged or defective, please contact us within 3 days for a resolution.<br/><br/>All transfer sizes are approximate.<br/><br/>Transfer colours may vary slighty. </p><p><em>For any issue with your order, please contact us at info@shemakestransfers.com. We're always happy to help! </em></p>",
+            "page": ""
+          }
+        },
+        "share": {
+          "type": "share",
+          "settings": {
+            "share_label": "Share"
+          }
+        },
+        "bdb5a79f-6729-4c69-8106-5da6eb534c8a": {
+          "type": "icon_with_text",
+          "settings": {
+            "icon1": "shopify://shop_images/icon-warranty.png",
+            "title1": "Secure Payment and Privacy",
+            "icon2": "shopify://shop_images/money-back.png",
+            "title2": "Friendly Customer Service and Fast Help",
+            "icon3": "shopify://shop_images/3_9ef141cd-ee4b-4676-85f6-ce499a0ca34d.png",
+            "title3": "Superior Quality prints using the latest Industrial equipment"
+          }
+        },
+        "judge_me_reviews_preview_badge_MBWtYV": {
+          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "title",
+        "caption",
+        "jedi_stock_counter_stock_counter_wP7UWM",
+        "price",
+        "bf9d8155-1268-4e91-b614-33349b971d2b",
+        "bulletpoints_JBGBjb",
+        "variant_picker",
+        "quantity_selector",
+        "buy_buttons",
+        "14bd7926-cc97-4347-a470-0ca0b3c2d367",
+        "custom_liquid_UREKXx",
+        "description",
+        "reviews_d33Vtf",
+        "collapsible_tab1_iW9GV6",
+        "collapsible_tab2_D3h3Vm",
+        "collapsible_tab5_GRwFeB",
+        "collapsible_tab3_BFQJLj",
+        "collapsible_tab4_tNzpN4",
+        "share",
+        "bdb5a79f-6729-4c69-8106-5da6eb534c8a",
+        "judge_me_reviews_preview_badge_MBWtYV"
+      ],
+      "settings": {
+        "enable_sticky_info": false,
+        "gallery_layout": "thumbnail_slider",
+        "media_size": "small",
+        "mobile_thumbnails": "hide",
+        "hide_variants": true,
+        "enable_video_looping": false,
+        "padding_top": 40,
+        "padding_bottom": 12
+      }
+    },
+    "170527802101ac3feb": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_TaGfPc": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "sample_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "empty_widget"
+          }
+        },
+        "judge_me_reviews_featured_carousel_iyJNLG": {
+          "type": "shopify://apps/judge-me-reviews/blocks/featured_carousel/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "maxwidth": 1080
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_TaGfPc",
+        "judge_me_reviews_featured_carousel_iyJNLG"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "settings": {
+        "heading": "Frequently Bought With",
+        "heading_size": "h2",
+        "font_weight": "400",
+        "letter_spacing": 0,
+        "heading_color_scheme": "background-2",
+        "text_alignment": "center",
+        "products_to_show": 10,
+        "columns_desktop": 4,
+        "color_scheme": "background-1",
+        "image_ratio": "square",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": true,
+        "columns_mobile": "2",
+        "padding_top": 36,
+        "padding_bottom": 28
+      }
+    },
+    "1675953019b343b35b": {
+      "type": "apps",
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "1756643492a482077f": {
+      "type": "apps",
+      "settings": {
+        "include_margins": true
+      }
+    }
+  },
+  "order": [
+    "174718329921db6b0c",
+    "main",
+    "170527802101ac3feb",
+    "product-recommendations",
+    "1675953019b343b35b",
+    "1756643492a482077f"
+  ]
+}

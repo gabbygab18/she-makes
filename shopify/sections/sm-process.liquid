@@ -1,0 +1,149 @@
+{% comment %}
+  SHEmakes — inside the shop.
+
+  The shop floor as one feature panel and three smaller ones. Every card is a
+  block, so the shop adds or removes them in the theme editor.
+
+  The play mark is drawn on each card because these are stills standing in for
+  clips. When the shop films them, swap the image block for a video block and
+  nothing about the layout moves.
+{% endcomment %}
+{%- liquid
+  assign items = ''
+  for block in section.blocks
+    assign src = ''
+    if block.settings.image != blank
+      assign src = block.settings.image | image_url: width: 1200
+    endif
+    assign src = src | json
+    assign t = block.settings.title | json
+    assign row = '{"title":' | append: t | append: ',"image":' | append: src | append: '}'
+    if forloop.first
+      assign items = row
+    else
+      assign items = items | append: ',' | append: row
+    endif
+  endfor
+-%}
+{%- capture props -%}
+{
+  "eyebrow": {{ section.settings.eyebrow | json }},
+  "heading": {{ section.settings.heading | json }},
+  "body": {{ section.settings.body | json }},
+  "items": [{{ items }}]
+}
+{%- endcapture -%}
+
+{%- comment -%}
+  The Liquid below is the fallback: it renders the whole section, so the
+  page is complete before the bundle arrives and stays complete if it
+  never does. React replaces it on mount.
+{%- endcomment -%}
+{%- capture fallback -%}
+<div class="sm-section">
+  <div class="sm-container">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="sm-eyebrow">{{ section.settings.eyebrow }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.heading != blank -%}
+      <h2 class="sm-heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+
+    {%- if section.settings.body != blank -%}
+      <p class="sm-body">{{ section.settings.body }}</p>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="sm-process__grid">
+        {%- for block in section.blocks -%}
+          {%- assign is_feature = false -%}
+          {%- if forloop.first and section.settings.feature_first -%}
+            {%- assign is_feature = true -%}
+          {%- endif -%}
+
+          <article
+            class="sm-process__card{% if is_feature %} sm-process__card--feature{% endif %}"
+            {{ block.shopify_attributes }}
+          >
+            {%- if block.settings.image -%}
+              <img
+                src="{{ block.settings.image | image_url: width: 1200 }}"
+                srcset="
+                  {{ block.settings.image | image_url: width: 600 }} 600w,
+                  {{ block.settings.image | image_url: width: 1200 }} 1200w
+                "
+                sizes="(min-width: 990px) 40vw, 90vw"
+                alt="{{ block.settings.image.alt | escape }}"
+                width="{{ block.settings.image.width }}"
+                height="{{ block.settings.image.height }}"
+                class="sm-process__image"
+                loading="lazy"
+              >
+            {%- endif -%}
+
+            <span class="sm-process__scrim" aria-hidden="true"></span>
+
+            {%- unless is_feature -%}
+              <span class="sm-process__play" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              </span>
+            {%- endunless -%}
+
+            <h3 class="sm-process__title">{{ block.settings.title }}</h3>
+          </article>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+{%- endcapture -%}
+
+<div class="sm-reveal">
+  {% render 'sm-island', name: 'process', props: props, fallback: fallback %}
+</div>
+
+{% schema %}
+{
+  "name": "SHEmakes process",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Inside the shop" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Printed by us, in London, Ontario" },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body",
+      "default": "Not a reseller and not overseas. Every sheet is printed, checked and packed on our own floor."
+    },
+    {
+      "type": "checkbox",
+      "id": "feature_first",
+      "label": "Make the first card large",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Card",
+      "limit": 6,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Photograph" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Production" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SHEmakes process",
+      "blocks": [
+        { "type": "card", "settings": { "title": "Production" } },
+        { "type": "card", "settings": { "title": "Instant peel" } },
+        { "type": "card", "settings": { "title": "Customer feedback" } },
+        { "type": "card", "settings": { "title": "Packing & pickup" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

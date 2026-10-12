@@ -1,0 +1,51 @@
+{% comment %}
+  SHEmakes — "Real customers. Real feedback."
+
+  A dark strip with the shop's score, drawn from the shop's own comp. The
+  score line is the point of it: it is a link down to the reviews, so the
+  number is something you can check rather than something you are told.
+
+  Plain Liquid: a heading, five stars and a link have no state.
+{% endcomment %}
+
+<div class="sm-section sm-section--tight sm-reveal">
+  <div class="sm-container">
+    <div class="sm-proof">
+      {%- if section.settings.heading != blank -%}
+        <p class="sm-proof__heading">{{ section.settings.heading }}</p>
+      {%- endif -%}
+
+      <span class="sm-proof__stars" aria-hidden="true">
+        {%- for i in (1..5) -%}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="m12 3 2.8 5.8 6.4.9-4.6 4.5 1.1 6.4L12 17.6l-5.7 3 1.1-6.4-4.6-4.5 6.4-.9z"/></svg>
+        {%- endfor -%}
+      </span>
+
+      {%- if section.settings.score != blank -%}
+        {%- if section.settings.url != blank -%}
+          <a class="sm-proof__score" href="{{ section.settings.url }}">{{ section.settings.score }}</a>
+        {%- else -%}
+          <p class="sm-proof__score">{{ section.settings.score }}</p>
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "SHEmakes review score",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Real customers. Real feedback." },
+    { "type": "text", "id": "score", "label": "Score line", "default": "4.9/5 from 367 customers" },
+    {
+      "type": "url",
+      "id": "url",
+      "label": "Score links to",
+      "info": "The reviews on the page. #sm-reviews is the review row on the homepage."
+    }
+  ],
+  "presets": [{ "name": "SHEmakes review score" }]
+}
+{% endschema %}

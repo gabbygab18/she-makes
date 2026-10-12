@@ -1,0 +1,34 @@
+{% comment %}
+  A photograph that holds still while the page moves over it.
+
+  The parallax is `background-attachment: fixed` — no scroll listener, no
+  library, and nothing to jank on a slow phone. iOS ignores it (and Chrome on
+  Android scrolls it anyway), so on touch the band simply becomes a normal
+  cover photo; the CSS says so explicitly rather than leaving it to chance.
+
+  The shop can drop its own photo in. The fallback is a print from its own
+  floor, bundled with the theme — it used to be an Unsplash URL, which is a
+  stock photograph of somebody else's work standing in for the shop's.
+
+  Usage: {% render 'sm-band', block: block %}
+{% endcomment %}
+
+{%- liquid
+  assign fallback = 'sm-band-1.jpg' | asset_url
+  assign source = block.settings.image_url | default: fallback
+  if block.settings.image != blank
+    assign source = block.settings.image | image_url: width: 1800
+  endif
+-%}
+
+<div class="sm-band" style="--sm-band-image: url('{{ source }}')" role="img" aria-label="{{ block.settings.quote | default: 'SHEmakes Transfers' | escape }}">
+  <div class="sm-band__scrim"></div>
+
+  {%- if block.settings.quote != blank -%}
+    <p class="sm-band__quote">{{ block.settings.quote }}</p>
+  {%- endif -%}
+
+  {%- if block.settings.credit != blank -%}
+    <p class="sm-band__credit">{{ block.settings.credit }}</p>
+  {%- endif -%}
+</div>

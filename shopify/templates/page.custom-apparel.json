@@ -1,0 +1,44 @@
+{
+  "sections": {
+    "main": {
+      "type": "sm-main-page",
+      "settings": {},
+      "disabled": true
+    },
+    "hero": {
+      "type": "sm-hero",
+      "settings": {
+        "show_video": false,
+        "pill": "",
+        "heading": "Custom apparel, *printed in London*",
+        "body": "Tees, hoodies, crewnecks, hats and tote bags — printed here, one piece or five hundred. Send the artwork and the quantity and you get a price back the same working day.",
+        "primary_label": "",
+        "primary_url": "",
+        "secondary_label": "",
+        "secondary_url": "",
+        "rating": "Trusted by 3,000+ makers across Canada and the USA"
+      }
+    },
+    "quote": {
+      "type": "sm-contact",
+      "settings": {
+        "eyebrow": "Custom apparel quote",
+        "use_h1": false,
+        "heading": "Tell us what you want *printed*",
+        "body": "High-quality printed apparel, hats, and more from the experts themselves. Let us know what you're looking for! We'll get back to you within 24 hours. Prices are based on quantities, designs, and product type.",
+        "topic_label": "What are we printing?",
+        "topics": "T-shirts, Hoodies or crewnecks, Hats, Tote bags, A mix of garments, Not sure yet",
+        "placeholder": "Example: 24 black hoodies, left chest print, one colour, needed by the 15th.",
+        "cta": "Send my quote request",
+        "consent": "We only use your details to answer this quote.",
+        "success": "Thanks — that is with us. You get a price back the same working day.",
+        "embed_page": "custom-apparel-quote"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "hero",
+    "quote"
+  ]
+}

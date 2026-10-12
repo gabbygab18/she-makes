@@ -1,0 +1,25 @@
+{
+  "sections": {
+    "main": {
+      "type": "sm-referral",
+      "blocks": {
+        "step1": { "type": "step", "settings": { "icon": "link", "title": "Get your unique link", "body": "Click the button above for your personal referral link." } },
+        "step2": { "type": "step", "settings": { "icon": "send", "title": "Share with your maker friends", "body": "Send your link to a fellow apparel maker or post it in Facebook groups or on social media." } },
+        "step3": { "type": "step", "settings": { "icon": "cart", "title": "They place an order", "body": "Your friend gets 20% off their first order of $50+. You'll get $20 in store credit once their order is fulfilled." } },
+        "why1": { "type": "reason", "settings": { "icon": "star", "title": "Premium quality transfers", "body": "" } },
+        "why2": { "type": "reason", "settings": { "icon": "truck", "title": "Fast turnaround", "body": "1–2 business days (24 hr rush available)" } },
+        "why3": { "type": "reason", "settings": { "icon": "group", "title": "Family owned and operated in Canada", "body": "" } },
+        "why4": { "type": "reason", "settings": { "icon": "heart", "title": "Support a fellow small business", "body": "" } },
+        "quote1": { "type": "quote", "settings": { "quote": "I referred a few friends and we all love the 20% off, not to mention the transfers! The store credit is such a nice bonus!", "name": "Taylor M." } },
+        "quote2": { "type": "quote", "settings": { "quote": "Super easy to share and my friend was so excited to try SHEmakes! I got my $20 store credit quickly and it was such a win for both of us.", "name": "Jordan K." } },
+        "quote3": { "type": "quote", "settings": { "quote": "I love being able to share a business I truly trust. My friends are always thankful for the 20% off, and I love getting store credit to use on my next order!", "name": "Alex R." } },
+        "faq1": { "type": "question", "settings": { "question": "How do I get my unique referral link?", "answer": "<p>Click <strong>Get your referral link</strong> on this page. Your personal link is ready to copy and share straight away.</p>" } },
+        "faq2": { "type": "question", "settings": { "question": "When will I receive my store credit?", "answer": "<p>Your $20 store credit is added once your friend's first order has been fulfilled. Use it on your next order of $75 or more.</p>" } },
+        "faq3": { "type": "question", "settings": { "question": "Are there any restrictions?", "answer": "<p>Your friend's 20% off applies to their first order of $50 or more. Your $20 store credit can be used on an order of $75 or more. Questions? Email <a href=\"mailto:info@shemakestransfers.com\">info@shemakestransfers.com</a>.</p>" } }
+      },
+      "block_order": ["step1", "step2", "step3", "why1", "why2", "why3", "why4", "quote1", "quote2", "quote3", "faq1", "faq2", "faq3"],
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

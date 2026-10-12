@@ -1,0 +1,164 @@
+{% comment %}
+  SHEmakes — "What are you making today?": the four doors into the shop.
+
+  One tall card for custom work beside a wide one for ready-to-press, with
+  decals and blanks sharing the row underneath. Four cards, four photographs
+  and four buttons — the shop's own layout, sent over as a Canva comp.
+
+  Liquid only: a card is a picture, a few words and a link, and none of that
+  has state. With any number of blocks other than four the grid falls back to
+  one card per row, which is what a phone gets anyway.
+{% endcomment %}
+
+<div class="sm-section{% if section.settings.tint != blank and section.settings.tint != 'none' %} sm-section--{{ section.settings.tint }}{% endif %}">
+  <div class="sm-container">
+    <div class="sm-cats__head">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="sm-eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+
+      {% render 'sm-heading', text: section.settings.heading, tag: 'h2', class: 'sm-heading sm-heading--md' %}
+
+      {%- if section.settings.body != blank -%}
+        <p class="sm-cats__intro">{{ section.settings.body }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.cta_label != blank and section.settings.cta_url != blank -%}
+        <a href="{{ section.settings.cta_url }}" class="sm-button sm-button--secondary">
+          {{ section.settings.cta_label }}
+        </a>
+      {%- endif -%}
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="sm-cats{% if section.blocks.size == 4 %} sm-cats--feature{% endif %}">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign tile_collection = collections[block.settings.collection]
+            assign tile_title = block.settings.title | default: tile_collection.title
+            assign tile_url = block.settings.url | default: tile_collection.url | default: '#'
+
+            comment
+              The shop's own upload wins; then a file that ships with the
+              theme, named in the block; then the collection's own image.
+            endcomment
+            assign tile_image = ''
+            if block.settings.image != blank
+              assign tile_image = block.settings.image | image_url: width: 1100
+            elsif block.settings.photo_asset != blank
+              assign tile_image = block.settings.photo_asset | asset_url
+            elsif tile_collection.featured_image != blank
+              assign tile_image = tile_collection.featured_image | image_url: width: 1100
+            endif
+          -%}
+
+          {%- if forloop.first and section.blocks.size == 4 -%}
+            {%- comment -%}
+              The first door is the shop's own work, so it gets the whole row:
+              what it is, the two facts that sell it, and a button for each
+              kind of custom print.
+            {%- endcomment -%}
+            <article class="sm-cat sm-cat--feature" {{ block.shopify_attributes }}>
+              <div class="sm-cat__body">
+                {%- if block.settings.eyebrow != blank -%}
+                  <p class="sm-eyebrow sm-cat__eyebrow">{{ block.settings.eyebrow }}</p>
+                {%- endif -%}
+                <h3 class="sm-cat__title">{{ tile_title }}</h3>
+                {%- if block.settings.body != blank -%}
+                  <p class="sm-cat__copy">{{ block.settings.body }}</p>
+                {%- endif -%}
+                {%- if block.settings.note != blank -%}
+                  <p class="sm-cat__note">{{ block.settings.note | newline_to_br }}</p>
+                {%- endif -%}
+                <div class="sm-cat__actions">
+                  <a class="sm-button sm-button--primary" href="{{ tile_url }}">
+                    {{ block.settings.label | default: 'Shop now' }} <span aria-hidden="true">&rarr;</span>
+                  </a>
+                  {%- if block.settings.label2 != blank and block.settings.url2 != blank -%}
+                    <a class="sm-button sm-button--secondary" href="{{ block.settings.url2 }}">
+                      {{ block.settings.label2 }} <span aria-hidden="true">&rarr;</span>
+                    </a>
+                  {%- endif -%}
+                </div>
+              </div>
+              {%- if tile_image != blank -%}
+                <img class="sm-cat__image" src="{{ tile_image }}" alt="" loading="lazy">
+              {%- endif -%}
+            </article>
+          {%- else -%}
+            <a class="sm-cat sm-cat--card" href="{{ tile_url }}" {{ block.shopify_attributes }}>
+              {%- if tile_image != blank -%}
+                <img class="sm-cat__image" src="{{ tile_image }}" alt="" loading="lazy">
+              {%- endif -%}
+              <div class="sm-cat__body">
+                <h3 class="sm-cat__title">{{ tile_title }}</h3>
+                {%- if block.settings.body != blank -%}
+                  <p class="sm-cat__copy">{{ block.settings.body }}</p>
+                {%- endif -%}
+                <span class="sm-cat__link">{{ block.settings.label | default: 'Shop now' }} <span aria-hidden="true">&rarr;</span></span>
+              </div>
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "SHEmakes collection tiles",
+  "tag": "section",
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "select",
+      "id": "tint",
+      "label": "Background",
+      "options": [
+        { "value": "none", "label": "White" },
+        { "value": "cream", "label": "Cream" },
+        { "value": "blush", "label": "Light pink" },
+        { "value": "sand", "label": "Yellow" }
+      ],
+      "default": "none"
+    },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Shop by category" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "What are you *making today?*" },
+    { "type": "textarea", "id": "body", "label": "Intro" },
+    { "type": "text", "id": "cta_label", "label": "Button" },
+    { "type": "url", "id": "cta_url", "label": "Button link" }
+  ],
+  "blocks": [
+    {
+      "type": "tile",
+      "name": "Tile",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "image_picker", "id": "image", "label": "Photograph", "info": "Defaults to the collection's own image." },
+        {
+          "type": "text",
+          "id": "photo_asset",
+          "label": "Photograph (theme file)",
+          "info": "Used when nothing is picked above — the name of a file in the theme's assets, e.g. sm-cat-custom.webp."
+        },
+        { "type": "text", "id": "title", "label": "Title", "info": "Defaults to the collection's name." },
+        { "type": "textarea", "id": "body", "label": "Copy", "info": "One line per paragraph." },
+        { "type": "url", "id": "url", "label": "Link" },
+        { "type": "text", "id": "label", "label": "Button", "default": "Shop now" },
+        { "type": "header", "content": "First tile only" },
+        { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+        { "type": "textarea", "id": "note", "label": "Small print", "info": "One line per fact." },
+        { "type": "text", "id": "label2", "label": "Second button" },
+        { "type": "url", "id": "url2", "label": "Second button link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SHEmakes collection tiles",
+      "blocks": [{ "type": "tile" }, { "type": "tile" }, { "type": "tile" }, { "type": "tile" }]
+    }
+  ]
+}
+{% endschema %}

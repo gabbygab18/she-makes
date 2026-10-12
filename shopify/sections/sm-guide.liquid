@@ -1,0 +1,268 @@
+{% comment %}
+  SHEmakes — the beginner's guide.
+
+  Everything on the page is a block, so the shop edits the guide in the theme
+  editor rather than in a wall of page HTML: the steps, the settings table, the
+  file rules, the troubleshooting rows. The page's own body content is not used
+  at all, which is why the page in Shopify can be left empty.
+
+  Plain Liquid. The only interactive part is the troubleshooting list, and that
+  is the same accordion the FAQ uses.
+{% endcomment %}
+
+<div class="sm-pagehead sm-pagehead--offer">
+  <div class="sm-container">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="sm-eyebrow">{{ section.settings.eyebrow }}</p>
+    {%- endif -%}
+
+    {% render 'sm-heading', text: section.settings.heading, tag: 'h1', class: 'sm-heading sm-heading--lg' %}
+
+    {%- if section.settings.standfirst != blank -%}
+      <p class="sm-pagehead__intro sm-body">{{ section.settings.standfirst }}</p>
+    {%- endif -%}
+  </div>
+</div>
+
+<div class="sm-section sm-section--tight">
+  <div class="sm-container">
+    {%- comment -%} The settings strip: the four numbers everything else depends on. {%- endcomment -%}
+    {%- assign facts = section.blocks | where: 'type', 'fact' -%}
+    {%- if facts.size > 0 -%}
+      <div class="sm-guide__facts">
+        {%- for block in facts -%}
+          <div class="sm-guide__fact" {{ block.shopify_attributes }}>
+            <p class="sm-mono sm-guide__fact-label">{{ block.settings.label }}</p>
+            <p class="sm-guide__fact-value">{{ block.settings.value }}</p>
+            {%- if block.settings.note != blank -%}
+              <p class="sm-guide__fact-note">{{ block.settings.note }}</p>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- assign bands = section.blocks | where: 'type', 'band' -%}
+    {%- assign steps = section.blocks | where: 'type', 'step' -%}
+    {%- if steps.size > 0 -%}
+      <div class="sm-guide__block">
+        <h2 class="sm-heading sm-heading--md">{{ section.settings.steps_heading }}</h2>
+
+        <ol class="sm-guide__steps" role="list">
+          {%- for block in steps -%}
+            <li class="sm-guide__step" {{ block.shopify_attributes }}>
+              <span class="sm-guide__step-number" aria-hidden="true">{{ forloop.index }}</span>
+              <div>
+                <h3 class="sm-guide__step-title">{{ block.settings.title }}</h3>
+                {%- if block.settings.body != blank -%}
+                  <div class="sm-prose sm-guide__step-body rte">{{ block.settings.body }}</div>
+                {%- endif -%}
+              </div>
+            </li>
+          {%- endfor -%}
+        </ol>
+      </div>
+    {%- endif -%}
+
+    {%- if bands[0] -%}
+      {% render 'sm-band', block: bands[0] %}
+    {%- endif -%}
+
+    {%- assign rules = section.blocks | where: 'type', 'rule' -%}
+    {%- if rules.size > 0 -%}
+      <div class="sm-guide__block">
+        <h2 class="sm-heading sm-heading--md">{{ section.settings.rules_heading }}</h2>
+
+        <ul class="sm-guide__rules" role="list">
+          {%- for block in rules -%}
+            <li class="sm-guide__rule" {{ block.shopify_attributes }}>
+              <span class="sm-guide__rule-icon" aria-hidden="true">
+                {% render 'sm-icon', name: block.settings.icon %}
+              </span>
+              <div>
+                <p class="sm-guide__rule-title">{{ block.settings.title }}</p>
+                {%- if block.settings.body != blank -%}
+                  <p class="sm-guide__rule-body">{{ block.settings.body }}</p>
+                {%- endif -%}
+              </div>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+    {%- endif -%}
+
+    {%- if bands[1] -%}
+      {% render 'sm-band', block: bands[1] %}
+    {%- endif -%}
+
+    {%- assign fixes = section.blocks | where: 'type', 'fix' -%}
+    {%- if fixes.size > 0 -%}
+      <div class="sm-guide__block">
+        <h2 class="sm-heading sm-heading--md">{{ section.settings.fixes_heading }}</h2>
+
+        {%- comment -%}
+          The row *is* the <details>, so the theme's own `[open]` rules drive
+          the marker and the panel. Wrapping a details inside the row instead
+          left the marker in its closed state and the answer permanently on.
+        {%- endcomment -%}
+        <div class="sm-faq__list sm-spec__list sm-guide__fixes">
+          {%- for block in fixes -%}
+            <details class="sm-faq__item" {% if forloop.first %}open{% endif %} {{ block.shopify_attributes }}>
+              <summary class="sm-faq__question">
+                <span class="sm-spec__label">
+                  <span class="sm-spec__index" aria-hidden="true">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+                  <span class="sm-spec__heading-text">{{ block.settings.title }}</span>
+                </span>
+                <span class="sm-faq__marker" aria-hidden="true">
+                  <span class="sm-faq__bar"></span>
+                  <span class="sm-faq__bar sm-faq__bar--up"></span>
+                </span>
+              </summary>
+
+              <div class="sm-faq__panel">
+                <div class="sm-faq__panel-inner">
+                  <div class="sm-faq__answer sm-prose rte">{{ block.settings.body }}</div>
+                </div>
+              </div>
+            </details>
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.cta_label != blank -%}
+      {%- comment -%}
+        The same photo card the homepage closes on, so the two endings match.
+        A picker for the shop's own choice, and a print from its floor bundled
+        with the theme so the card is never an empty pink box.
+      {%- endcomment -%}
+      <div class="sm-guide__cta sm-guide__cta--photo">
+        <div class="sm-guide__cta-media">
+          {%- if section.settings.cta_image -%}
+            <img
+              src="{{ section.settings.cta_image | image_url: width: 2000 }}"
+              alt=""
+              width="{{ section.settings.cta_image.width }}"
+              height="{{ section.settings.cta_image.height }}"
+              loading="lazy"
+            >
+          {%- else -%}
+            <img src="{{ 'sm-cta-2.jpg' | asset_url }}" alt="" loading="lazy">
+          {%- endif -%}
+          <span class="sm-guide__cta-scrim"></span>
+        </div>
+
+        <div>
+          <h2 class="sm-heading sm-heading--md">{{ section.settings.cta_heading }}</h2>
+          {%- if section.settings.cta_body != blank -%}
+            <p class="sm-body">{{ section.settings.cta_body }}</p>
+          {%- endif -%}
+        </div>
+
+        <a href="{{ section.settings.cta_url | default: routes.all_products_collection_url }}" class="sm-button sm-button--primary">
+          {{ section.settings.cta_label }}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "SHEmakes guide",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Start here" },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Pressing your first transfer, *step by step*"
+    },
+    {
+      "type": "textarea",
+      "id": "standfirst",
+      "label": "Intro",
+      "default": "Never pressed a DTF transfer before? This is everything you need, in the order you need it — the settings, what your file has to be, and what to do when it does not come out right."
+    },
+    { "type": "text", "id": "steps_heading", "label": "Steps heading", "default": "How to press it" },
+    { "type": "text", "id": "rules_heading", "label": "File rules heading", "default": "What your file has to be" },
+    { "type": "text", "id": "fixes_heading", "label": "Troubleshooting heading", "default": "When it does not come out right" },
+    { "type": "text", "id": "cta_heading", "label": "Closing heading", "default": "Ready when you are" },
+    {
+      "type": "textarea",
+      "id": "cta_body",
+      "label": "Closing text",
+      "default": "No minimums, and a person checks every file before it prints."
+    },
+    { "type": "text", "id": "cta_label", "label": "Closing button", "default": "Browse ready to press" },
+    { "type": "url", "id": "cta_url", "label": "Closing button link" },
+    { "type": "image_picker", "id": "cta_image", "label": "Closing photo", "info": "A print from the shop floor ships with the theme; this replaces it." }
+  ],
+  "blocks": [
+    {
+      "type": "fact",
+      "name": "Setting",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Press" },
+        { "type": "text", "id": "value", "label": "Value", "default": "300°F" },
+        { "type": "text", "id": "note", "label": "Note" }
+      ]
+    },
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Pre-press the garment" },
+        { "type": "richtext", "id": "body", "label": "Text" }
+      ]
+    },
+    {
+      "type": "rule",
+      "name": "File rule",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "shield", "label": "Shield" },
+            { "value": "star", "label": "Star" },
+            { "value": "time", "label": "Clock" },
+            { "value": "mail", "label": "Mail" },
+            { "value": "truck", "label": "Delivery" },
+            { "value": "leaf", "label": "Maple leaf" }
+          ],
+          "default": "shield"
+        },
+        { "type": "text", "id": "title", "label": "Title", "default": "PNG, transparent background" },
+        { "type": "text", "id": "body", "label": "Text" }
+      ]
+    },
+    {
+      "type": "band",
+      "name": "Photo band",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image", "info": "Leave empty to use the stock photo below." },
+        {
+          "type": "url",
+          "id": "image_url",
+          "label": "Image URL",
+          "info": "Used when no image is chosen above."
+        },
+        { "type": "text", "id": "quote", "label": "Line over the photo" },
+        { "type": "text", "id": "credit", "label": "Photo credit" }
+      ]
+    },
+    {
+      "type": "fix",
+      "name": "Troubleshooting",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Problem", "default": "The print lifted with the film" },
+        { "type": "richtext", "id": "body", "label": "What to do" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "SHEmakes guide" }]
+}
+{% endschema %}

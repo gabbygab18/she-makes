@@ -1,0 +1,75 @@
+{% comment %}
+  SHEmakes — real customer reviews, wherever Judge.me puts them.
+
+  Judge.me's own carousel is rendered by its app block (the `apps` section that
+  sits next to this one in the template). This island finds that markup, reads
+  it, draws the shop's own cards from it, and hides the app's version.
+
+  So the reviews here are the real ones — same store, same widget, same moderation
+  — and no API token is involved: they are already on the page by the time this
+  runs.
+
+  With nothing to read, the island renders nothing at all rather than an empty
+  heading over a blank row.
+{% endcomment %}
+
+{%- capture props -%}
+{
+  "eyebrow": {{ section.settings.eyebrow | json }},
+  "heading": {{ section.settings.heading | json }},
+  "rating": {{ section.settings.rating | json }},
+  "count": {{ section.settings.count | json }},
+  "hint": {{ section.settings.hint | json }},
+  "cta": { "label": {{ section.settings.cta_label | json }}, "url": {{ section.settings.cta_url | json }} },
+  "secondary": { "label": {{ section.settings.secondary_label | json }}, "url": {{ section.settings.secondary_url | json }} }
+}
+{%- endcapture -%}
+
+<div id="sm-reviews">
+  {% render 'sm-island', name: 'review-carousel', props: props %}
+</div>
+
+{%- comment -%}
+  Judge.me draws its own "Real customers. Real feedback." heading and score,
+  and nothing in it is a link. A click anywhere on that header goes to the
+  reviews row instead. Delegated from the document because the app renders
+  the markup after this runs, and again whenever it refreshes.
+{%- endcomment -%}
+<script>
+  document.addEventListener('click', function (event) {
+    var head = event.target.closest && event.target.closest('.jdgm-carousel-title-and-link, .jdgm-carousel-title');
+    if (!head || event.target.closest('a')) return;
+    var target = document.getElementById('sm-reviews');
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "SHEmakes review carousel",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "In their words" },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "What customers *actually said*"
+    },
+    {
+      "type": "paragraph",
+      "content": "Reads the Judge.me carousel on this page and redraws it in the shop's own cards. Keep the Judge.me \"Reviews Carousel\" app block in the template directly below this section."
+    },
+    { "type": "header", "content": "The score" },
+    { "type": "text", "id": "rating", "label": "Average", "info": "Your real figure from the Judge.me dashboard, e.g. 4.8/5. Left empty, the summary line is not shown at all." },
+    { "type": "text", "id": "count", "label": "How many", "info": "e.g. 3,874+ reviews." },
+    { "type": "header", "content": "Under the row" },
+    { "type": "text", "id": "hint", "label": "Swipe hint", "default": "Swipe to read more", "info": "Hidden when there is only one review to swipe through." },
+    { "type": "text", "id": "cta_label", "label": "Link", "default": "Read all reviews" },
+    { "type": "url", "id": "cta_url", "label": "Link target" },
+    { "type": "text", "id": "secondary_label", "label": "Second link", "default": "Try a free sample" },
+    { "type": "url", "id": "secondary_url", "label": "Second link target" }
+  ],
+  "presets": [{ "name": "SHEmakes review carousel" }]
+}
+{% endschema %}

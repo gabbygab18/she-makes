@@ -1,0 +1,53 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "sm-main-page",
+      "settings": {
+        "eyebrow": "SHEmakes Transfers"
+      },
+      "blocks": {
+        "p1": {
+          "type": "point",
+          "settings": {
+            "icon": "mail",
+            "title": "No spam, ever",
+            "body": "A note when new designs land and when there is a sale. Nothing else."
+          }
+        },
+        "p2": {
+          "type": "point",
+          "settings": {
+            "icon": "leaf",
+            "title": "Printed in London, Ontario",
+            "body": "Every sheet is printed, checked and packed on our own floor."
+          }
+        },
+        "p3": {
+          "type": "point",
+          "settings": {
+            "icon": "time",
+            "title": "Out the door fast",
+            "body": "Orders in by 2pm press the same day."
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3"
+      ]
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

@@ -1,0 +1,267 @@
+{% comment %}
+  SHEmakes — order in three steps.
+
+  Asked for by the shop, after hdteesandtops.com: a numbered run of steps for
+  a custom order, with a link to the beginner's guide underneath.
+
+  Plain Liquid. Three numbered cards have no state, and the section is above
+  the fold on a first visit — it should not wait for a bundle.
+
+  Numbers come from the block order, not a setting: a shop that reorders the
+  steps should not have to renumber them by hand.
+{% endcomment %}
+
+{%- comment -%}
+  The anchor other sections link to — "How to order" in the collection head
+  jumps here. Named rather than generated so the link is stable.
+{%- endcomment -%}
+{%- liquid
+  comment
+    The photograph beside the heading, and whether any step carries one of its
+    own. A row of cards with pictures is laid out differently from a row
+    without, and the other templates using this section have none.
+  endcomment
+  assign steps_hero = ''
+  if section.settings.hero_image != blank
+    assign steps_hero = section.settings.hero_image | image_url: width: 1400
+  elsif section.settings.hero_asset != blank
+    assign steps_hero = section.settings.hero_asset | asset_url
+  endif
+
+  assign has_photos = false
+  for block in section.blocks
+    if block.settings.photo != blank or block.settings.photo_asset != blank
+      assign has_photos = true
+    endif
+  endfor
+-%}
+
+<div id="sm-how" class="sm-section {% if section.settings.tint %}sm-section--cream sm-section--curve{% endif %}{% if has_photos %} sm-steps--photo{% endif %} sm-reveal">
+  <div class="sm-container">
+    <div class="sm-steps__top{% if steps_hero != blank %} sm-steps__top--photo{% endif %}">
+    <div class="sm-steps__head">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="sm-eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+
+      {% render 'sm-heading', text: section.settings.heading, tag: 'h2', class: 'sm-heading sm-heading--md' %}
+
+      {%- if section.settings.body != blank -%}
+        <p class="sm-body">{{ section.settings.body }}</p>
+      {%- endif -%}
+    </div>
+
+      {%- if steps_hero != blank -%}
+        <span class="sm-steps__figure sm-steps__figure--hero">
+          <img class="sm-steps__hero" src="{{ steps_hero }}" alt="" loading="lazy">
+        </span>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%}
+      Two ways to carry a picture: beside the words (the homepage's three
+      steps) or above them, a row of cards each led by its photograph (the
+      UV DTF application tutorial, drawn that way by the shop).
+    {%- endcomment -%}
+    <ol class="sm-steps__list{% if has_photos %} sm-steps__list--photo{% if section.settings.photo_position == 'top' %} sm-steps__list--top{% endif %}{% endif %}" role="list">
+      {%- for block in section.blocks -%}
+        {%- comment -%}
+          A step with a link is the step itself — the whole card is the way
+          in, not a "learn more" under it. Without one it stays plain text,
+          because a card that looks pressable and is not is worse than a card
+          that does not.
+        {%- endcomment -%}
+        {%- liquid
+          assign step_photo = ''
+          if block.settings.photo != blank
+            assign step_photo = block.settings.photo | image_url: width: 800
+          elsif block.settings.photo_asset != blank
+            assign step_photo = block.settings.photo_asset | asset_url
+          endif
+
+          comment
+            A named link is a link you can see and read. The invisible cover
+            over the whole card is only for a step that has no other way in.
+          endcomment
+          assign covered = false
+          if block.settings.url != blank and block.settings.link_label == blank
+            assign covered = true
+          endif
+        -%}
+        <li class="sm-steps__item{% if covered %} sm-steps__item--link{% endif %}" {{ block.shopify_attributes }}>
+          {%- if covered -%}
+            <a class="sm-steps__cover" href="{{ block.settings.url }}" aria-label="{{ block.settings.title | escape }}"></a>
+          {%- endif -%}
+          <span class="sm-steps__number" aria-hidden="true">
+            {%- if block.settings.icon != blank and block.settings.icon != 'none' -%}
+              {% render 'sm-icon', name: block.settings.icon %}
+            {%- else -%}
+              {{ forloop.index }}
+            {%- endif -%}
+          </span>
+
+          <div class="sm-steps__body">
+            <p class="sm-eyebrow sm-steps__label">
+              {{ block.settings.label | default: 'Step' }} {{ forloop.index }}
+            </p>
+
+            <h3 class="sm-steps__title">{{ block.settings.title }}</h3>
+
+            {%- if block.settings.body != blank -%}
+              <p class="sm-body">{{ block.settings.body | newline_to_br }}</p>
+            {%- endif -%}
+
+            {%- if block.settings.link_label != blank and block.settings.url != blank -%}
+              <a class="sm-steps__link" href="{{ block.settings.url }}">{{ block.settings.link_label }}</a>
+            {%- endif -%}
+          </div>
+
+          {%- if step_photo != blank -%}
+            {%- comment -%}
+              The span carries the pink sparks drawn beside each picture — an
+              <img> cannot take a pseudo-element of its own.
+            {%- endcomment -%}
+            <span class="sm-steps__figure">
+              <img class="sm-steps__photo" src="{{ step_photo }}" alt="" loading="lazy">
+            </span>
+          {%- endif -%}
+
+          {%- if block.settings.image != blank -%}
+            <img
+              src="{{ block.settings.image | image_url: width: 600 }}"
+              alt=""
+              width="{{ block.settings.image.width }}"
+              height="{{ block.settings.image.height }}"
+              class="sm-steps__image"
+              loading="lazy"
+            >
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ol>
+
+    {%- liquid
+      comment
+        A button with nowhere to go is worse than no button: it looks live and
+        does nothing. Each one renders only once it has been given a link.
+      endcomment
+      assign has_primary = false
+      if section.settings.cta_label != blank and section.settings.cta_url != blank
+        assign has_primary = true
+      endif
+
+      assign has_secondary = false
+      if section.settings.secondary_label != blank and section.settings.secondary_url != blank
+        assign has_secondary = true
+      endif
+    -%}
+
+    {%- if has_primary or has_secondary -%}
+      <div class="sm-steps__actions sm-steps__actions--center">
+        {%- if has_primary -%}
+          <a href="{{ section.settings.cta_url }}" class="sm-button sm-button--primary">
+            {{ section.settings.cta_label }}
+            {%- if has_photos %} <span class="sm-steps__arrow" aria-hidden="true">&rarr;</span>{% endif -%}
+          </a>
+        {%- endif -%}
+
+        {%- if has_secondary -%}
+          <a href="{{ section.settings.secondary_url }}" class="sm-button sm-button--secondary">
+            {{ section.settings.secondary_label }}
+          </a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "SHEmakes steps",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Custom orders" },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Order your own custom transfers in 3 easy steps"
+    },
+    { "type": "textarea", "id": "body", "label": "Body" },
+    { "type": "checkbox", "id": "tint", "label": "Blush background", "default": true },
+    { "type": "image_picker", "id": "hero_image", "label": "Photograph beside the heading" },
+    {
+      "type": "text",
+      "id": "hero_asset",
+      "label": "Photograph (theme file)",
+      "info": "Used when nothing is picked above — e.g. sm-steps-hero.webp."
+    },
+    {
+      "type": "select",
+      "id": "photo_position",
+      "label": "Step photographs",
+      "options": [
+        { "value": "side", "label": "Beside the words" },
+        { "value": "top", "label": "Above the words" }
+      ],
+      "default": "side"
+    },
+    { "type": "header", "content": "Buttons" },
+    { "type": "text", "id": "cta_label", "label": "Button", "default": "How-to guide for beginners" },
+    { "type": "url", "id": "cta_url", "label": "Button link" },
+    { "type": "text", "id": "secondary_label", "label": "Second button", "default": "Start a custom order" },
+    { "type": "url", "id": "secondary_url", "label": "Second button link" }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "limit": 6,
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Step" },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "info": "Replaces the step number.",
+          "options": [
+            { "value": "none", "label": "Number" },
+            { "value": "upload", "label": "Upload" },
+            { "value": "shield", "label": "Checked" },
+            { "value": "printer", "label": "Printer" },
+            { "value": "truck", "label": "Delivery" },
+            { "value": "mail", "label": "Mail" },
+            { "value": "send", "label": "Send" },
+            { "value": "star", "label": "Star" },
+            { "value": "time", "label": "Clock" }
+          ],
+          "default": "none"
+        },
+        { "type": "text", "id": "title", "label": "Title", "default": "Send your artwork" },
+        { "type": "url", "id": "url", "label": "The step goes to", "info": "Optional. The whole card becomes the link." },
+        {
+          "type": "textarea",
+          "id": "body",
+          "label": "Body",
+          "default": "A PNG with a transparent background, at 300 DPI for the size you want printed."
+        },
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "image_picker", "id": "photo", "label": "Photograph", "info": "Sits down the right-hand side of the card." },
+        {
+          "type": "text",
+          "id": "photo_asset",
+          "label": "Photograph (theme file)",
+          "info": "Used when nothing is picked above — e.g. sm-step-1.webp."
+        },
+        { "type": "text", "id": "link_label", "label": "Link text", "info": "Shows the link in the card instead of making the whole card clickable." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SHEmakes steps",
+      "blocks": [{ "type": "step" }, { "type": "step" }, { "type": "step" }]
+    }
+  ]
+}
+{% endschema %}

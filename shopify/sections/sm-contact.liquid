@@ -1,0 +1,227 @@
+{% comment %}
+  SHEmakes — contact.
+
+  The theme's contact-form section is a stack of unstyled fields; this is the
+  two-column layout from the redesign, with the form on a card.
+
+  Plain Liquid around Shopify's own `{% form 'contact' %}`: the form posts to
+  Shopify, which is what puts the message in the shop's inbox and what carries
+  the spam protection. Replacing that with fetch would only be a way to lose
+  both.
+{% endcomment %}
+
+<div class="sm-section sm-contact">
+  <div class="sm-container sm-contact__grid">
+    <div class="sm-contact__intro">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="sm-eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.use_h1 -%}
+        {% render 'sm-heading', text: section.settings.heading, tag: 'h1', class: 'sm-heading sm-heading--md' %}
+      {%- else -%}
+        {% render 'sm-heading', text: section.settings.heading, tag: 'h2', class: 'sm-heading sm-heading--md' %}
+      {%- endif -%}
+
+      {%- if section.settings.body != blank -%}
+        <p class="sm-body">{{ section.settings.body }}</p>
+      {%- endif -%}
+
+      <ul class="sm-contact__facts" role="list">
+        {%- if section.settings.email != blank -%}
+          <li>
+            <span class="sm-contact__icon" aria-hidden="true">
+<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M20 4H4c-1.1 0-2 .9-2 2v.25l10 7.5 10-7.5V6c0-1.1-.9-2-2-2m1.93 14.51c.04-.16.07-.33.07-.51V8.75l-5.62 4.22 5.55 5.55ZM12.6 15.8c-.18.13-.39.2-.6.2s-.42-.07-.6-.2l-2.16-1.62-5.75 5.75c.16.04.33.07.51.07h16c.18 0 .35-.03.51-.07l-5.75-5.75zM2 8.75V18c0 .18.03.35.07.51l5.55-5.55L2 8.74Z"/>
+              </svg>
+            </span>
+            <span class="sm-facts__lines"><strong>Email:</strong> <a href="mailto:{{ section.settings.email }}">{{ section.settings.email }}</a></span>
+          </li>
+        {%- endif -%}
+
+        {%- if section.settings.hours != blank -%}
+          <li>
+            <span class="sm-contact__icon" aria-hidden="true">
+<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 2C6.58 2 2 6.58 2 12s4.58 10 10 10 10-4.58 10-10S17.42 2 12 2m5 11h-6V7h2v4h4z"/>
+              </svg>
+            </span>
+            {%- liquid
+                  assign hour_lines = section.settings.hours | strip | newline_to_br | split: '<br />'
+                -%}
+                <span class="sm-facts__lines">
+                  {%- for hour_line in hour_lines -%}
+                    {%- assign hour_line = hour_line | strip -%}
+                    {%- if hour_line == blank -%}{%- continue -%}{%- endif -%}
+                    {%- if forloop.first -%}
+                      <strong>{{ hour_line }}</strong>
+                    {%- else -%}
+                      <span>{{ hour_line }}</span>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </span>
+          </li>
+        {%- endif -%}
+      </ul>
+    </div>
+
+    {%- comment -%}
+      A page's own form in place of Shopify's contact form. The custom apparel
+      quote lives in HulkApps on the shop's quote page — with an image upload
+      Shopify's contact form cannot take, and its own submissions inbox — so
+      this shows that same form rather than a second, poorer copy of it.
+    {%- endcomment -%}
+    {%- assign embedded = section.settings.embed_page -%}
+    {%- if embedded != blank and embedded.content != blank -%}
+    <div class="sm-contact__card sm-contact__card--embed">
+      {{ embedded.content }}
+    </div>
+    {%- else -%}
+    <div class="sm-contact__card">
+      {%- form 'contact', class: 'sm-contact__form' -%}
+        {%- if form.posted_successfully? -%}
+          <p class="sm-footer__success" role="status">{{ section.settings.success }}</p>
+        {%- elsif form.errors -%}
+          <p class="sm-cart__error" role="alert">{{ form.errors | default_errors }}</p>
+        {%- endif -%}
+
+        <div class="sm-contact__row">
+          <div class="sm-field">
+            <label for="sm-contact-name">Your name <span aria-hidden="true">*</span></label>
+            <input id="sm-contact-name" type="text" name="contact[name]" value="{{ form.name }}" required>
+          </div>
+
+          <div class="sm-field">
+            <label for="sm-contact-email">Email <span aria-hidden="true">*</span></label>
+            <input id="sm-contact-email" type="email" name="contact[email]" value="{{ form.email }}" required>
+          </div>
+        </div>
+
+        <div class="sm-contact__row">
+          <div class="sm-field">
+            <label for="sm-contact-phone">Phone</label>
+            <input id="sm-contact-phone" type="tel" name="contact[phone]" value="{{ form.phone }}">
+          </div>
+
+          {%- liquid
+            assign topics = section.settings.topics | split: ','
+            assign options = ''
+            for topic in topics
+              assign one = topic | strip | json
+              if forloop.first
+                assign options = one
+              else
+                assign options = options | append: ',' | append: one
+              endif
+            endfor
+          -%}
+
+          {%- capture topic_props -%}
+{ "name": "contact[topic]", "label": {{ section.settings.topic_label | json }}, "options": [{{ options }}] }
+          {%- endcapture -%}
+
+          {%- capture topic_fallback -%}
+            {%- comment -%}
+              The native control, for no-JS. React replaces it: a `<select>`
+              draws its own popup — square corners, the system blue highlight —
+              and no stylesheet can reach inside it.
+            {%- endcomment -%}
+            <div class="sm-field">
+              <label for="sm-contact-topic">{{ section.settings.topic_label }}</label>
+              <select id="sm-contact-topic" name="contact[topic]">
+                {%- for topic in topics -%}
+                  <option value="{{ topic | strip | escape }}">{{ topic | strip }}</option>
+                {%- endfor -%}
+              </select>
+            </div>
+          {%- endcapture -%}
+
+          {% render 'sm-island', name: 'select', props: topic_props, fallback: topic_fallback %}
+        </div>
+
+        <div class="sm-field">
+          <label for="sm-contact-body">Message <span aria-hidden="true">*</span></label>
+          <textarea
+            id="sm-contact-body"
+            name="contact[body]"
+            rows="6"
+            placeholder="{{ section.settings.placeholder }}"
+            required
+          >{{ form.body }}</textarea>
+        </div>
+
+        <button type="submit" class="sm-button sm-button--primary sm-contact__submit">
+          {{ section.settings.cta }}
+        </button>
+
+        <p class="sm-contact__consent">{{ section.settings.consent }}</p>
+      {%- endform -%}
+    </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "SHEmakes contact",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Talk to us" },
+    {
+      "type": "page",
+      "id": "embed_page",
+      "label": "Use this page's form instead",
+      "info": "For a form built in an app (HulkApps, Klaviyo): pick the page it is embedded on and that form replaces this one."
+    },
+    {
+      "type": "checkbox",
+      "id": "use_h1",
+      "label": "This is the page heading",
+      "default": true,
+      "info": "Turn off when the section sits on a page that already has one, such as the homepage."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "A person answers — usually the one who prints it"
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body",
+      "default": "Artwork questions, a rush job, a wholesale account. Send it over and we come back the same working day."
+    },
+    { "type": "text", "id": "topic_label", "label": "Subject label", "default": "What is it about?" },
+    { "type": "text", "id": "email", "label": "Email shown", "default": "info@shemakestransfers.com" },
+    { "type": "textarea", "id": "hours", "label": "Hours", "info": "One line. Line breaks are printed as written.", "default": "Business Hours\nMonday \u2013 Friday: 9:00 AM \u2013 5:00 PM EST\nSaturday & Sunday: Closed" },
+    {
+      "type": "textarea",
+      "id": "topics",
+      "label": "Subject options",
+      "info": "Comma separated.",
+      "default": "Artwork or file question, An existing order, Rush or same-day, Wholesale account, Something else"
+    },
+    {
+      "type": "text",
+      "id": "placeholder",
+      "label": "Message placeholder",
+      "default": "Tell us what you are pressing, how many, and when you need it."
+    },
+    { "type": "text", "id": "cta", "label": "Button", "default": "Send message" },
+    {
+      "type": "text",
+      "id": "consent",
+      "label": "Small print",
+      "default": "We only use your details to answer this message."
+    },
+    {
+      "type": "text",
+      "id": "success",
+      "label": "Thank you message",
+      "default": "Thanks — that is with us. We answer the same working day."
+    }
+  ],
+  "presets": [{ "name": "SHEmakes contact" }]
+}
+{% endschema %}

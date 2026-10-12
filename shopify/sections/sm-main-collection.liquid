@@ -1,0 +1,740 @@
+{% comment %}
+  SHEmakes — browse.
+
+  Filters replace the mega-menu. The island narrows the products Liquid already
+  rendered, so ticking a filter is instant.
+
+  Sorting and paging stay with Shopify on purpose: those need the whole
+  catalogue, not the page of it in the browser, and doing them client-side
+  would quietly show the wrong results.
+{% endcomment %}
+
+{%- liquid
+  comment
+    Shopify's own filters, when the shop has set any up (Search & Discovery).
+    They are the only ones that can be honest about totals: they narrow the
+    whole collection server-side, so the count and the pager are the filtered
+    ones. Without them the island narrows the page in the browser, which is
+    fast but only ever knows about the products on it.
+  endcomment
+  comment
+    Server mode: Shopify's filters are on the page, or a tag filter is active.
+
+    The second half matters because a filter that matches nothing leaves
+    `collection.filters` empty — Shopify builds them from the products it
+    found — and the page then fell back to the browser-side sidebar, which
+    listed categories that no longer exist and offered a "Clear filters"
+    button that could not clear a URL.
+  endcomment
+  assign has_filters = false
+  if collection.filters.size > 0 or current_tags.size > 0
+    assign has_filters = true
+  endif
+
+  comment
+    The sidebar is on, minus the Surface group: that one was a single tick box
+    on most collections, and it is what the shop asked to be rid of. The
+    categories stay, and a collection with no category tags gets no sidebar at
+    all rather than a "Filter" heading over nothing.
+  endcomment
+  unless section.settings.show_filters
+    assign has_filters = false
+  endunless
+
+  comment
+    Some collections are a single drop rather than a catalogue — New Arrivals
+    is the shop's example — and a filter column beside one of those is a
+    control that narrows a page nobody came to narrow. Named by handle,
+    because the sidebar setting belongs to the template and every collection
+    shares that template.
+  endcomment
+  assign bare = section.settings.no_filters | default: '' | downcase | split: ','
+  for bare_handle in bare
+    assign bare_clean = bare_handle | strip
+    if bare_clean != blank and collection.handle == bare_clean
+      assign has_filters = false
+    endif
+  endfor
+
+  comment
+    The strip above the pager belongs to one or two collections, not to the
+    whole catalogue — it was offering a gang sheet builder on a page of blank
+    ornaments. Named by handle for the same reason the filter list is: every
+    collection without a template of its own shares this one.
+  endcomment
+  assign prompt_heading = section.settings.prompt_heading
+  assign prompt_only = section.settings.prompt_handles | default: '' | downcase | split: ','
+  if prompt_only.size > 0
+    assign prompt_heading = ''
+    for prompt_handle in prompt_only
+      comment
+        A loop variable cannot be reassigned in Liquid — `assign` to its name
+        is ignored — so the stripped copy needs a name of its own. Without
+        it every handle after the first kept its leading space and never
+        matched.
+      endcomment
+      assign prompt_clean = prompt_handle | strip
+      if prompt_clean != blank and collection.handle == prompt_clean
+        assign prompt_heading = section.settings.prompt_heading
+      endif
+    endfor
+  endif
+-%}
+
+{%- paginate collection.products by section.settings.per_page -%}
+{%- assign products = '' -%}
+{%- for product in collection.products -%}
+  {%- comment -%}
+    One snippet builds the card's row, for here and for the homepage strip —
+    they draw the same card, so they have to send the same shape.
+  {%- endcomment -%}
+  {%- capture row %}{% render 'sm-product-json', product: product, new_for_days: section.settings.new_for_days %}{% endcapture -%}
+  {%- if forloop.first -%}
+    {%- assign products = row -%}
+  {%- else -%}
+    {%- assign products = products | append: ',' | append: row -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- liquid
+  assign filters = ''
+  for block in section.blocks
+    assign values = block.settings.values | split: ','
+    assign cleaned = ''
+    for value in values
+      assign trimmed = value | strip | json
+      if forloop.first
+        assign cleaned = trimmed
+      else
+        assign cleaned = cleaned | append: ',' | append: trimmed
+      endif
+    endfor
+
+    assign l = block.settings.label | json
+    assign row = '{"label":' | append: l | append: ',"values":[' | append: cleaned | append: ']}'
+    if forloop.first
+      assign filters = row
+    else
+      assign filters = filters | append: ',' | append: row
+    endif
+  endfor
+-%}
+
+{%- comment -%}
+  The page opens on a band: breadcrumb, title, and the collection's own line
+  under it — the template's shop header.
+
+  Every photograph here is the shop's own, and it is a product — the first
+  design in the collection, its own artwork on its own garment. The
+  collection's admin image was tried first and is not a photograph: it is a
+  marketing banner with its own headline set into it, which behind a page
+  heading reads as two titles fighting. Behind the products sit prints from
+  the shop floor bundled with the theme, matched on the handle, for a
+  collection that is empty or filtered down to nothing. Stock photography was
+  tried in this spot too and taken out: it is somebody else's work standing in
+  for this shop's.
+
+  A handle is stable in a way a title is not, and a collection whose handle
+  says nothing still lands on a real print rather than on nothing. The picker
+  overrides all of it.
+
+  The last word of the title goes in the script face. `sm-heading` marks its
+  accent with asterisks, and a collection title comes from the admin with none
+  in it, so the marks are put in here — the title itself is untouched.
+{%- endcomment -%}
+{%- liquid
+  assign head_image = section.settings.head_image
+
+  comment
+    The first design in the collection. A loop rather than `products.first`,
+    because a collection filtered down to nothing has no first product and
+    the fallback has to take over cleanly.
+  endcomment
+  unless head_image
+    for head_product in collection.products limit: 1
+      assign head_image = head_product.featured_image
+    endfor
+  endunless
+
+  comment
+    UV is tested before custom: `custom-uv-dtf` contains both words, and it is
+    the UV that decides the picture.
+  endcomment
+  assign handle = collection.handle | downcase
+  if handle contains 'uv' or handle contains 'decal' or handle contains 'cup' or handle contains 'wrap'
+    assign head_photo = 'sm-cta-2.jpg'
+  elsif handle contains 'new' or handle contains 'arrival'
+    assign head_photo = 'sm-band-1.jpg'
+  elsif handle contains 'blank' or handle contains 'apparel' or handle contains 'dtf' or handle contains 'transfer' or handle contains 'custom'
+    assign head_photo = 'sm-band-2.jpg'
+  else
+    assign head_photo = 'sm-about.jpg'
+  endif
+
+  assign head_fallback = head_photo | asset_url
+
+  assign title_words = collection.title | split: ' '
+  assign last_word = title_words | last
+  if title_words.size > 1
+    assign title_start = collection.title | remove_last: last_word
+    assign marked_title = title_start | append: '*' | append: last_word | append: '*'
+  else
+    comment
+      A one-word collection — "Blanks" — has no last word to set apart, so the
+      word itself takes the script face. Every collection then opens the same
+      way instead of half of them opening plain.
+    endcomment
+    assign marked_title = '*' | append: collection.title | append: '*'
+  endif
+-%}
+<div class="sm-pagehead sm-pagehead--photo">
+  <div class="sm-pagehead__media" aria-hidden="true">
+    {%- if head_image != blank -%}
+      <img
+        src="{{ head_image | image_url: width: 2000 }}"
+        alt=""
+        width="{{ head_image.width }}"
+        height="{{ head_image.height }}"
+        loading="eager"
+        fetchpriority="high"
+      >
+    {%- else -%}
+      <img src="{{ head_fallback }}" alt="" loading="eager" fetchpriority="high">
+    {%- endif -%}
+    <span class="sm-pagehead__scrim"></span>
+  </div>
+
+  <div class="sm-container">
+    <nav class="sm-crumbs sm-crumbs--center" aria-label="Breadcrumb">
+      <a href="{{ routes.root_url }}">Home</a>
+      <span aria-hidden="true">·</span>
+      <span aria-current="page">{{ collection.title }}</span>
+    </nav>
+
+    {% render 'sm-heading', text: marked_title, tag: 'h1', class: 'sm-heading sm-heading--lg' %}
+
+    {%- comment -%}
+      Straight to the directions at the foot of the page, for anyone who has
+      landed here not knowing how to order. `#sm-how` is the steps section.
+    {%- endcomment -%}
+    {%- if section.settings.how_label != blank -%}
+      <p class="sm-pagehead__actions">
+        <a class="sm-button sm-button--secondary" href="#sm-how">{{ section.settings.how_label }}</a>
+      </p>
+    {%- endif -%}
+
+    {%- comment -%}
+      The description is off by default. The shop writes ordering instructions
+      into it — "how to submit customs", the list of builder listings — which
+      the option cards and the steps below now say properly, and printing both
+      meant every collection opened with the same wall of centred bullets.
+      The text is untouched in the admin; this only decides whether the page
+      repeats it.
+    {%- endcomment -%}
+    {%- if section.settings.show_description and collection.description != blank -%}
+      <div class="sm-pagehead__intro sm-prose rte">{{ collection.description }}</div>
+    {%- endif -%}
+  </div>
+</div>
+
+<div class="sm-section sm-section--tight" data-sm-collection>
+  <div class="sm-container">
+    <div class="sm-browse__head">
+      <div>
+        <p class="sm-browse__count" id="sm-count">
+          {%- liquid
+            comment
+              With a filter on, products_count is the filtered total across the
+              whole collection — not the page — so the second number answers
+              "how many match", which is what it was being read as anyway.
+            endcomment
+            assign filtered = current_tags.size
+            for filter in collection.filters
+              assign filtered = filtered | plus: filter.active_values.size
+            endfor
+          -%}
+
+          {%- if filtered > 0 and collection.products_count == 0 -%}
+            No designs match those filters
+          {%- elsif filtered > 0 -%}
+            Showing {{ collection.products.size }} of {{ collection.products_count }} designs that match
+          {%- else -%}
+            Showing {{ collection.products.size }} of {{ collection.products_count }} designs
+          {%- endif -%}
+        </p>
+      </div>
+
+      {%- comment -%}
+        Sorting needs the whole catalogue, so it stays with Shopify: a GET form
+        that reloads with ?sort_by=. The island only narrows what is already on
+        the page.
+      {%- endcomment -%}
+      {%- if collection.sort_options.size > 0 -%}
+        {%- liquid
+          assign sort_options = ''
+          for option in collection.sort_options
+            assign label = option.name | json
+            assign value = option.value | json
+            assign row = '{"label":' | append: label | append: ',"value":' | append: value | append: '}'
+            if forloop.first
+              assign sort_options = row
+            else
+              assign sort_options = sort_options | append: ',' | append: row
+            endif
+          endfor
+
+          assign current_sort = collection.sort_by | default: collection.default_sort_by
+        -%}
+
+        {%- capture sort_props -%}
+{ "label": "Sort by", "prefix": "Sort: ", "param": "sort_by", "value": {{ current_sort | json }}, "options": [{{ sort_options }}] }
+        {%- endcapture -%}
+
+        {%- capture sort_fallback -%}
+          {%- comment -%}
+            The native control, for no-JS. React replaces it — a `<select>`
+            draws its own popup and no stylesheet reaches inside it.
+          {%- endcomment -%}
+          <form method="get" class="sm-browse__sort">
+            <label class="visually-hidden" for="sm-sort">Sort by</label>
+            <select id="sm-sort" name="sort_by" onchange="this.form.submit()">
+              {%- for option in collection.sort_options -%}
+                <option value="{{ option.value }}" {% if option.value == current_sort %}selected{% endif %}>
+                  Sort: {{ option.name }}
+                </option>
+              {%- endfor -%}
+            </select>
+            <noscript><button type="submit" class="sm-button sm-button--secondary">Sort</button></noscript>
+          </form>
+        {%- endcapture -%}
+
+        <div class="sm-browse__sort">
+          {% render 'sm-island', name: 'select', props: sort_props, fallback: sort_fallback %}
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%}
+      The groups are built before the sidebar is drawn: a collection whose tags
+      match none of them would otherwise get a "Filter" heading over nothing,
+      which is what the shop asked to be rid of.
+    {%- endcomment -%}
+    {%- capture filter_groups -%}
+        {%- comment -%}
+          Shopify hands back the tag as it is written on the product ("UV DTF"),
+          and the block values are typed by hand, so the two are compared as
+          handles — case and spacing stopped the active state from ever
+          matching.
+        {%- endcomment -%}
+        {%- capture current_handles -%}
+          {%- for tag in current_tags -%}|{{ tag | handleize }}{%- endfor -%}|
+        {%- endcapture -%}
+        {%- assign current_handles = current_handles | strip -%}
+
+        {%- comment -%}
+          Which of the shop's categories exist as tags on this collection.
+
+          A value that is not a real tag is not a filter: Shopify ignores the
+          unknown handle and serves the whole collection, so "Puff" and
+          "Blanks" looked live and quietly did nothing — 2,396 designs either
+          way. Anything with no tag behind it is dropped rather than shown.
+        {%- endcomment -%}
+        {%- capture known_handles -%}
+          {%- for tag in collection.all_tags -%}|{{ tag | handleize }}{%- endfor -%}|
+        {%- endcapture -%}
+        {%- assign known_handles = known_handles | strip -%}
+
+        {%- comment -%}
+          The path Shopify reads tags from: /collections/all/tag1+tag2. Adding
+          keeps what is already on, so two categories narrow each other the way
+          the boxes suggest they do.
+        {%- endcomment -%}
+        {%- capture current_path -%}
+          {%- for tag in current_tags -%}{% unless forloop.first %}+{% endunless %}{{ tag | handleize }}{%- endfor -%}
+        {%- endcapture -%}
+        {%- assign current_path = current_path | strip -%}
+
+        {%- comment -%}
+          A collection can carry its own short list in place of the shared
+          one. "Ornament & Santa Tray UV DTF" is two kinds of thing, and the
+          thirty Christmas themes of the shared list were noise on it. Each
+          line in the setting is `handle: Label=tag, Label=tag`; the first
+          filter group takes those values on that collection only.
+        {%- endcomment -%}
+        {%- assign own_values = '' -%}
+        {%- assign own_lines = section.settings.filter_overrides | default: '' | newline_to_br | split: '<br />' -%}
+        {%- for own_line in own_lines -%}
+          {%- assign own_parts = own_line | split: ':' -%}
+          {%- assign own_handle = own_parts[0] | strip -%}
+          {%- if own_parts.size > 1 and own_handle == collection.handle -%}
+            {%- assign own_values = own_line | remove_first: own_parts[0] | remove_first: ':' | strip -%}
+          {%- endif -%}
+        {%- endfor -%}
+
+        {%- for block in section.blocks -%}
+          {%- assign values = block.settings.values | split: ',' -%}
+          {%- if forloop.first and own_values != blank -%}
+            {%- assign values = own_values | split: ',' -%}
+          {%- endif -%}
+          {%- if values.size > 0 -%}
+            {%- capture options -%}
+              {%- for value in values -%}
+                {%- liquid
+                  assign value_parts = value | split: '='
+                  assign tag = value_parts | last | strip
+                  assign tag_label = value_parts | first | strip
+                  assign tag_handle = tag | handleize
+                  assign needle = tag_handle | prepend: '|' | append: '|'
+
+                  assign exists = false
+                  if known_handles contains needle
+                    assign exists = true
+                  endif
+
+                  assign is_on = false
+                  if current_handles contains needle
+                    assign is_on = true
+                  endif
+                -%}
+
+                {%- if exists -%}
+                  {%- liquid
+                    comment
+                      One theme at a time, as the shop asked. On: the link
+                      clears it. Off: it replaces whatever was chosen before
+                      — stacking tags narrowed the page to designs carrying
+                      every one of them, which was usually nothing.
+                    endcomment
+                    if is_on
+                      assign target = ''
+                    else
+                      assign target = tag_handle
+                    endif
+                  -%}
+
+                  <a
+                    class="sm-browse__option sm-browse__option--one{% if is_on %} is-on{% endif %}"
+                    href="{{ collection.url }}{% if target != '' %}/{{ target }}{% endif %}#sm-results"
+                  >
+                    <span class="sm-browse__box" aria-hidden="true"></span>
+                    {{ tag_label }}
+                  </a>
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endcapture -%}
+
+            {%- comment -%} A group whose every value was dropped is not a group. {%- endcomment -%}
+            {%- if options != blank -%}
+              <details class="sm-browse__group" open>
+                <summary class="sm-eyebrow">{{ block.settings.label }}</summary>
+                <div class="sm-browse__group-body">{{ options }}</div>
+              </details>
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+
+        {%- comment -%}
+          Shopify's own filters, minus the two the shop asked to drop:
+          availability (nearly everything is in stock, so it never narrowed
+          anything) and the price range.
+        {%- endcomment -%}
+        {%- for filter in collection.filters -%}
+          {%- assign filter_handle = filter.label | handleize -%}
+          {%- if filter.type == 'price_range' or filter_handle contains 'availability' or filter_handle contains 'in-stock' -%}
+            {%- continue -%}
+          {%- endif -%}
+
+          {%- case filter.type -%}
+            {%- when 'list' -%}
+              <details class="sm-browse__group" open>
+                <summary class="sm-eyebrow">{{ filter.label }}</summary>
+                <div class="sm-browse__group-body">
+
+                {%- comment -%}
+                  One theme at a time, which is how the shop wants it read.
+
+                  Shopify's own `url_to_add` stacks a value onto whatever is
+                  already chosen, so picking four themes narrowed the page to
+                  the designs carrying all four — usually none. These links
+                  start from the bare collection instead, so choosing a theme
+                  replaces the one before it. Sorting survives, because that
+                  is not a filter.
+                {%- endcomment -%}
+                {%- liquid
+                  assign base_url = collection.url
+                  assign joiner = '?'
+                  if collection.sort_by != blank
+                    assign base_url = base_url | append: '?sort_by=' | append: collection.sort_by
+                    assign joiner = '&'
+                  endif
+                -%}
+
+                {%- for value in filter.values -%}
+                  {%- liquid
+                    assign option_value = value.value | url_encode
+                    if value.active
+                      assign option_url = base_url
+                    else
+                      assign option_url = base_url | append: joiner | append: value.param_name | append: '=' | append: option_value
+                    endif
+                  -%}
+                  <a
+                    class="sm-browse__option sm-browse__option--one{% if value.active %} is-on{% endif %}"
+                    href="{{ option_url }}#sm-results"
+                    {% if value.count == 0 and value.active == false %}aria-disabled="true"{% endif %}
+                  >
+                    <span class="sm-browse__box" aria-hidden="true"></span>
+                    {{ value.label }}
+                    <span class="sm-browse__tally">{{ value.count }}</span>
+                  </a>
+                {%- endfor -%}
+                </div>
+              </details>
+
+            {%- when 'price_range' -%}
+              <details class="sm-browse__group" open>
+                <summary class="sm-eyebrow">{{ filter.label }}</summary>
+
+                <form method="get" action="{{ collection.url }}#sm-results" class="sm-browse__range">
+                  {%- for other in collection.filters -%}
+                    {%- unless other.type == 'price_range' -%}
+                      {%- for value in other.active_values -%}
+                        <input type="hidden" name="{{ value.param_name }}" value="{{ value.value }}">
+                      {%- endfor -%}
+                    {%- endunless -%}
+                  {%- endfor -%}
+
+                  <label class="visually-hidden" for="sm-price-min">Lowest price</label>
+                  <input id="sm-price-min" type="number" inputmode="numeric" min="0" placeholder="Min"
+                         name="{{ filter.min_value.param_name }}" value="{{ filter.min_value.value }}">
+
+                  <span aria-hidden="true">–</span>
+
+                  <label class="visually-hidden" for="sm-price-max">Highest price</label>
+                  <input id="sm-price-max" type="number" inputmode="numeric" min="0" placeholder="Max"
+                         name="{{ filter.max_value.param_name }}" value="{{ filter.max_value.value }}">
+
+                  <button type="submit" class="sm-button sm-button--secondary">Apply</button>
+                </form>
+              </details>
+          {%- endcase -%}
+        {%- endfor -%}
+
+    {%- endcapture -%}
+    {%- assign filter_groups = filter_groups | strip -%}
+    {%- if filter_groups == blank -%}
+      {%- assign has_filters = false -%}
+    {%- endif -%}
+
+    {%- if has_filters -%}
+      <div class="sm-browse sm-browse--server">
+      {%- comment -%}
+        Plain links, not a form: each one is a URL Shopify builds, so the page
+        that comes back is filtered, counted and paged by Shopify. The #results
+        fragment is what puts the shopper back at the grid rather than at the
+        top of the page — the answer to "it should scroll up".
+      {%- endcomment -%}
+      <aside class="sm-browse__filters sm-browse__filters--real" id="sm-filters">
+        <p class="sm-browse__filters-title">Filter</p>
+
+        {%- comment -%}
+          The shop's own categories, as Shopify tag links.
+
+          These went missing when the sidebar moved to Shopify's filters:
+          Search & Discovery is set up with Availability and Price only, and
+          the theme's Type/tag groups could only ever narrow the page in the
+          browser. `/collections/<handle>/<tag>` is Shopify's built-in tag
+          route, so these narrow the whole collection and the count and the
+          pager are the filtered ones — no app configuration needed.
+
+          One at a time: a second tag would need the +tag1+tag2 form, and the
+          shop has never had more than one category on at once.
+        {%- endcomment -%}
+        {{ filter_groups }}
+
+        {%- liquid
+          comment
+            Liquid takes no filters inside an `if`, so the tally is built first.
+          endcomment
+          assign active_count = 0
+          for filter in collection.filters
+            assign active_count = active_count | plus: filter.active_values.size
+          endfor
+        -%}
+
+        {%- if current_tags.size > 0 -%}
+          {%- assign active_count = active_count | plus: current_tags.size -%}
+        {%- endif -%}
+
+        {%- if active_count > 0 -%}
+          <a class="sm-browse__clear" href="{{ collection.url }}#sm-results">Clear all</a>
+        {%- endif -%}
+      </aside>
+    {%- endif -%}
+
+    {%- capture props -%}
+{
+  "products": [{{ products }}],
+  {%- comment -%}
+    Never any groups: the island draws a sidebar of its own when it is given
+    some, and it could only narrow the page in the browser while the count and
+    the pager spoke for the whole collection. Filtering is the Liquid sidebar
+    above, on Shopify's own tag routes.
+  {%- endcomment -%}
+  "filters": [],
+  "currency": {{ cart.currency.iso_code | json }},
+  "prompt": {
+    "heading": {{ prompt_heading | json }},
+    "body": {{ section.settings.prompt_body | json }},
+    "label": {{ section.settings.prompt_label | json }},
+    "url": {{ section.settings.prompt_url | default: '#' | json }}
+  }
+}
+    {%- endcapture -%}
+
+    {%- capture fallback -%}
+      <div class="sm-browse__grid">
+        {%- for product in collection.products -%}
+          <a class="sm-card" href="{{ product.url }}">
+            <div class="sm-card__media">
+              {%- if product.featured_image -%}
+                <img src="{{ product.featured_image | image_url: width: 600 }}" alt="{{ product.title | escape }}" loading="lazy">
+              {%- endif -%}
+            </div>
+            <div class="sm-card__body">
+              <h3 class="sm-card__title">{{ product.title }}</h3>
+              <p class="sm-card__price">{{ product.price | money }}</p>
+            </div>
+          </a>
+        {%- endfor -%}
+      </div>
+    {%- endcapture -%}
+
+    {%- comment -%}
+      The anchor wraps the grid rather than being an empty div before it: an
+      empty element collapses to zero height and reported its position as the
+      top of the page, so the filter links landed the shopper back at the
+      masthead.
+    {%- endcomment -%}
+    <div id="sm-results">
+      {%- if has_filters and collection.products.size == 0 -%}
+        {%- comment -%}
+          Nothing matched. The way out is a link that drops the filters from
+          the URL — the island's button only ever cleared its own state.
+        {%- endcomment -%}
+        <div class="sm-browse__empty">
+          <p>No designs match those filters.</p>
+          <a class="sm-button sm-button--secondary" href="{{ collection.url }}#sm-results">Clear filters</a>
+        </div>
+      {%- else -%}
+        {% render 'sm-island', name: 'collection-grid', props: props, fallback: fallback %}
+      {%- endif -%}
+    </div>
+
+    {%- if has_filters -%}
+      </div>
+    {%- endif -%}
+
+    {%- comment -%} Paging stays on Shopify. {%- endcomment -%}
+    <div id="sm-pager">
+      {% render 'sm-pagination', paginate: paginate, label: 'designs' %}
+    </div>
+  </div>
+</div>
+
+{%- endpaginate -%}
+
+{% schema %}
+{
+  "name": "SHEmakes collection",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "head_image",
+      "label": "Header photo",
+      "info": "Replaces the photograph behind the title on every collection page. Without it, the first design in the collection is used."
+    },
+    {
+      "type": "textarea",
+      "id": "filter_overrides",
+      "label": "A collection's own filter",
+      "info": "One line per collection: handle: Label=tag, Label=tag. That collection's first filter shows only these."
+    },
+    {
+      "type": "text",
+      "id": "no_filters",
+      "label": "Collections with no filters",
+      "info": "Comma separated handles. These open as one plain grid — no sidebar, no filter links.",
+      "default": "newly-added"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_filters",
+      "label": "Filter sidebar",
+      "info": "Off: the grid runs the full width. A collection with no category tags never shows the sidebar either way.",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "how_label",
+      "label": "Button to the directions",
+      "info": "Jumps to the steps section at the foot of the page. Leave empty to hide it.",
+      "default": "How to order"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_description",
+      "label": "Show the collection description",
+      "info": "Off by default: the option cards and steps sections carry the ordering instructions now.",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "per_page",
+      "label": "Per page",
+      "min": 12,
+      "max": 48,
+      "step": 12,
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "new_for_days",
+      "label": "Count as new for",
+      "min": 5,
+      "max": 90,
+      "step": 5,
+      "unit": "d",
+      "default": 30
+    },
+    { "type": "header", "content": "Strip above the pager" },
+    { "type": "text", "id": "prompt_heading", "label": "Heading", "info": "Leave empty to drop the strip." },
+    {
+      "type": "text",
+      "id": "prompt_handles",
+      "label": "Only on these collections",
+      "info": "Comma separated handles. Empty shows the strip on every collection using this template."
+    },
+    { "type": "textarea", "id": "prompt_body", "label": "Body" },
+    { "type": "text", "id": "prompt_label", "label": "Button" },
+    { "type": "url", "id": "prompt_url", "label": "Button link" }
+  ],
+  "blocks": [
+    {
+      "type": "filter",
+      "name": "Filter group",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Group name", "default": "Surface" },
+        {
+          "type": "textarea",
+          "id": "values",
+          "label": "Values",
+          "info": "Comma separated. Each matches a product tag or product type.",
+          "default": "DTF, UV DTF, Puff, Blanks"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

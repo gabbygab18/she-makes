@@ -1,0 +1,52 @@
+{% comment %}
+  A heading in two faces.
+
+  Satoshi for the sentence, Playfair for the part being emphasised. Which part
+  is the shop's decision, so it is marked in the text itself:
+
+    Ready to scale your business with *websites and automation?*
+
+  Nothing marked renders as an ordinary heading, so existing settings keep
+  working untouched.
+
+  Usage:
+    {% render 'sm-heading', text: section.settings.heading, tag: 'h2', class: 'sm-heading sm-heading--md' %}
+{% endcomment %}
+
+{%- liquid
+  assign heading_tag = tag | default: 'h2'
+  assign heading_class = class | default: 'sm-heading'
+  assign pieces = text | split: '*'
+
+  comment
+    Count the asterisks rather than the pieces. Liquid's `split` drops a
+    trailing empty string, so a heading that ends on a closing asterisk —
+    "…in *3 easy steps*" — splits into two pieces, exactly like an unclosed
+    one. Counting the characters tells them apart; counting pieces does not,
+    which is why the asterisks were rendering as text.
+  endcomment
+  assign bare = text | remove: '*' | size
+  assign full = text | size
+  assign marks = full | minus: bare
+
+  assign balanced = false
+  assign pairs = marks | modulo: 2
+  if marks > 0 and pairs == 0
+    assign balanced = true
+  endif
+-%}
+
+<{{ heading_tag }} class="{{ heading_class }}">
+  {%- if balanced -%}
+    {%- for piece in pieces -%}
+      {%- assign position = forloop.index0 | modulo: 2 -%}
+      {%- if position == 1 -%}
+        <em class="sm-heading__accent">{{ piece }}</em>
+      {%- else -%}
+        {{ piece }}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- else -%}
+    {{ text }}
+  {%- endif -%}
+</{{ heading_tag }}>

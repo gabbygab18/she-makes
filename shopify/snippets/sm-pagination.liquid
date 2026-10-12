@@ -1,0 +1,62 @@
+{% comment %}
+  Pagination.
+
+  `paginate | default_pagination` renders the theme's own markup, which does
+  not belong to this design. This walks `paginate.parts` instead — Shopify
+  builds that list, including the ellipses, so the page numbering is still
+  Shopify's and only the markup is ours.
+
+  Usage:
+    {% render 'sm-pagination', paginate: paginate, label: 'designs' %}
+{% endcomment %}
+
+{%- if paginate.pages > 1 -%}
+  <nav class="sm-pages" role="navigation" aria-label="Pagination">
+    {%- if paginate.previous -%}
+      <a href="{{ paginate.previous.url }}" class="sm-pages__step" rel="prev" aria-label="Previous page">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <path d="m15 18-6-6 6-6"/>
+        </svg>
+      </a>
+    {%- else -%}
+      <span class="sm-pages__step is-off" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="m15 18-6-6 6-6"/>
+        </svg>
+      </span>
+    {%- endif -%}
+
+    <ol class="sm-pages__list" role="list">
+      {%- for part in paginate.parts -%}
+        <li>
+          {%- if part.is_link -%}
+            <a href="{{ part.url }}" class="sm-pages__page">{{ part.title }}</a>
+          {%- elsif part.title == paginate.current_page -%}
+            <span class="sm-pages__page is-current" aria-current="page">{{ part.title }}</span>
+          {%- else -%}
+            <span class="sm-pages__gap" aria-hidden="true">{{ part.title }}</span>
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ol>
+
+    {%- if paginate.next -%}
+      <a href="{{ paginate.next.url }}" class="sm-pages__step" rel="next" aria-label="Next page">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <path d="m9 18 6-6-6-6"/>
+        </svg>
+      </a>
+    {%- else -%}
+      <span class="sm-pages__step is-off" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="m9 18 6-6-6-6"/>
+        </svg>
+      </span>
+    {%- endif -%}
+
+    <p class="sm-pages__count">
+      Page {{ paginate.current_page }} of {{ paginate.pages }}
+      {%- if label != blank %} · {{ paginate.items }} {{ label }}{% endif -%}
+    </p>
+  </nav>
+{%- endif -%}

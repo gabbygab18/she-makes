@@ -1,0 +1,155 @@
+{% comment %}
+  SHEmakes — a content page (About, Pressing guide, Pickup & shipping, FAQ).
+
+  Plain Liquid, no island: this is the shop's own rich text, edited in the
+  Shopify page editor. There is no state here for React to hold, and wrapping
+  prose in a bundle only means it arrives later.
+
+  The body keeps a reading measure — the theme let it run the full width, which
+  is why the About page read as a wall.
+{% endcomment %}
+
+{%- liquid
+  comment
+    A sign-up page — "Grab your free sample", "Stay connected" — is a page with
+    a Klaviyo form embedded in it, and it wants a different shape from a prose
+    page: a band, then the form on a card with the reassurances beside it.
+    Detected rather than set by hand, so any future sign-up page gets it too.
+  endcomment
+  assign has_form = false
+  if page.content contains 'klaviyo-form'
+    assign has_form = true
+  endif
+
+  comment
+    The quote page embeds HulkApps' form builder rather than Klaviyo, so it
+    fell through to the prose layout and read as a different page from the
+    other sign-up ones.
+  endcomment
+  if page.content contains 'pxFormGenerator' or page.content contains 'formbuilder.hulkapps'
+    assign has_form = true
+  endif
+-%}
+
+{%- if has_form -%}
+  <div class="sm-pagehead sm-pagehead--offer">
+    <div class="sm-container">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="sm-eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+
+      <h1 class="sm-heading sm-heading--lg">{{ page.title }}</h1>
+
+      {%- if section.settings.standfirst != blank -%}
+        <p class="sm-pagehead__intro sm-body">{{ section.settings.standfirst }}</p>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <div class="sm-section sm-section--tight sm-page--offer">
+    <div class="sm-container">
+      <div class="sm-offer">
+        {%- comment -%}
+          The free sample page leads with the sample, not the sign-up: the
+          shop asked for the link first and the email form under it. The
+          button is found from the page's own link to the product, like the
+          form itself is; the stylesheet moves the embedded form to the foot
+          of the card.
+        {%- endcomment -%}
+        <div class="sm-offer__card sm-prose rte">
+          {%- if page.content contains '/products/free-sample' -%}
+            <p class="sm-offer__cta">
+              <a class="sm-button sm-button--primary" href="/products/free-sample">
+                Get your FREE sample <span aria-hidden="true">&rarr;</span>
+              </a>
+            </p>
+          {%- endif -%}
+          {{ page.content }}
+        </div>
+
+        {%- if section.blocks.size > 0 -%}
+          <aside class="sm-offer__points">
+            {%- for block in section.blocks -%}
+              <div class="sm-offer__point" {{ block.shopify_attributes }}>
+                <span class="sm-offer__icon" aria-hidden="true">
+                  {% render 'sm-icon', name: block.settings.icon %}
+                </span>
+                <div>
+                  <p class="sm-offer__point-title">{{ block.settings.title }}</p>
+                  {%- if block.settings.body != blank -%}
+                    <p class="sm-offer__point-body">{{ block.settings.body }}</p>
+                  {%- endif -%}
+                </div>
+              </div>
+            {%- endfor -%}
+          </aside>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+{%- else -%}
+
+<div class="sm-section {% if section.settings.tint %}sm-section--blush{% endif %}">
+  <div class="sm-container">
+    <header class="sm-page__head">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="sm-eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+
+      <h1 class="sm-heading sm-heading--md">{{ page.title }}</h1>
+
+      {%- if section.settings.standfirst != blank -%}
+        <p class="sm-body">{{ section.settings.standfirst }}</p>
+      {%- endif -%}
+    </header>
+
+    <div class="sm-prose rte">{{ page.content }}</div>
+
+    {%- if section.settings.cta_label != blank -%}
+      <div class="sm-page__actions">
+        <a href="{{ section.settings.cta_url | default: routes.all_products_collection_url }}" class="sm-button sm-button--primary">
+          {{ section.settings.cta_label }}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "SHEmakes page",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "textarea", "id": "standfirst", "label": "Intro line", "info": "Shown above the page content." },
+    { "type": "checkbox", "id": "tint", "label": "Blush background", "default": false },
+    { "type": "text", "id": "cta_label", "label": "Button" },
+    { "type": "url", "id": "cta_url", "label": "Button link" }
+  ],
+  "blocks": [
+    {
+      "type": "point",
+      "name": "Reassurance",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "mail", "label": "Mail" },
+            { "value": "truck", "label": "Delivery" },
+            { "value": "leaf", "label": "Maple leaf" },
+            { "value": "shield", "label": "Shield" },
+            { "value": "star", "label": "Star" },
+            { "value": "time", "label": "Clock" }
+          ],
+          "default": "mail"
+        },
+        { "type": "text", "id": "title", "label": "Title", "default": "No spam, ever" },
+        { "type": "text", "id": "body", "label": "Text" }
+      ]
+    }
+  ]
+}
+{% endschema %}

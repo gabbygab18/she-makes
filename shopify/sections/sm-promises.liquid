@@ -1,0 +1,319 @@
+{% comment %}
+  SHEmakes — the four promises.
+
+  Free shipping, made in Canada, satisfaction, real reviews. Stated once under
+  the hero rather than repeated down the page.
+
+  The icons are a fixed set rather than an image picker: four hand-drawn SVGs
+  on one grid stay consistent, where four uploaded PNGs never do.
+{% endcomment %}
+{%- liquid
+  assign items = ''
+  for block in section.blocks
+    assign i = block.settings.icon | json
+    assign t = block.settings.title | json
+    assign b = block.settings.body | json
+    assign u = block.settings.url | default: '' | json
+
+    comment
+      An uploaded image wins over the built-in glyph. That is how a shop gets
+      an icon this theme does not ship — a maple leaf, say — without waiting on
+      a code change.
+    endcomment
+    assign img = ''
+    if block.settings.image != blank
+      assign img = block.settings.image | image_url: width: 96
+    endif
+    assign img = img | json
+    assign alt = block.settings.image.alt | default: '' | json
+
+    comment
+      The photograph beside the words. The shop's own upload wins; otherwise
+      it is one of the files that ship with the theme, named in the block.
+    endcomment
+    assign pic = ''
+    if block.settings.photo != blank
+      assign pic = block.settings.photo | image_url: width: 900
+    elsif block.settings.photo_asset != blank
+      assign pic = block.settings.photo_asset | asset_url
+    endif
+    assign pic = pic | json
+
+    assign row = '{"icon":' | append: i | append: ',"image":' | append: img | append: ',"alt":' | append: alt | append: ',"photo":' | append: pic | append: ',"title":' | append: t | append: ',"body":' | append: b | append: ',"url":' | append: u | append: '}'
+    if forloop.first
+      assign items = row
+    else
+      assign items = items | append: ',' | append: row
+    endif
+  endfor
+-%}
+{%- capture props -%}
+{
+  "eyebrow": {{ section.settings.lead_eyebrow | json }},
+  "heading": {{ section.settings.lead_heading | json }},
+  "body": {{ section.settings.lead_body | json }},
+  "items": [{{ items }}]
+}
+{%- endcapture -%}
+
+{%- comment -%}
+  The Liquid below is the fallback: it renders the whole section, so the
+  page is complete before the bundle arrives and stays complete if it
+  never does. React replaces it on mount.
+{%- endcomment -%}
+{%- capture fallback -%}
+{%- liquid
+  assign icon_truck = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>'
+  assign icon_leaf = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6"/></svg>'
+  assign icon_shield = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>'
+  assign icon_star = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>'
+  comment
+    The maple leaf from the Canadian flag — public domain, so no attribution
+    is owed. Drawn on the flag's 9600x4800 grid, hence the transform.
+  endcomment
+  assign icon_maple = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><g transform="translate(-0.864 -0.944) scale(0.0053598)"><path d="m2490 4430-45-863a95 95 0 0 1 111-98l859 151-116-320a65 65 0 0 1 20-73l941-762-212-99a65 65 0 0 1-34-79l186-572-542 115a65 65 0 0 1-73-38l-105-247-423 454a65 65 0 0 1-111-57l204-1052-327 189a65 65 0 0 1-91-27l-332-652-332 652a65 65 0 0 1-91 27l-327-189 204 1052a65 65 0 0 1-111 57l-423-454-105 247a65 65 0 0 1-73 38l-542-115 186 572a65 65 0 0 1-34 79l-212 99 941 762a65 65 0 0 1 20 73l-116 320 859-151a95 95 0 0 1 111 98l-45 863z"/></g></svg>'
+-%}
+
+<div class="sm-section{% if section.settings.tint != blank and section.settings.tint != 'none' %} sm-section--{{ section.settings.tint }}{% endif %}">
+  <div class="sm-container sm-promises">
+    {%- if section.settings.lead_heading != blank or section.settings.lead_body != blank -%}
+      {%- comment -%}
+        The copy sits beside the cards rather than above them: four claims in
+        a block read as a list to get through, and a sentence holding them
+        together turns the same four into an argument.
+      {%- endcomment -%}
+      <div class="sm-promises__lead">
+        {%- if section.settings.lead_eyebrow != blank -%}
+          <p class="sm-eyebrow">{{ section.settings.lead_eyebrow }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.heading != blank -%}
+          {% render 'sm-heading', text: section.settings.lead_heading, tag: 'h2', class: 'sm-heading sm-heading--md' %}
+        {%- endif -%}
+
+        {%- if section.settings.lead_body != blank -%}
+          <p class="sm-body">{{ section.settings.lead_body }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <ul class="sm-promises__grid">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign pic = ''
+          if block.settings.photo != blank
+            assign pic = block.settings.photo | image_url: width: 900
+          elsif block.settings.photo_asset != blank
+            assign pic = block.settings.photo_asset | asset_url
+          endif
+        -%}
+        <li class="sm-promise{% if pic != blank %} sm-promise--photo{% endif %}" {{ block.shopify_attributes }}>
+          {%- if block.settings.url != blank -%}
+            <a class="sm-promise__link" href="{{ block.settings.url }}">
+          {%- endif -%}
+
+          <span class="sm-promise__icon">
+            {%- if block.settings.image != blank -%}
+              <img src="{{ block.settings.image | image_url: width: 96 }}" alt="{{ block.settings.image.alt | escape }}" loading="lazy">
+            {%- else -%}
+              {%- case block.settings.icon -%}
+                {%- when 'truck' -%}{{ icon_truck }}
+                {%- when 'leaf' -%}{{ icon_leaf }}
+                {%- when 'maple' -%}{{ icon_maple }}
+                {%- when 'shield' -%}{{ icon_shield }}
+                {%- when 'coins' -%}{% render 'sm-icon', name: 'coins' %}
+                {%- else -%}{{ icon_star }}
+              {%- endcase -%}
+            {%- endif -%}
+          </span>
+
+          <h3 class="sm-promise__title">{{ block.settings.title }}</h3>
+          <p class="sm-promise__body">{{ block.settings.body }}</p>
+
+          {%- if pic != blank -%}
+            <img class="sm-promise__photo" src="{{ pic }}" alt="" loading="lazy">
+          {%- endif -%}
+
+          {%- if block.settings.url != blank -%}
+            </a>
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</div>
+{%- endcapture -%}
+
+<div class="sm-reveal">
+  {% render 'sm-island', name: 'promises', props: props, fallback: fallback %}
+</div>
+
+{% schema %}
+{
+  "name": "SHEmakes promises",
+  "tag": "section",
+  "blocks": [
+    {
+      "type": "promise",
+      "name": "Promise",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link",
+          "info": "Optional — makes the whole card clickable."
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            {
+              "value": "truck",
+              "label": "Delivery"
+            },
+            {
+              "value": "leaf",
+              "label": "Made locally"
+            },
+            {
+              "value": "shield",
+              "label": "Guarantee"
+            },
+            {
+              "value": "star",
+              "label": "Reviews"
+            },
+            {
+              "value": "maple",
+              "label": "Maple leaf"
+            },
+            {
+              "value": "coins",
+              "label": "Bulk pricing"
+            }
+          ],
+          "default": "truck"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Custom icon",
+          "info": "Overrides the icon above. A square SVG or PNG — use this for anything the list does not offer."
+        },
+        {
+          "type": "image_picker",
+          "id": "photo",
+          "label": "Photograph",
+          "info": "Sits down the right-hand side of the card. Leave empty for the icon and words alone."
+        },
+        {
+          "type": "text",
+          "id": "photo_asset",
+          "label": "Photograph (theme file)",
+          "info": "Used when nothing is picked above — the name of a file in the theme's assets, e.g. sm-why-1.jpg."
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Free shipping $150+"
+        },
+        {
+          "type": "textarea",
+          "id": "body",
+          "label": "Body",
+          "default": "Discounted flat rates to Canada and the USA."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SHEmakes promises",
+      "blocks": [
+        {
+          "type": "promise",
+          "settings": {
+            "icon": "truck",
+            "title": "Free shipping $150+",
+            "body": "Discounted flat rates to Canada and the USA."
+          }
+        },
+        {
+          "type": "promise",
+          "settings": {
+            "icon": "leaf",
+            "title": "Made in Canada",
+            "body": "Printed locally in London, Ontario."
+          }
+        },
+        {
+          "type": "promise",
+          "settings": {
+            "icon": "shield",
+            "title": "Satisfaction guaranteed",
+            "body": "Order with confidence."
+          }
+        },
+        {
+          "type": "promise",
+          "settings": {
+            "icon": "star",
+            "title": "Real reviews",
+            "body": "367 real customer reviews and counting."
+          }
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "lead_eyebrow",
+      "label": "Eyebrow"
+    },
+    {
+      "type": "text",
+      "id": "lead_heading",
+      "label": "Heading",
+      "info": "Sits beside the cards. Leave empty for the cards alone."
+    },
+    {
+      "type": "textarea",
+      "id": "lead_body",
+      "label": "Intro"
+    },
+    {
+      "type": "select",
+      "id": "tint",
+      "label": "Band colour",
+      "info": "DESIGN.md builds a page's rhythm from oversized colour blocks with white canvas between them. Never two of the same in a row.",
+      "options": [
+        {
+          "value": "none",
+          "label": "White"
+        },
+        {
+          "value": "cream",
+          "label": "Butter cream"
+        },
+        {
+          "value": "honey",
+          "label": "Honey"
+        },
+        {
+          "value": "blush",
+          "label": "Blush pink"
+        },
+        {
+          "value": "sand",
+          "label": "Pink"
+        }
+      ],
+      "default": "none"
+    }
+  ]
+}
+{% endschema %}

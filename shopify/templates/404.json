@@ -1,0 +1,26 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "sm-404",
+      "settings": {
+        "heading": "We could not find that page",
+        "body": "The link may be old, or the design may have been retired. Everything still in stock is on the browse page.",
+        "primary_label": "Browse ready to press",
+        "secondary_label": "Start a custom order",
+        "search_placeholder": "Search designs, sizes…"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

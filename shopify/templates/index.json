@@ -1,0 +1,509 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "sm-hero",
+      "blocks": {
+        "s1": {
+          "type": "stat",
+          "settings": {
+            "icon": "time",
+            "value": "1–2",
+            "label": "Business days",
+            "note": "Typical turnaround · 24-hour rush available"
+          }
+        },
+        "s2": {
+          "type": "stat",
+          "settings": {
+            "icon": "star",
+            "value": "4.9/5",
+            "label": "Customer rating",
+            "note": "367 real customer reviews",
+            "url": "#sm-reviews"
+          }
+        },
+        "s3": {
+          "type": "stat",
+          "settings": {
+            "icon": "cloud",
+            "value": "",
+            "label": "Soft + durable",
+            "note": "Premium transfers. Soft feel. Made to last."
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "settings": {
+        "pill": "",
+        "heading": "Your artwork, printed and *out the door tomorrow*",
+        "body": "DTF and UV DTF transfers for small businesses and makers. Upload a file, check it in the browser, and press it this week — no minimums.",
+        "primary_label": "Start a Custom Order",
+        "primary_url": "/collections/custom?view=choose",
+        "secondary_label": "Browse Ready To Press",
+        "secondary_url": "/collections?view=choose",
+        "rating": "4.9/5 from 367 customers",
+        "rating_url": "#sm-reviews",
+        "rating_heading": "Real customers. Real feedback."
+      }
+    },
+    "promises": {
+      "type": "sm-promises",
+      "blocks": {
+        "p1": {
+          "type": "promise",
+          "settings": {
+            "icon": "maple",
+            "photo_asset": "sm-why-1.jpg",
+            "title": "Proudly printed in Canada",
+            "body": "Locally printed in London, Ontario. Never outsourced. Family owned and operated."
+          }
+        },
+        "p2": {
+          "type": "promise",
+          "settings": {
+            "icon": "truck",
+            "photo_asset": "sm-why-2.jpg",
+            "title": "Shipping + local pickup",
+            "body": "Free shipping over $150. Discounted flat rate shipping across Canada and the USA. Local pickup in London, ON and St. Thomas, ON."
+          }
+        },
+        "p3": {
+          "type": "promise",
+          "settings": {
+            "icon": "shield",
+            "photo_asset": "sm-why-3.jpg",
+            "title": "Quality checked by hand",
+            "body": "Every sheet is carefully inspected before shipping, so you can press with confidence."
+          }
+        },
+        "p4": {
+          "type": "promise",
+          "settings": {
+            "icon": "coins",
+            "photo_asset": "sm-why-4.jpg",
+            "title": "Bulk pricing for your business",
+            "body": "Get more prints for less with our custom gang sheets.",
+            "url": "/collections/custom?view=choose"
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3",
+        "p4"
+      ],
+      "settings": {
+        "tint": "none",
+        "lead_eyebrow": "Why SHEmakes",
+        "lead_heading": "Made for makers *who mean business.*",
+        "lead_body": "Premium DTF and UV DTF transfers, printed in Canada with the quality, speed and support your business can count on."
+      }
+    },
+    "new_this_week": {
+      "type": "sm-featured",
+      "settings": {
+        "eyebrow": "Just landed",
+        "heading": "*New this week*",
+        "count": 4,
+        "cta_label": "See everything"
+      }
+    },
+    "faq": {
+      "type": "sm-faq",
+      "blocks": {
+        "q1": {
+          "type": "question",
+          "settings": {
+            "question": "What file should I send for a custom transfer?",
+            "answer": "<p>A PNG with a transparent background, at 300 DPI for the size you want printed — roughly 3300 pixels across for an 11 inch print.</p>"
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "question": "What is the difference between DTF and UV DTF?",
+            "answer": "<p>DTF is for fabric — heat pressed onto shirts, hoodies and bags. UV DTF is for hard surfaces such as cups, tumblers and keychains: no heat, peel and stick.</p>"
+          }
+        },
+        "q3": {
+          "type": "question",
+          "settings": {
+            "question": "How fast is turnaround, and can you rush it?",
+            "answer": "<p>Most orders print same day or next day. Rush service is available when you need it sooner.</p>"
+          }
+        },
+        "q4": {
+          "type": "question",
+          "settings": {
+            "question": "Do you offer free local pickup?",
+            "answer": "<p>Yes, and it is free. You get an email the moment your order is pressed and ready, with the address and the hours.</p>"
+          }
+        },
+        "q5": {
+          "type": "question",
+          "settings": {
+            "question": "When is shipping free?",
+            "answer": "<p>Free on orders over $150, across Canada and the USA. Under that it is a flat rate.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5"
+      ],
+      "settings": {
+        "eyebrow": "FAQ",
+        "heading": "The answers *you're looking for*",
+        "cta_label": "Email us",
+        "cta_url": "/pages/contact",
+        "source_page": "faqs",
+        "limit": 5,
+        "body": "",
+        "cta2_label": "All questions",
+        "cta2_url": "/pages/faqs"
+      }
+    },
+    "newsletter": {
+      "type": "sm-newsletter",
+      "settings": {
+        "heading": "Never miss another sale. *Join the VIPS*",
+        "body": "Unsubscribe at any time — but you won't want to, because you'll be getting VIP discount codes, exclusive offers, and small business tips!",
+        "placeholder": "Enter your email address",
+        "cta": "Subscribe & get 10% off",
+        "badge": "",
+        "contact_hours": "",
+        "small_print": "",
+        "contact_email": ""
+      }
+    },
+    "steps": {
+      "type": "sm-steps",
+      "blocks": {
+        "s1": {
+          "type": "step",
+          "settings": {
+            "icon": "none",
+            "label": "Step",
+            "photo_asset": "sm-step-1.webp",
+            "title": "Upload your designs",
+            "body": "Use our FREE sheet builder tool to upload your artwork for print.",
+            "link_label": "See our graphics guide for help.",
+            "url": "/pages/dtf-uv-instructions?view=guide"
+          }
+        },
+        "s2": {
+          "type": "step",
+          "settings": {
+            "icon": "none",
+            "label": "Step",
+            "photo_asset": "sm-step-2.jpg",
+            "title": "Submit for print",
+            "body": "Place your order, and we'll handle the printing!"
+          }
+        },
+        "s3": {
+          "type": "step",
+          "settings": {
+            "icon": "none",
+            "label": "Step",
+            "photo_asset": "sm-step-3.webp",
+            "title": "Printed and on it's way to you",
+            "body": "We print and ship fast!\n\nKeep an eye out for an email with your tracking information or pickup details."
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "settings": {
+        "eyebrow": "Custom orders",
+        "heading": "Order your own custom transfers in *3 Easy Steps*",
+        "tint": false,
+        "cta_label": "Start a custom order",
+        "secondary_label": "How-to guide for beginners",
+        "cta_url": "/collections/custom?view=choose",
+        "secondary_url": "/pages/dtf-uv-instructions?view=guide",
+        "body": "Upload your artwork, we'll print it as premium DTF or UV transfers, and ship it fast so you can get back to creating.",
+        "hero_asset": "sm-steps-hero.webp"
+      }
+    },
+    "instagram": {
+      "type": "sm-instagram",
+      "blocks": {
+        "p1": {
+          "type": "post",
+          "settings": {}
+        },
+        "p2": {
+          "type": "post",
+          "settings": {}
+        },
+        "p3": {
+          "type": "post",
+          "settings": {}
+        },
+        "p4": {
+          "type": "post",
+          "settings": {}
+        },
+        "p5": {
+          "type": "post",
+          "settings": {}
+        },
+        "p6": {
+          "type": "post",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3",
+        "p4",
+        "p5",
+        "p6"
+      ],
+      "settings": {
+        "live_feed": true,
+        "eyebrow": "Tips & Tricks for Makers",
+        "heading": "*Pressed and posted*",
+        "handle": "@shemakestransfers",
+        "body": "Follow our socials for a behind the scenes look, learn tips and tricks, and to stay up to date on sales and promos.",
+        "profile_url": "https://www.instagram.com/shemakestransfers",
+        "tint": "blush"
+      }
+    },
+    "collection_tiles": {
+      "type": "sm-collection-tiles",
+      "blocks": {
+        "t1": {
+          "type": "tile",
+          "settings": {
+            "title": "Custom Transfers",
+            "photo_asset": "sm-cat-custom.webp",
+            "body": "Bring your designs to life with premium DTF for apparel and UV DTF for hard surfaces.",
+            "label": "Order Custom DTF",
+            "url": "/collections/custom-dtf-for-fabric",
+            "eyebrow": "",
+            "note": "Free sheet builder · Gang sheet pricing",
+            "label2": "Order Custom UV DTF",
+            "url2": "/collections/custom-uv-dtf"
+          }
+        },
+        "t2": {
+          "type": "tile",
+          "settings": {
+            "title": "Ready-to-Press DTF",
+            "photo_asset": "sm-cat-rtp.webp",
+            "body": "Premade designs for apparel.",
+            "label": "Shop designs",
+            "url": "/collections?view=choose"
+          }
+        },
+        "t3": {
+          "type": "tile",
+          "settings": {
+            "title": "Ready-Made UV DTF",
+            "photo_asset": "sm-cat-uv.webp",
+            "body": "Premade decals for cups & more.",
+            "label": "Shop decals",
+            "url": "/collections/uv-dtf"
+          }
+        },
+        "t4": {
+          "type": "tile",
+          "settings": {
+            "title": "Blanks",
+            "photo_asset": "sm-cat-blanks.webp",
+            "body": "Ready for your next creation.",
+            "label": "Shop blanks",
+            "url": "/collections/blanks"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4"
+      ],
+      "settings": {
+        "tint": "none",
+        "eyebrow": "Shop by category",
+        "heading": "What are you *making today?*",
+        "body": "Shop custom transfers, ready-to-press designs, UV DTF decals & blanks.",
+        "cta_label": "",
+        "cta_url": ""
+      }
+    },
+    "reviews_row": {
+      "type": "sm-review-carousel",
+      "settings": {
+        "eyebrow": "In their words",
+        "heading": "What customers *actually said*",
+        "hint": "Swipe to read more",
+        "secondary_label": "Try a free sample",
+        "secondary_url": "/pages/grab-your-free-sample"
+      }
+    },
+    "reviews_app": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_featured_carousel_home": {
+          "type": "shopify://apps/judge-me-reviews/blocks/featured_carousel/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_featured_carousel_home"
+      ],
+      "settings": {
+        "include_margins": false
+      }
+    },
+    "fit": {
+      "type": "sm-fit",
+      "blocks": {
+        "g1": {
+          "type": "garment",
+          "settings": {
+            "label": "Baby",
+            "chest": 11,
+            "min": 4,
+            "max": 5
+          }
+        },
+        "g2": {
+          "type": "garment",
+          "settings": {
+            "label": "Toddler",
+            "chest": 13,
+            "min": 5,
+            "max": 6
+          }
+        },
+        "g3": {
+          "type": "garment",
+          "settings": {
+            "label": "Youth",
+            "chest": 16,
+            "min": 7,
+            "max": 8
+          }
+        },
+        "g4": {
+          "type": "garment",
+          "settings": {
+            "label": "Adult",
+            "chest": 21,
+            "min": 10,
+            "max": 11
+          }
+        },
+        "g5": {
+          "type": "garment",
+          "settings": {
+            "label": "Plus Sized",
+            "chest": 26,
+            "min": 12,
+            "max": 13
+          }
+        }
+      },
+      "block_order": [
+        "g1",
+        "g2",
+        "g3",
+        "g4",
+        "g5"
+      ],
+      "settings": {
+        "eyebrow": "Before you order",
+        "heading": "What size transfer *do I need*?",
+        "body": "Here's a guideline to help you decide how large to make your transfers. Pick a t-shirt size below. Sizes are in inches. You'll use whatever number comes first in either height or width.",
+        "note": "Left chest prints are 3–4″ on most adult size shirts.",
+        "blurb_heading": "Can't be bothered?",
+        "blurb_body": "Take the guesswork out of figuring our designing and sizing with our Ready to Press Transfers. They come pre-cut, pre-sized and quite literally - ready for you to press them!",
+        "cta_label": "Browse Ready To Press",
+        "cta_url": "/collections?view=choose"
+      }
+    },
+    "perks": {
+      "type": "sm-perks",
+      "blocks": {
+        "k1": {
+          "type": "perk",
+          "settings": {
+            "icon": "image",
+            "title": "Free transfer mockups",
+            "body": "Promote your products with watermark-free mockups."
+          }
+        },
+        "k2": {
+          "type": "perk",
+          "settings": {
+            "icon": "folder",
+            "title": "Free design library",
+            "body": "Use our design library when creating your gang sheets."
+          }
+        },
+        "k3": {
+          "type": "perk",
+          "settings": {
+            "icon": "gift",
+            "title": "Free sample pack",
+            "body": "New customers can try our premium transfers on us!",
+            "url": "/pages/grab-your-free-sample"
+          }
+        }
+      },
+      "block_order": [
+        "k1",
+        "k2",
+        "k3"
+      ],
+      "settings": {
+        "tint": "none",
+        "eyebrow": "SHEmakes perks",
+        "heading": "We don't just print your transfers. *We help you grow your business too.*",
+        "subheading": "",
+        "note": "Free tools and extras to help you create, market, and grow.",
+        "strip": "Free shipping on orders $150+",
+        "strip_url": "/policies/shipping-policy"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "promises",
+    "collection_tiles",
+    "steps",
+    "perks",
+    "reviews_row",
+    "reviews_app",
+    "new_this_week",
+    "faq",
+    "fit",
+    "instagram",
+    "newsletter"
+  ]
+}

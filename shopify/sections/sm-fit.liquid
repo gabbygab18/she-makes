@@ -1,0 +1,193 @@
+{% comment %}
+  SHEmakes — "will it fit?".
+
+  Transfers are sold in inches and shirts are not, so this draws the print at
+  its real share of the garment's chest. Garment sizes and the quick presets
+  are blocks, so the shop edits them in the theme editor.
+
+  The Liquid below the props is the fallback: the same numbers as a plain
+  table, so the page answers the question even with no JavaScript.
+{% endcomment %}
+
+{%- liquid
+  assign garments = ''
+  assign presets = ''
+
+  for block in section.blocks
+    if block.type == 'garment'
+      assign label = block.settings.label | json
+      assign chest = block.settings.chest | default: 0
+      assign gmin = block.settings.min | default: 0
+      assign gmax = block.settings.max | default: 0
+      assign row = '{"label":' | append: label | append: ',"chest":' | append: chest | append: ',"min":' | append: gmin | append: ',"max":' | append: gmax | append: '}'
+      if garments == ''
+        assign garments = row
+      else
+        assign garments = garments | append: ',' | append: row
+      endif
+    endif
+
+    if block.type == 'placement'
+      assign label = block.settings.label | json
+      assign pmin = block.settings.min | default: 0
+      assign pmax = block.settings.max | default: 0
+      assign fixed = 'false'
+      if block.settings.fixed
+        assign fixed = 'true'
+      endif
+      assign side = 'false'
+      if block.settings.side
+        assign side = 'true'
+      endif
+      assign row = '{"label":' | append: label | append: ',"min":' | append: pmin | append: ',"max":' | append: pmax | append: ',"fixed":' | append: fixed | append: ',"side":' | append: side | append: '}'
+      if presets == ''
+        assign presets = row
+      else
+        assign presets = presets | append: ',' | append: row
+      endif
+    endif
+  endfor
+-%}
+
+{%- capture props -%}
+{
+  "eyebrow": {{ section.settings.eyebrow | json }},
+  "heading": {{ section.settings.heading | json }},
+  "body": {{ section.settings.body | json }},
+  "note": {{ section.settings.note | json }},
+  "garments": [{{ garments }}],
+  "placements": [{{ presets }}],
+  "blurb_heading": {{ section.settings.blurb_heading | json }},
+  "blurb_body": {{ section.settings.blurb_body | json }},
+  "cta": {
+    "label": {{ section.settings.cta_label | json }},
+    "url": {{ section.settings.cta_url | default: routes.all_products_collection_url | json }}
+  }
+}
+{%- endcapture -%}
+
+{%- capture fallback -%}
+<div class="sm-section sm-fit">
+  <div class="sm-container">
+    <div class="sm-fit__head">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="sm-eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        {% render 'sm-heading', text: section.settings.heading, tag: 'h2', class: 'sm-heading sm-heading--md' %}
+      {%- endif -%}
+
+      {%- if section.settings.body != blank -%}
+        <p class="sm-body sm-fit__intro">{{ section.settings.body }}</p>
+      {%- endif -%}
+    </div>
+
+    {%- assign garment_list = section.blocks | where: 'type', 'garment' -%}
+    {%- if garment_list.size > 0 -%}
+      <div class="sm-fit__table">
+        {%- for block in garment_list -%}
+          <div class="sm-fit__row">
+            <p class="sm-fit__row-label">{{ block.settings.label }}</p>
+            <p class="sm-fit__row-value">{{ block.settings.min }}&ndash;{{ block.settings.max }}&Prime; wide</p>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.blurb_heading != blank -%}
+      <p class="sm-fit__blurb-heading">{{ section.settings.blurb_heading }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.blurb_body != blank -%}
+      <p class="sm-fit__blurb-body">{{ section.settings.blurb_body }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.cta_label != blank -%}
+      <a class="sm-button sm-button--primary" href="{{ section.settings.cta_url | default: routes.all_products_collection_url }}">
+        {{ section.settings.cta_label }}
+      </a>
+    {%- endif -%}
+  </div>
+</div>
+{%- endcapture -%}
+
+{% render 'sm-island', name: 'fit', props: props, fallback: fallback %}
+
+{% schema %}
+{
+  "name": "SHEmakes fit preview",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Before you order" },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "What size transfer *do I need*?"
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Intro",
+      "default": "Here's a guideline to help you decide how large to make your transfers. Pick a t-shirt size below. Sizes are in inches. You'll use whatever number comes first in either height or width."
+    },
+    { "type": "text", "id": "note", "label": "Small print" },
+    { "type": "header", "content": "Ready to press" },
+    { "type": "text", "id": "blurb_heading", "label": "Heading above the button", "default": "Can't be bothered?" },
+    {
+      "type": "textarea",
+      "id": "blurb_body",
+      "label": "Text above the button",
+      "default": "Take the guesswork out of figuring our designing and sizing with our Ready to Press Transfers. They come pre-cut, pre-sized and quite literally - ready for you to press them!"
+    },
+    { "type": "text", "id": "cta_label", "label": "Button", "default": "Browse Ready To Press" },
+    { "type": "url", "id": "cta_url", "label": "Button link" }
+  ],
+  "blocks": [
+    {
+      "type": "garment",
+      "name": "Garment size",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Adult" },
+        {
+          "type": "number",
+          "id": "chest",
+          "label": "Chest width, inches",
+          "info": "Flat across the chest, the way a size chart measures it."
+        },
+        { "type": "number", "id": "min", "label": "Smallest print, inches" },
+        { "type": "number", "id": "max", "label": "Largest print, inches" }
+      ]
+    },
+    {
+      "type": "placement",
+      "name": "Placement",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Center front" },
+        { "type": "number", "id": "min", "label": "Smallest print, inches", "info": "Used only when the box below is ticked." },
+        { "type": "number", "id": "max", "label": "Largest print, inches" },
+        {
+          "type": "checkbox",
+          "id": "fixed",
+          "label": "Same size on every garment",
+          "info": "On for a left chest print, which is the same width whatever the shirt.",
+          "default": false
+        },
+        { "type": "checkbox", "id": "side", "label": "Sits to the left", "default": false }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SHEmakes fit preview",
+      "blocks": [
+        { "type": "garment" },
+        { "type": "garment" },
+        { "type": "placement" },
+        { "type": "placement" }
+      ]
+    }
+  ]
+}
+{% endschema %}

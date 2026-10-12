@@ -1,0 +1,20 @@
+{% comment %}
+  SHEmakes — the discount tab.
+
+  Klaviyo's own teaser is an image the shop cannot restyle from here, and the
+  brief asked for the small transparent button RBA uses. So the theme draws the
+  button and Klaviyo keeps the form behind it: clicking calls Klaviyo's own
+  openForm, which is the same pop-up their teaser would have opened.
+
+  With no form ID set, nothing renders and Klaviyo's teaser is left alone.
+{% endcomment %}
+
+{%- if settings.sm_klaviyo_form_id != blank -%}
+  <button
+    type="button"
+    class="sm-discount-tab sm-discount-tab--{{ settings.sm_klaviyo_side | default: 'left' }}"
+    data-sm-klaviyo-form="{{ settings.sm_klaviyo_form_id }}"
+  >
+    {{ settings.sm_klaviyo_label | default: 'Get 10% Off' }}
+  </button>
+{%- endif -%}

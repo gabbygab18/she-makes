@@ -1,0 +1,281 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "d9ee3699-a06a-44a3-adbd-4da0050d54e1": {
+      "type": "rich-text",
+      "blocks": {
+        "template--15977379135653__d9ee3699-a06a-44a3-adbd-4da0050d54e1-16742469949cf7b362-0": {
+          "type": "heading",
+          "settings": {
+            "heading": "IT TASTES BETTER IN A NICE CUP",
+            "heading_size": "heading-medium",
+            "font_weight": "400",
+            "letter_spacing": 0,
+            "heading_color_scheme": "accent-1"
+          }
+        },
+        "template--15977379135653__d9ee3699-a06a-44a3-adbd-4da0050d54e1-16742469949cf7b362-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>BROWSE ALL OUR DRINKWARE COLLECTIONS BELOW!</p>",
+            "letter_spacing": 0,
+            "text_color_scheme": "background-2"
+          }
+        }
+      },
+      "block_order": [
+        "template--15977379135653__d9ee3699-a06a-44a3-adbd-4da0050d54e1-16742469949cf7b362-0",
+        "template--15977379135653__d9ee3699-a06a-44a3-adbd-4da0050d54e1-16742469949cf7b362-1"
+      ],
+      "settings": {
+        "color_scheme": "accent-6",
+        "text_alignment": "center",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      },
+      "disabled": true
+    },
+    "banner": {
+      "type": "main-collection-banner",
+      "disabled": true,
+      "settings": {
+        "show_collection_description": false,
+        "show_collection_image": false,
+        "color_scheme": "background-1",
+        "text_alignment": "center",
+        "heading_size": "heading-medium",
+        "font_weight": "400",
+        "letter_spacing": 0,
+        "heading_color_scheme": "accent-2",
+        "enable_uppercase": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "6e1e6b82-9659-42da-adbe-029cbc5d7864": {
+      "type": "collection-list",
+      "blocks": {
+        "603ae05c-80c6-447a-bf14-5f8a0531c89f": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "drinkware",
+            "font_size": "heading-small",
+            "font_weight": "400",
+            "letter_spacing": 0
+          }
+        },
+        "template--15977379135653__6e1e6b82-9659-42da-adbe-029cbc5d7864-1674246508b01b2711-0": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "mugs",
+            "font_size": "heading-small",
+            "font_weight": "400",
+            "letter_spacing": 0
+          }
+        },
+        "template--15977379135653__6e1e6b82-9659-42da-adbe-029cbc5d7864-1674246508b01b2711-1": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "tumblers",
+            "font_size": "heading-small",
+            "font_weight": "400",
+            "letter_spacing": 0
+          }
+        },
+        "template--15977379135653__6e1e6b82-9659-42da-adbe-029cbc5d7864-1674246508b01b2711-2": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "wine-tumblers",
+            "font_size": "heading-small",
+            "font_weight": "400",
+            "letter_spacing": 0
+          }
+        },
+        "785fd8e7-6320-47db-8df9-ca648e8d6a65": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "home-collection-mugs",
+            "font_size": "heading-small",
+            "font_weight": "400",
+            "letter_spacing": 0
+          }
+        },
+        "3f5431fd-828a-4fb9-97bd-4507fbed0d16": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "home-collection-wine-cups",
+            "font_size": "heading-small",
+            "font_weight": "400",
+            "letter_spacing": 0
+          }
+        }
+      },
+      "block_order": [
+        "603ae05c-80c6-447a-bf14-5f8a0531c89f",
+        "template--15977379135653__6e1e6b82-9659-42da-adbe-029cbc5d7864-1674246508b01b2711-0",
+        "template--15977379135653__6e1e6b82-9659-42da-adbe-029cbc5d7864-1674246508b01b2711-1",
+        "template--15977379135653__6e1e6b82-9659-42da-adbe-029cbc5d7864-1674246508b01b2711-2",
+        "785fd8e7-6320-47db-8df9-ca648e8d6a65",
+        "3f5431fd-828a-4fb9-97bd-4507fbed0d16"
+      ],
+      "settings": {
+        "title": "DRINKWARE COLLECTION",
+        "heading_size": "h1",
+        "heading_color_scheme": "background-2",
+        "font_weight": "400",
+        "heading_spacing": 0,
+        "subheading": "Shop Our Exclusive, Handmade and Designed Drinkware by SHEmakes",
+        "subheading_color_scheme": "background-2",
+        "text_alignment": "center",
+        "color_scheme": "background-1",
+        "image_ratio": "square",
+        "image_color_opacity": "#000000",
+        "image_overlay_opacity": 0,
+        "columns_desktop": 3,
+        "enable_title": true,
+        "font_color_scheme": "background-1",
+        "card_color_scheme": "accent-1",
+        "show_view_all": true,
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "ffc3b4d0-065d-4fd3-b156-c7f74bfd0c7d": {
+      "type": "rich-text",
+      "blocks": {
+        "template--15977379135653__ffc3b4d0-065d-4fd3-b156-c7f74bfd0c7d-16742469949cf7b362-0": {
+          "type": "heading",
+          "settings": {
+            "heading": "BEST SELLERS",
+            "heading_size": "heading-medium",
+            "font_weight": "400",
+            "letter_spacing": 0,
+            "heading_color_scheme": "background-2"
+          }
+        },
+        "template--15977379135653__ffc3b4d0-065d-4fd3-b156-c7f74bfd0c7d-16742469949cf7b362-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Browse some of our best selling drinkware products!</p>",
+            "letter_spacing": 0,
+            "text_color_scheme": "background-2"
+          }
+        },
+        "template--15977379135653__ffc3b4d0-065d-4fd3-b156-c7f74bfd0c7d-16742469949cf7b362-2": {
+          "type": "button",
+          "disabled": true,
+          "settings": {
+            "button_label": "Button label",
+            "button_link": "",
+            "button_text": "background-1",
+            "button_background": "accent-2",
+            "button_outline_style": false,
+            "button_hover": "background-1",
+            "button_hover_bg": "accent-3"
+          }
+        }
+      },
+      "block_order": [
+        "template--15977379135653__ffc3b4d0-065d-4fd3-b156-c7f74bfd0c7d-16742469949cf7b362-0",
+        "template--15977379135653__ffc3b4d0-065d-4fd3-b156-c7f74bfd0c7d-16742469949cf7b362-1",
+        "template--15977379135653__ffc3b4d0-065d-4fd3-b156-c7f74bfd0c7d-16742469949cf7b362-2"
+      ],
+      "settings": {
+        "color_scheme": "accent-6",
+        "text_alignment": "center",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      },
+      "disabled": true
+    },
+    "product-grid": {
+      "type": "sm-main-collection",
+      "blocks": {
+        "theme": {
+          "type": "filter",
+          "settings": {
+            "label": "Theme",
+            "values": "Fall, Halloween, Christmas, Winter, Easter, Spring, Summer, Coquette, MAMA, Family, Faith, Sports, Teacher, Coffee, Western, Pets, Small Business, Bundles"
+          }
+        }
+      },
+      "block_order": [
+        "theme"
+      ],
+      "settings": {
+        "prompt_heading": "Are you a screen print shop? A DTF print shop?",
+        "prompt_body": "You may qualify for our B2B account. Send us an email and let’s chat!",
+        "prompt_label": "Let's chat",
+        "prompt_url": "/pages/contact",
+        "how_label": "",
+        "prompt_handles": "custom, custom-dtf-for-fabric, custom-uv-dtf",
+        "filter_overrides": "ornaments: Ornaments=ornament, Santa Trays=santa"
+      }
+    },
+    "perks": {
+      "type": "sm-perks",
+      "blocks": {
+        "k1": {
+          "type": "perk",
+          "settings": {
+            "icon": "image",
+            "title": "Free transfer mockups",
+            "body": "Promote your products with watermark-free mockups."
+          }
+        },
+        "k2": {
+          "type": "perk",
+          "settings": {
+            "icon": "folder",
+            "title": "Free design library",
+            "body": "Use our design library when creating your gang sheets."
+          }
+        },
+        "k3": {
+          "type": "perk",
+          "settings": {
+            "icon": "gift",
+            "title": "Free sample pack",
+            "body": "New customers can try our premium transfers on us!",
+            "url": "/pages/grab-your-free-sample"
+          }
+        }
+      },
+      "block_order": [
+        "k1",
+        "k2",
+        "k3"
+      ],
+      "settings": {
+        "handles": "custom, custom-dtf-for-fabric",
+        "tint": "none",
+        "eyebrow": "SHEmakes perks",
+        "heading": "We don't just print your transfers. *We help you grow your business too.*",
+        "subheading": "",
+        "note": "Free tools and extras to help you create, market, and grow.",
+        "strip": "Free shipping on orders $150+",
+        "strip_url": "/policies/shipping-policy"
+      }
+    }
+  },
+  "order": [
+    "d9ee3699-a06a-44a3-adbd-4da0050d54e1",
+    "banner",
+    "6e1e6b82-9659-42da-adbe-029cbc5d7864",
+    "ffc3b4d0-065d-4fd3-b156-c7f74bfd0c7d",
+    "product-grid",
+    "perks"
+  ]
+}

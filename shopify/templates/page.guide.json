@@ -1,0 +1,216 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "sm-guide",
+      "blocks": {
+        "f1": {
+          "type": "fact",
+          "settings": {
+            "label": "Press",
+            "value": "300°F",
+            "note": "Medium-firm pressure"
+          }
+        },
+        "f2": {
+          "type": "fact",
+          "settings": {
+            "label": "Time",
+            "value": "10 seconds",
+            "note": "Per transfer"
+          }
+        },
+        "f3": {
+          "type": "fact",
+          "settings": {
+            "label": "Peel",
+            "value": "Hot, instant",
+            "note": "Do not wait for it to cool"
+          }
+        },
+        "f4": {
+          "type": "fact",
+          "settings": {
+            "label": "Cure",
+            "value": "Re-press 5s",
+            "note": "Under parchment, after peeling"
+          }
+        },
+        "s1": {
+          "type": "step",
+          "settings": {
+            "title": "Pre-press the garment",
+            "body": "<p>Press the blank on its own for 3–5 seconds, then lift. This dries the fabric and flattens the seams, and it is the single biggest difference between a transfer that lasts and one that lifts at the edge.</p>"
+          }
+        },
+        "s2": {
+          "type": "step",
+          "settings": {
+            "title": "Place the transfer face up",
+            "body": "<p>The printed side faces you; the clear film sits on top. Position it while the garment is still warm and press it flat with your hand so nothing shifts when the platen comes down.</p>"
+          }
+        },
+        "s3": {
+          "type": "step",
+          "settings": {
+            "title": "Press at 300°F for 10 seconds",
+            "body": "<p>Medium-firm pressure. If your press runs hot, start at the low end and add time rather than temperature — DTF scorches before it under-cures.</p>"
+          }
+        },
+        "s4": {
+          "type": "step",
+          "settings": {
+            "title": "Peel hot, in one motion",
+            "body": "<p>Lift a corner straight away and pull the film off in one steady motion, low and across the design rather than up. These are hot peel: waiting for it to cool is what makes the print come away with the film.</p>"
+          }
+        },
+        "s5": {
+          "type": "step",
+          "settings": {
+            "title": "Re-press for 5 seconds",
+            "body": "<p>Cover the design with parchment or a Teflon sheet and press again for 5 seconds. This sets the print into the fibres and takes the shine off. Let it cool before you fold it.</p>"
+          }
+        },
+        "s6": {
+          "type": "step",
+          "settings": {
+            "title": "Wash it inside out, cold",
+            "body": "<p>Wait 24 hours before the first wash. Inside out, cold, tumble low or hang. No bleach, and never iron directly on the design.</p>"
+          }
+        },
+        "r1": {
+          "type": "rule",
+          "settings": {
+            "icon": "shield",
+            "title": "PNG with a transparent background",
+            "body": "Not JPG. A JPG has no transparency, so it prints with a white box around your design."
+          }
+        },
+        "r2": {
+          "type": "rule",
+          "settings": {
+            "icon": "star",
+            "title": "300 DPI at the size you want printed",
+            "body": "A 300 DPI file at 3 inches is not a 300 DPI file at 11 inches. Set the size first, then check the resolution."
+          }
+        },
+        "r3": {
+          "type": "rule",
+          "settings": {
+            "icon": "time",
+            "title": "No pencil-thin lines",
+            "body": "Anything finer than about 1mm can lift when the film is peeled. Thicken the line or scale the design up."
+          }
+        },
+        "r4": {
+          "type": "rule",
+          "settings": {
+            "icon": "leaf",
+            "title": "Trim the empty space",
+            "body": "Your transfer prints the size of the box around your image, so extra canvas is paid-for blank film."
+          }
+        },
+        "r5": {
+          "type": "rule",
+          "settings": {
+            "icon": "mail",
+            "title": "Not sure? Send it over",
+            "body": "Email the file before you order and we will tell you whether it will print well — that check is free."
+          }
+        },
+        "x1": {
+          "type": "fix",
+          "settings": {
+            "title": "The print lifted with the film",
+            "body": "<p>It was peeled too late or pressed too briefly. Lay the film back down, press 5 more seconds, and peel immediately while it is hot.</p>"
+          }
+        },
+        "x2": {
+          "type": "fix",
+          "settings": {
+            "title": "There is a white box around the design",
+            "body": "<p>The file was a JPG, or a PNG saved on a white background. Save it again as a PNG with real transparency — this is the most common file problem we see.</p>"
+          }
+        },
+        "x3": {
+          "type": "fix",
+          "settings": {
+            "title": "The edges lift after a wash",
+            "body": "<p>Usually a missed pre-press, or pressure set too light. Re-press for 10 seconds under parchment, and next time press the blank on its own first.</p>"
+          }
+        },
+        "x4": {
+          "type": "fix",
+          "settings": {
+            "title": "The colours look dull or scorched",
+            "body": "<p>Too hot or too long. Drop to 300°F, keep it to 10 seconds, and use parchment for the second press.</p>"
+          }
+        },
+        "x5": {
+          "type": "fix",
+          "settings": {
+            "title": "It cracked after a few wears",
+            "body": "<p>Over-pressing, or stretching the garment while the design was still warm. Let it cool fully before folding or wearing.</p>"
+          }
+        },
+        "b1": {
+          "type": "band",
+          "settings": {
+            "quote": "Press it once, wear it for years.",
+            "credit": "Photo: Unsplash",
+            "image_url": ""
+          }
+        },
+        "b2": {
+          "type": "band",
+          "settings": {
+            "quote": "Every sheet checked by hand before it prints.",
+            "credit": "Photo: Unsplash",
+            "image_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "f1",
+        "f2",
+        "f3",
+        "f4",
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "b1",
+        "r1",
+        "r2",
+        "r3",
+        "r4",
+        "r5",
+        "b2",
+        "x1",
+        "x2",
+        "x3",
+        "x4",
+        "x5"
+      ],
+      "settings": {
+        "eyebrow": "Start here",
+        "heading": "Pressing your first transfer, *step by step*",
+        "standfirst": "Never pressed a DTF transfer before? Everything you need, in the order you need it — the settings, what your file has to be, and what to do when it does not come out right.",
+        "cta_url": "/collections/all"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

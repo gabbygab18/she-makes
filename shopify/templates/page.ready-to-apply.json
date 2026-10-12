@@ -1,0 +1,53 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "choose": {
+      "type": "sm-options",
+      "blocks": {
+        "o1": {
+          "type": "option",
+          "settings": {
+            "label": "For apparel",
+            "title": "Ready to Press DTF Transfers",
+            "note": "Pre-made designs, pre-cut and pre-sized. Press them onto shirts, hoodies and bags — no artwork needed.",
+            "url": "/collections/newly-added"
+          }
+        },
+        "o2": {
+          "type": "option",
+          "settings": {
+            "label": "For hard surfaces",
+            "title": "Ready to Apply UV DTF Transfers",
+            "note": "Decals and stickers for tumblers, mugs and glass. Peel and stick, no heat press anywhere near them.",
+            "url": "/collections/uv-dtf"
+          }
+        }
+      },
+      "block_order": [
+        "o1",
+        "o2"
+      ],
+      "settings": {
+        "eyebrow": "Ready to apply",
+        "heading": "Pick how you want to *apply it*",
+        "body": "Every design already drawn, printed and sized. Choose the finish that matches what you are decorating."
+      }
+    },
+    "browse": {
+      "type": "sm-main-list-collections",
+      "settings": {}
+    }
+  },
+  "order": [
+    "choose",
+    "browse"
+  ]
+}

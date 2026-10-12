@@ -1,0 +1,181 @@
+{% comment %}
+  SHEmakes — the foot of a product page.
+
+  The rating-and-reviews list, the review rail, "You might also like" and the
+  closing card. Rendered by the redesigned product section and, on the two
+  builder products that keep the stock section for the Kixxl buttons, by
+  sm-product-extras — so a builder page ends the way every other product
+  page does.
+
+  Usage: {% render 'sm-product-tail', opts: section.settings, product: product, collection: collection %}
+{% endcomment %}
+    {%- if opts.show_reviews -%}
+      <div class="sm-product__reviews" id="sm-reviews">
+        {%- capture review_props -%}
+{ "heading": {{ opts.reviews_heading | json }}, "initial": {{ opts.reviews_shown | default: 3 }} }
+        {%- endcapture -%}
+
+        {% render 'sm-island', name: 'reviews', props: review_props %}
+
+        {%- comment -%}
+          Judge.me's Classic carousel puts a 30% image beside a 70% review, both
+          inline — at this width the picture lands on top of the words. This
+          reads the same slides and draws them as a rail. Judge.me is retiring
+          Classic anyway.
+        {%- endcomment -%}
+        {%- capture carousel_props -%}
+{ "eyebrow": {{ opts.carousel_eyebrow | json }}, "heading": {{ opts.carousel_heading | json }} }
+        {%- endcapture -%}
+
+        {% render 'sm-island', name: 'review-carousel', props: carousel_props %}
+      </div>
+    {%- endif -%}
+
+    {%- comment -%}
+      "You might also like" — the template's related row. Same card as the
+      homepage strip and the browse grid, from the collection this product was
+      reached through, or its first one.
+    {%- endcomment -%}
+    {%- if opts.show_related -%}
+      {%- liquid
+        assign related = collection
+        if related == blank or related.products_count < 2
+          assign related = product.collections.first
+        endif
+      -%}
+
+      {%- if related != blank and related.products_count > 1 -%}
+        <div class="sm-product__related">
+          <div class="sm-featured__head">
+            <div>
+              {% render 'sm-heading', text: opts.related_heading, tag: 'h2', class: 'sm-heading sm-heading--md' %}
+            </div>
+            <a href="{{ related.url }}" class="sm-button sm-button--secondary">See the collection</a>
+          </div>
+
+          {%- assign related_rows = '' -%}
+          {%- assign related_shown = 0 -%}
+          {%- for related_product in related.products limit: 8 -%}
+            {%- unless related_product.id == product.id -%}
+              {%- capture related_row %}{% render 'sm-product-json', product: related_product %}{% endcapture -%}
+              {%- if related_shown == 0 -%}
+                {%- assign related_rows = related_row -%}
+              {%- else -%}
+                {%- assign related_rows = related_rows | append: ',' | append: related_row -%}
+              {%- endif -%}
+              {%- assign related_shown = related_shown | plus: 1 -%}
+            {%- endunless -%}
+            {%- if related_shown >= 4 -%}
+              {%- break -%}
+            {%- endif -%}
+          {%- endfor -%}
+
+          {%- capture related_props -%}
+{ "products": [{{ related_rows }}], "currency": {{ cart.currency.iso_code | json }} }
+          {%- endcapture -%}
+
+          {%- capture related_fallback -%}
+            <div class="sm-browse__grid">
+              {%- for related_product in related.products limit: 4 -%}
+                <a class="sm-card" href="{{ related_product.url }}">
+                  <div class="sm-card__media">
+                    {%- if related_product.featured_image -%}
+                      <img src="{{ related_product.featured_image | image_url: width: 600 }}" alt="{{ related_product.title | escape }}" loading="lazy">
+                    {%- endif -%}
+                  </div>
+                  <div class="sm-card__body">
+                    <h3 class="sm-card__title">{{ related_product.title }}</h3>
+                    <p class="sm-card__price">{{ related_product.price | money }}</p>
+                  </div>
+                </a>
+              {%- endfor -%}
+            </div>
+          {%- endcapture -%}
+
+          {% render 'sm-island', name: 'product-strip', props: related_props, fallback: related_fallback %}
+        </div>
+      {%- endif -%}
+
+      {%- comment -%}
+        The page ends on somebody else's products. This is the line back to
+        the shop: what to do when none of them are the thing, and how to reach
+        a person — the same two facts the footer carries, put where a shopper
+        who has read this far is looking for them.
+      {%- endcomment -%}
+      {%- if opts.cta_heading != blank -%}
+        {%- liquid
+          if opts.cta_image
+            assign cta_photo = opts.cta_image | image_url: width: 2000
+          else
+            assign cta_photo = 'sm-cta-2.jpg' | asset_url
+          endif
+        -%}
+        <div class="sm-product__cta sm-product__cta--photo sm-product__cta--{{ opts.cta_layout | default: 'left' }}">
+          <div class="sm-product__cta-media" aria-hidden="true">
+            <img src="{{ cta_photo }}" alt="" loading="lazy">
+            <span class="sm-product__cta-scrim"></span>
+          </div>
+
+          <div class="sm-product__cta-copy">
+            {%- if opts.cta_eyebrow != blank -%}
+              <p class="sm-eyebrow">{{ opts.cta_eyebrow }}</p>
+            {%- endif -%}
+
+            {% render 'sm-heading', text: opts.cta_heading, tag: 'h2', class: 'sm-heading sm-heading--md' %}
+
+            {%- if opts.cta_body != blank -%}
+              <p class="sm-body">{{ opts.cta_body }}</p>
+            {%- endif -%}
+
+            <ul class="sm-contact__facts" role="list">
+              {%- if opts.cta_email != blank -%}
+                <li>
+                  <span class="sm-contact__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M20 4H4c-1.1 0-2 .9-2 2v.25l10 7.5 10-7.5V6c0-1.1-.9-2-2-2m1.93 14.51c.04-.16.07-.33.07-.51V8.75l-5.62 4.22 5.55 5.55ZM12.6 15.8c-.18.13-.39.2-.6.2s-.42-.07-.6-.2l-2.16-1.62-5.75 5.75c.16.04.33.07.51.07h16c.18 0 .35-.03.51-.07l-5.75-5.75zM2 8.75V18c0 .18.03.35.07.51l5.55-5.55L2 8.74Z"/>
+                    </svg>
+                  </span>
+                  <span class="sm-facts__lines"><strong>Email:</strong> <a href="mailto:{{ opts.cta_email }}">{{ opts.cta_email }}</a></span>
+                </li>
+              {%- endif -%}
+
+              {%- if opts.cta_hours != blank -%}
+                <li>
+                  <span class="sm-contact__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="M12 2C6.58 2 2 6.58 2 12s4.58 10 10 10 10-4.58 10-10S17.42 2 12 2m5 11h-6V7h2v4h4z"/>
+                    </svg>
+                  </span>
+                  {%- liquid
+                  assign hour_lines = opts.cta_hours | strip | newline_to_br | split: '<br />'
+                -%}
+                <span class="sm-facts__lines">
+                  {%- for hour_line in hour_lines -%}
+                    {%- assign hour_line = hour_line | strip -%}
+                    {%- if hour_line == blank -%}{%- continue -%}{%- endif -%}
+                    {%- if forloop.first -%}
+                      <strong>{{ hour_line }}</strong>
+                    {%- else -%}
+                      <span>{{ hour_line }}</span>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </span>
+                </li>
+              {%- endif -%}
+            </ul>
+          </div>
+
+          {%- if opts.cta_label != blank -%}
+            <a href="{{ opts.cta_url | default: '/pages/contact' }}" class="sm-button sm-button--primary sm-product__cta-button">
+              {{ opts.cta_label }}
+            </a>
+          {%- endif -%}
+
+          {%- if opts.cta2_label != blank -%}
+            <a href="{{ opts.cta2_url | default: routes.all_products_collection_url }}" class="sm-button sm-button--ghost-light sm-product__cta-button">
+              {{ opts.cta2_label }}
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    {%- endif -%}

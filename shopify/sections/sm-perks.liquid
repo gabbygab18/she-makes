@@ -1,0 +1,179 @@
+{% comment %}
+  SHEmakes perks — the free tools that come with an order.
+
+  Asked for as a short band under the three steps: what a shop gets beyond
+  the printing. Three cards and one strip, no state, so plain Liquid.
+
+  The strip at the foot repeats the free-shipping threshold. It is the one
+  number in this section a customer acts on, so it gets its own bar rather
+  than a fourth card competing with the three above it.
+{% endcomment %}
+
+{%- liquid
+  comment
+    On a collection template this band belongs to one collection, not to all
+    of them. Empty means every page that renders the section.
+  endcomment
+  assign show = true
+  assign only = section.settings.handles | default: '' | downcase | split: ','
+  if only.size > 0
+    assign show = false
+    for only_handle in only
+      assign only_clean = only_handle | strip
+      if only_clean != blank and collection.handle == only_clean
+        assign show = true
+      endif
+    endfor
+  endif
+-%}
+
+{%- if show -%}
+<div class="sm-section{% if section.settings.tint != blank and section.settings.tint != 'none' %} sm-section--{{ section.settings.tint }}{% endif %} sm-reveal">
+  <div class="sm-container">
+    <div class="sm-perks">
+      <div class="sm-perks__head">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="sm-eyebrow">{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.heading != blank -%}
+          {% render 'sm-heading', text: section.settings.heading, tag: 'h2', class: 'sm-heading sm-heading--md' %}
+        {%- endif -%}
+
+        {%- if section.settings.subheading != blank -%}
+          <p class="sm-perks__subheading">{{ section.settings.subheading }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.note != blank -%}
+          <p class="sm-perks__note">{{ section.settings.note }}</p>
+        {%- endif -%}
+      </div>
+
+      {%- if section.blocks.size > 0 -%}
+        <ul class="sm-perks__grid" role="list">
+          {%- for block in section.blocks -%}
+            {%- liquid
+              assign perk_tag = 'div'
+              if block.settings.url != blank
+                assign perk_tag = 'a'
+              endif
+            -%}
+            <li class="sm-perk" {{ block.shopify_attributes }}>
+              <{{ perk_tag }} class="sm-perk__link"{% if block.settings.url != blank %} href="{{ block.settings.url }}"{% endif %}>
+                {%- if block.settings.icon != blank and block.settings.icon != 'none' -%}
+                  <span class="sm-perk__icon" aria-hidden="true">{% render 'sm-icon', name: block.settings.icon %}</span>
+                {%- endif -%}
+
+                <h3 class="sm-perk__title">{{ block.settings.title }}</h3>
+
+                {%- if block.settings.body != blank -%}
+                  <p class="sm-perk__body">{{ block.settings.body }}</p>
+                {%- endif -%}
+              </{{ perk_tag }}>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+
+      {%- if section.settings.strip != blank -%}
+        <p class="sm-perks__foot">
+          {%- if section.settings.strip_url != blank -%}<a class="sm-perks__strip" href="{{ section.settings.strip_url }}">{%- else -%}<span class="sm-perks__strip">{%- endif -%}
+            <span class="sm-perks__strip-icon" aria-hidden="true">{% render 'sm-icon', name: 'truck' %}</span>
+            {{ section.settings.strip }}
+          {%- if section.settings.strip_url != blank -%}</a>{%- else -%}</span>{%- endif -%}
+        </p>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "SHEmakes perks",
+  "tag": "section",
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "select",
+      "id": "tint",
+      "label": "Band colour",
+      "options": [
+        { "value": "none", "label": "White" },
+        { "value": "cream", "label": "Cream" },
+        { "value": "blush", "label": "Light pink" },
+        { "value": "sand", "label": "Pink" }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "text",
+      "id": "handles",
+      "label": "Only on these collections",
+      "info": "Comma separated handles, for a collection template. Empty shows the band wherever the section is placed."
+    },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "SHEmakes perks" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "We don't just print your transfers." },
+    { "type": "text", "id": "subheading", "label": "Second line", "default": "We help you grow your apparel business." },
+    { "type": "text", "id": "note", "label": "Small line", "default": "Free tools and extras to help you create, market, and grow." },
+    { "type": "text", "id": "strip", "label": "Strip", "info": "The small button at the foot. Leave empty to drop it.", "default": "Free shipping on orders $150+" },
+    { "type": "url", "id": "strip_url", "label": "Strip link" }
+  ],
+  "blocks": [
+    {
+      "type": "perk",
+      "name": "Perk",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "none", "label": "No icon" },
+            { "value": "image", "label": "Mockups" },
+            { "value": "folder", "label": "Design library" },
+            { "value": "gift", "label": "Sample pack" },
+            { "value": "truck", "label": "Delivery" },
+            { "value": "star", "label": "Star" }
+          ],
+          "default": "image"
+        },
+        { "type": "text", "id": "title", "label": "Title", "default": "Free transfer mockups" },
+        { "type": "textarea", "id": "body", "label": "Body", "default": "Promote your products with watermark-free mockups." },
+        { "type": "url", "id": "url", "label": "Link", "info": "Optional — makes the whole card clickable." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SHEmakes perks",
+      "blocks": [
+        {
+          "type": "perk",
+          "settings": {
+            "icon": "image",
+            "title": "Free transfer mockups",
+            "body": "Promote your products with watermark-free mockups."
+          }
+        },
+        {
+          "type": "perk",
+          "settings": {
+            "icon": "folder",
+            "title": "Free design library",
+            "body": "Use our design library when creating your gang sheets."
+          }
+        },
+        {
+          "type": "perk",
+          "settings": {
+            "icon": "gift",
+            "title": "Free sample pack",
+            "body": "New customers can try our premium transfers on us!"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

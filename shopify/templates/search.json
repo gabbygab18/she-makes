@@ -1,0 +1,60 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "sm-main-search",
+      "settings": {}
+    },
+    "16546177088c32b2e5": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "You may also like...",
+        "heading_color_scheme": "background-2",
+        "heading_size": "heading-small",
+        "font_weight": "400",
+        "heading_spacing": 0,
+        "enable_uppercase": false,
+        "text_alignment": "center",
+        "description": "",
+        "description_color_scheme": "background-2",
+        "show_description": false,
+        "collection": "newly-added",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "full_width": false,
+        "show_view_all": true,
+        "button_text": "background-2",
+        "button_background": "background-1",
+        "button_outline_style": false,
+        "button_hover": "background-2",
+        "button_hover_bg": "accent-3",
+        "enable_desktop_slider": false,
+        "color_scheme": "background-1",
+        "image_ratio": "adapt",
+        "show_secondary_image": false,
+        "show_vendor": true,
+        "show_rating": false,
+        "enable_quick_add": true,
+        "card_title_size": "body-small",
+        "card_title_color_scheme": "background-2",
+        "card_price_color_scheme": "background-2",
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "main",
+    "16546177088c32b2e5"
+  ]
+}

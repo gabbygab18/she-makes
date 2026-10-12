@@ -1,0 +1,40 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "form": {
+      "type": "sm-contact",
+      "settings": {
+        "eyebrow": "Talk to us",
+        "use_h1": true,
+        "heading": "A person answers — usually the one who prints it",
+        "body": "Artwork questions, a rush job, a wholesale account. Send it over and we come back the same working day."
+      }
+    },
+    "faq": {
+      "type": "sm-faq",
+      "settings": {
+        "eyebrow": "FAQs",
+        "heading": "The quickest answer to your question is *usually found here*",
+        "source_page": "faqs",
+        "limit": 6,
+        "body": "",
+        "cta_label": "",
+        "cta_url": "",
+        "cta2_label": "All questions",
+        "cta2_url": "/pages/faqs"
+      }
+    }
+  },
+  "order": [
+    "form",
+    "faq"
+  ]
+}

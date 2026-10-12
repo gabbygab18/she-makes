@@ -1,0 +1,572 @@
+{%- comment %}<locksmith:c3c8>{% endcomment -%}
+  {%- include 'locksmith' -%}
+{%- comment %}</locksmith:c3c8>{% endcomment -%}
+
+<!doctype html>
+<html class="no-js" lang="{{ request.locale.iso_code }}">
+  <head>
+
+{{ locksmith_initializations }}
+<meta name="facebook-domain-verification" content="xwlsmxk6rn0525z0vtgpq0zrj63xvb" />
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {%- endif -%}
+
+    {%- unless settings.type_header_font.system? and settings.type_body_font.system? -%}
+      <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+    {%- endunless -%}
+
+    <title>
+      {{ page_title }}
+      {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+      {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+    </title>
+
+    {% if page_description %}
+      {%- comment %}<locksmith:d902>{% endcomment -%}
+        {%- capture var %}{% render 'locksmith-variables', variable: 'transparent', hiding_scope: 'resource' %}{% endcapture %}{% if var == 'true' %}<meta name="description" content="{{ page_description | escape }}">{% endif -%}
+        {%- comment %}original: <meta name="description" content="{{ page_description | escape }}">{%- endcomment %}
+      {%- comment %}</locksmith:d902>{% endcomment -%}
+    {% endif %}
+
+    {% render 'meta-tags' %}
+
+    <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
+    {%- comment -%}
+      The stock header used to load this, and the redesign replaced that header
+      — so on the templates that keep a stock section (the gang-sheet builders)
+      `share.js` threw "DetailsDisclosure is not defined" and took the page's
+      collapsible rows down with it.
+    {%- endcomment -%}
+    <script src="{{ 'details-disclosure.js' | asset_url }}" defer="defer"></script>
+    {{ content_for_header }}
+
+    {%- liquid
+      assign body_font_light = settings.type_body_font | font_modify: 'weight', 'light'
+      assign body_font_bold = settings.type_body_font | font_modify: 'weight', 'bold'
+      assign body_font_italic = settings.type_body_font | font_modify: 'style', 'italic'
+      assign body_font_bold_italic = body_font_bold | font_modify: 'style', 'italic'
+    %}
+
+    {% style %}
+       {{ settings.type_body_font | font_face: font_display: 'swap' }}
+       {{ body_font_bold | font_face: font_display: 'swap' }}
+       {{ body_font_italic | font_face: font_display: 'swap' }}
+       {{ body_font_bold_italic | font_face: font_display: 'swap' }}
+       {{ settings.type_header_font | font_face: font_display: 'swap' }}
+
+       :root {
+      --font-body-size: {{ settings.type_body_size }}px;
+         --font-body-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
+         --font-body-style: {{ settings.type_body_font.style }};
+         --font-body-weight: {{ settings.type_body_font.weight }};
+         --font-body-weight-bold: {{ settings.type_body_font.weight | plus: 300 | at_most: 1000 }};
+
+         --font-heading-family: {{ settings.type_header_font.family }}, {{ settings.type_header_font.fallback_families }};
+         --font-heading-style: {{ settings.type_header_font.style }};
+         --font-heading-weight: {{ settings.type_header_font.weight }};
+
+      --font-heading-small: {{ settings.type_header_small }}px;
+      --font-heading-medium: {{ settings.type_header_medium }}px;
+      --font-heading-large: {{ settings.type_header_large }}px;
+
+         --font-body-scale: {{ settings.body_scale | divided_by: 100.0 }};
+         --font-heading-scale: {{ settings.heading_scale | times: 1.0 | divided_by: settings.body_scale }};
+
+         --color-base-text: {{ settings.colors_text.red }}, {{ settings.colors_text.green }}, {{ settings.colors_text.blue }};
+         --color-shadow: {{ settings.colors_text.red }}, {{ settings.colors_text.green }}, {{ settings.colors_text.blue }};
+         --color-base-background-1: {{ settings.colors_background_1.red }}, {{ settings.colors_background_1.green }}, {{ settings.colors_background_1.blue }};
+         --color-base-background-2: {{ settings.colors_background_2.red }}, {{ settings.colors_background_2.green }}, {{ settings.colors_background_2.blue }};
+         --color-base-solid-button-labels: {{ settings.colors_solid_button_labels.red }}, {{ settings.colors_solid_button_labels.green }}, {{ settings.colors_solid_button_labels.blue }};
+         --color-base-outline-button-labels: {{ settings.colors_outline_button_labels.red }}, {{ settings.colors_outline_button_labels.green }}, {{ settings.colors_outline_button_labels.blue }};
+         --color-base-accent-1: {{ settings.colors_accent_1.red }}, {{ settings.colors_accent_1.green }}, {{ settings.colors_accent_1.blue }};
+         --color-base-accent-2: {{ settings.colors_accent_2.red }}, {{ settings.colors_accent_2.green }}, {{ settings.colors_accent_2.blue }};
+         --color-base-accent-3: {{ settings.colors_accent_3.red }}, {{ settings.colors_accent_3.green }}, {{ settings.colors_accent_3.blue }};
+         --color-base-accent-4: {{ settings.colors_accent_4.red }}, {{ settings.colors_accent_4.green }}, {{ settings.colors_accent_4.blue }};
+      --color-base-accent-5: {{ settings.colors_accent_5.red }}, {{ settings.colors_accent_5.green }}, {{ settings.colors_accent_5.blue }};
+      --color-base-accent-6: {{ settings.colors_accent_6.red }}, {{ settings.colors_accent_6.green }}, {{ settings.colors_accent_6.blue }};
+      --payment-terms-background-color: {{ settings.colors_background_1 }};
+
+         --gradient-base-background-1: {% if settings.gradient_background_1 != blank %}{{ settings.gradient_background_1 }}{% else %}{{ settings.colors_background_1 }}{% endif %};
+         --gradient-base-background-2: {% if settings.gradient_background_2 != blank %}{{ settings.gradient_background_2 }}{% else %}{{ settings.colors_background_2 }}{% endif %};
+         --gradient-base-accent-1: {% if settings.gradient_accent_1 != blank %}{{ settings.gradient_accent_1 }}{% else %}{{ settings.colors_accent_1 }}{% endif %};
+         --gradient-base-accent-2: {% if settings.gradient_accent_2 != blank %}{{ settings.gradient_accent_2 }}{% else %}{{ settings.colors_accent_2 }}{% endif %};
+         --gradient-base-accent-3: {{ settings.colors_accent_3 }};
+         --gradient-base-accent-4: {{ settings.colors_accent_4 }};
+      --gradient-base-accent-5: {{ settings.colors_accent_5 }};
+      --gradient-base-accent-6: {{ settings.colors_accent_6 }};
+
+         --media-padding: {{ settings.media_padding }}px;
+         --media-border-opacity: {{ settings.media_border_opacity | divided_by: 100.0 }};
+         --media-border-width: {{ settings.media_border_thickness }}px;
+         --media-radius: {{ settings.media_radius }}px;
+         --media-shadow-opacity: {{ settings.media_shadow_opacity | divided_by: 100.0 }};
+         --media-shadow-horizontal-offset: {{ settings.media_shadow_horizontal_offset }}px;
+         --media-shadow-vertical-offset: {{ settings.media_shadow_vertical_offset }}px;
+         --media-shadow-blur-radius: {{ settings.media_shadow_blur }}px;
+
+         --page-width: {{ settings.page_width | divided_by: 10 }}rem;
+         --page-width-margin: {% if settings.page_width == '1600' %}2{% else %}0{% endif %}rem;
+
+         --card-image-padding: {{ settings.card_image_padding | divided_by: 10.0 }}rem;
+         --card-corner-radius: {{ settings.card_corner_radius | divided_by: 10.0 }}rem;
+         --card-text-alignment: {{ settings.card_text_alignment }};
+         --card-border-width: {{ settings.card_border_thickness | divided_by: 10.0 }}rem;
+         --card-border-opacity: {{ settings.card_border_opacity | divided_by: 100.0 }};
+         --card-shadow-opacity: {{ settings.card_shadow_opacity | divided_by: 100.0 }};
+         --card-shadow-horizontal-offset: {{ settings.card_shadow_horizontal_offset | divided_by: 10.0 }}rem;
+         --card-shadow-vertical-offset: {{ settings.card_shadow_vertical_offset | divided_by: 10.0 }}rem;
+         --card-shadow-blur-radius: {{ settings.card_shadow_blur | divided_by: 10.0 }}rem;
+
+         --badge-corner-radius: {{ settings.badge_corner_radius | divided_by: 10.0 }}rem;
+
+         --popup-border-width: {{ settings.popup_border_thickness }}px;
+         --popup-border-opacity: {{ settings.popup_border_opacity | divided_by: 100.0 }};
+         --popup-corner-radius: {{ settings.popup_corner_radius }}px;
+         --popup-shadow-opacity: {{ settings.popup_shadow_opacity | divided_by: 100.0 }};
+         --popup-shadow-horizontal-offset: {{ settings.popup_shadow_horizontal_offset }}px;
+         --popup-shadow-vertical-offset: {{ settings.popup_shadow_vertical_offset }}px;
+         --popup-shadow-blur-radius: {{ settings.popup_shadow_blur }}px;
+
+         --drawer-border-width: {{ settings.drawer_border_thickness }}px;
+         --drawer-border-opacity: {{ settings.drawer_border_opacity | divided_by: 100.0 }};
+         --drawer-shadow-opacity: {{ settings.drawer_shadow_opacity | divided_by: 100.0 }};
+         --drawer-shadow-horizontal-offset: {{ settings.drawer_shadow_horizontal_offset }}px;
+         --drawer-shadow-vertical-offset: {{ settings.drawer_shadow_vertical_offset }}px;
+         --drawer-shadow-blur-radius: {{ settings.drawer_shadow_blur }}px;
+
+         --spacing-sections-desktop: {{ settings.spacing_sections }}px;
+         --spacing-sections-mobile: {% if settings.spacing_sections < 24 %}{{ settings.spacing_sections }}{% else %}{{ settings.spacing_sections | times: 0.7 | round | at_least: 20 }}{% endif %}px;
+
+         --grid-desktop-vertical-spacing: {{ settings.spacing_grid_vertical }}px;
+         --grid-desktop-horizontal-spacing: {{ settings.spacing_grid_horizontal }}px;
+         --grid-mobile-vertical-spacing: {{ settings.spacing_grid_vertical | divided_by: 2 }}px;
+         --grid-mobile-horizontal-spacing: {{ settings.spacing_grid_horizontal | divided_by: 2 }}px;
+
+         --text-boxes-border-opacity: {{ settings.text_boxes_border_opacity | divided_by: 100.0 }};
+         --text-boxes-border-width: {{ settings.text_boxes_border_thickness }}px;
+         --text-boxes-radius: {{ settings.text_boxes_radius }}px;
+         --text-boxes-shadow-opacity: {{ settings.text_boxes_shadow_opacity | divided_by: 100.0 }};
+         --text-boxes-shadow-horizontal-offset: {{ settings.text_boxes_shadow_horizontal_offset }}px;
+         --text-boxes-shadow-vertical-offset: {{ settings.text_boxes_shadow_vertical_offset }}px;
+         --text-boxes-shadow-blur-radius: {{ settings.text_boxes_shadow_blur }}px;
+
+         --buttons-radius: {{ settings.buttons_radius }}px;
+         --buttons-radius-outset: {% if settings.buttons_radius > 0 %}{{ settings.buttons_radius | plus: settings.buttons_border_thickness }}{% else %}0{% endif %}px;
+         --buttons-border-width: {% if settings.buttons_border_opacity > 0 %}{{ settings.buttons_border_thickness }}{% else %}0{% endif %}px;
+         --buttons-border-opacity: {{ settings.buttons_border_opacity | divided_by: 100.0 }};
+
+         --inputs-radius: {{ settings.inputs_radius }}px;
+         --inputs-border-width: {{ settings.inputs_border_thickness }}px;
+         --inputs-border-opacity: {{ settings.inputs_border_opacity | divided_by: 100.0 }};
+         --inputs-shadow-opacity: {{ settings.inputs_shadow_opacity | divided_by: 100.0 }};
+         --inputs-shadow-horizontal-offset: {{ settings.inputs_shadow_horizontal_offset }}px;
+         --inputs-margin-offset: {% if settings.inputs_shadow_vertical_offset != 0 and settings.inputs_shadow_opacity > 0 %}{{ settings.inputs_shadow_vertical_offset | abs }}{% else %}0{% endif %}px;
+         --inputs-shadow-vertical-offset: {{ settings.inputs_shadow_vertical_offset }}px;
+         --inputs-shadow-blur-radius: {{ settings.inputs_shadow_blur }}px;
+         --inputs-radius-outset: {% if settings.inputs_radius > 0 %}{{ settings.inputs_radius | plus: settings.inputs_border_thickness }}{% else %}0{% endif %}px;
+
+         --variant-pills-radius: {{ settings.variant_pills_radius }}px;
+         --variant-pills-border-width: {{ settings.variant_pills_border_thickness }}px;
+         --variant-pills-border-opacity: {{ settings.variant_pills_border_opacity | divided_by: 100.0 }};
+         --variant-pills-shadow-opacity: {{ settings.variant_pills_shadow_opacity | divided_by: 100.0 }};
+         --variant-pills-shadow-horizontal-offset: {{ settings.variant_pills_shadow_horizontal_offset }}px;
+         --variant-pills-shadow-vertical-offset: {{ settings.variant_pills_shadow_vertical_offset }}px;
+         --variant-pills-shadow-blur-radius: {{ settings.variant_pills_shadow_blur }}px;
+       }
+
+       *,
+       *::before,
+       *::after {
+         box-sizing: inherit;
+       }
+
+       html {
+         box-sizing: border-box;
+         font-size: calc(var(--font-body-scale) * 62.5%);
+         height: 100%;
+       }
+
+       body {
+         display: grid;
+         grid-template-rows: auto auto 1fr auto;
+         grid-template-columns: 100%;
+         min-height: 100%;
+         margin: 0;
+         font-size: var(--font-body-size);
+         letter-spacing: 0.06rem;
+         line-height: calc(1 + 0.8 / var(--font-body-scale));
+         font-family: var(--font-body-family);
+         font-style: var(--font-body-style);
+         font-weight: var(--font-body-weight);
+       }
+
+       a { text-decoration: none; }
+
+       @media screen and (min-width: 750px) {
+         body {
+           font-size: var(--font-body-size);
+         }
+       }
+    {% endstyle %}
+
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+
+    {%- comment -%}
+      SHEmakes redesign layer. Loaded after base.css so it restyles the theme
+      rather than forking it — removing these two lines reverts the site to
+      stock Boho Dream, which is what makes the redesign reviewable.
+    {%- endcomment -%}
+    {{ 'shemakes.css' | asset_url | stylesheet_tag }}
+
+    {%- comment -%}
+      The palette, from Theme settings → SHEmakes colours.
+
+      shemakes.css never names a colour directly — it names a token — so
+      redefining the tokens here repaints the whole redesign from the theme
+      editor. This sits after the stylesheet on purpose: same specificity as
+      its `:root`, later in the document, so it wins.
+
+      The hairlines, the faint text and the three shadows are mixed from the
+      text colour rather than being settings of their own. They have to stay
+      in key with it, and two pickers that must agree is one picker too many.
+    {%- endcomment -%}
+    <style>
+      :root {
+        {%- if settings.sm_color_brand != blank -%}
+          --sm-brand: {{ settings.sm_color_brand }};
+          --sm-brand-mid: {{ settings.sm_color_brand }};
+          --sm-block-navy: {{ settings.sm_color_brand }};
+          --sm-alert: {{ settings.sm_color_brand }};
+        {%- endif -%}
+
+        {%- if settings.sm_color_signal != blank -%}
+          --sm-signal: {{ settings.sm_color_signal }};
+          --sm-block-coral: {{ settings.sm_color_signal }};
+          --sm-gold: {{ settings.sm_color_signal }};
+        {%- endif -%}
+
+        {%- if settings.sm_color_ink != blank -%}
+          --sm-ink: {{ settings.sm_color_ink }};
+          --sm-ink-body: {{ settings.sm_color_ink }};
+          --sm-line: {{ settings.sm_color_ink | color_modify: 'alpha', 0.16 }};
+          --sm-line-soft: {{ settings.sm_color_ink | color_modify: 'alpha', 0.09 }};
+          --sm-shadow-card: 0 4px 16px {{ settings.sm_color_ink | color_modify: 'alpha', 0.06 }};
+          --sm-shadow-lift: 0 4px 16px {{ settings.sm_color_ink | color_modify: 'alpha', 0.16 }};
+          --sm-shadow-panel: 0 4px 40px {{ settings.sm_color_ink | color_modify: 'alpha', 0.12 }};
+        {%- endif -%}
+
+        {%- if settings.sm_color_ink_muted != blank -%}
+          --sm-ink-muted: {{ settings.sm_color_ink_muted }};
+          {%- comment -%}
+            Breadcrumbs and placeholders: the same plum, lifted toward the
+            page. A filter argument cannot itself be filtered, so the page
+            colour is settled first. The weight holds 4.5:1 on the canvas.
+          {%- endcomment -%}
+          {%- assign sm_faint_base = settings.sm_color_shell | default: '#ffffff' -%}
+          --sm-ink-faint: {{ settings.sm_color_ink_muted | color_mix: sm_faint_base, 78 }};
+        {%- endif -%}
+
+        {%- if settings.sm_color_shell != blank -%}
+          --sm-shell: {{ settings.sm_color_shell }};
+        {%- endif -%}
+
+        {%- if settings.sm_color_paper != blank -%}
+          --sm-paper: {{ settings.sm_color_paper }};
+          --sm-brand-soft: {{ settings.sm_color_paper }};
+        {%- endif -%}
+
+        {%- if settings.sm_color_band_cream != blank -%}
+          --sm-block-cream: {{ settings.sm_color_band_cream }};
+        {%- endif -%}
+
+        {%- if settings.sm_color_band_honey != blank -%}
+          --sm-block-honey: {{ settings.sm_color_band_honey }};
+        {%- endif -%}
+
+        {%- if settings.sm_color_band_pink != blank -%}
+          --sm-blush: {{ settings.sm_color_band_pink }};
+          --sm-block-sand: {{ settings.sm_color_band_pink }};
+          --sm-block-lime: {{ settings.sm_color_band_pink }};
+          --sm-block-lilac: {{ settings.sm_color_band_pink }};
+        {%- endif -%}
+
+        {%- if settings.sm_color_panel != blank -%}
+          --sm-block-sage: {{ settings.sm_color_panel }};
+          --sm-block-mint: {{ settings.sm_color_panel }};
+        {%- endif -%}
+
+        {%- if settings.sm_color_ticker_bg != blank -%}
+          --sm-ticker-bg: {{ settings.sm_color_ticker_bg }};
+        {%- endif -%}
+        {%- if settings.sm_color_ticker_text != blank -%}
+          --sm-ticker-text: {{ settings.sm_color_ticker_text }};
+        {%- endif -%}
+
+        {%- if settings.sm_color_cta_bg != blank -%}
+          --sm-cta-bg: {{ settings.sm_color_cta_bg }};
+        {%- endif -%}
+        {%- if settings.sm_color_cta_text != blank -%}
+          --sm-cta-text: {{ settings.sm_color_cta_text }};
+        {%- endif -%}
+      }
+    </style>
+    <script src="{{ 'shemakes.js' | asset_url }}" defer="defer"></script>
+    {%- comment -%}
+      The React islands. A module, which is deferred by default, so it never
+      blocks the Liquid page it is enhancing — every island has a
+      server-rendered fallback inside its own mount point.
+
+      It has to be `type="module"`, not a plain deferred script. Vite emits
+      top-level `var`s with one-letter names, and in a classic script every
+      one of them is a property of window. An app on the page assigned its
+      own global `i` — the name React's JSX runtime had been given — and the
+      review carousel crashed with "i.jsx is not a function" the next time it
+      rendered, leaving Judge.me's own header showing in its place. A module
+      keeps those names to itself.
+    {%- endcomment -%}
+    <script type="module" src="{{ 'shemakes-islands.js' | asset_url }}"></script>
+
+    {%- comment -%}
+      Satoshi, Playfair Display and JetBrains Mono — the pairing this theme
+      was drawn with. Satoshi sets the sentence, Playfair the part being
+      emphasised, JetBrains Mono the labels. Inter, Montserrat and two scripts
+      were tried over the top of it and taken back out: the shop asked for the
+      original set, on the grounds that a customer has to read it.
+    {%- endcomment -%}
+    {%- comment -%}
+      Cooper BT, the shop's own licensed file, bundled with the theme: it is
+      the first thing read on every page, and a webfont that arrives late is a
+      heading that changes shape while it is being read. Bold, not Black —
+      the same letterforms with air left inside them, which is what a page of
+      headings needs and a logo does not.
+
+      Converted to woff2 from the supplied TrueType — 225KB down to 66KB, and
+      it is the format every browser in use reads.
+    {%- endcomment -%}
+    <link rel="preload" as="font" href="{{ 'cooper-bold.woff2' | asset_url }}" type="font/woff2" crossorigin>
+    <style>
+      @font-face {
+        font-family: 'Cooper BT';
+        src: url({{ 'cooper-bold.woff2' | asset_url }}) format('woff2');
+        font-weight: 400 900;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: 'Cooper BT Medium';
+        src: url({{ 'cooper-medium.woff2' | asset_url }}) format('woff2');
+        font-weight: 400 600;
+        font-style: normal;
+        font-display: swap;
+      }
+    </style>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    {%- comment -%}
+      Satoshi is not on Google Fonts. It is free from Fontshare, which is the
+      foundry's own CDN — hence the second preconnect.
+    {%- endcomment -%}
+    <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+    <link
+      rel="stylesheet"
+      href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap"
+    >
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400..700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    >
+
+    {%- unless settings.type_body_font.system? -%}
+      <link rel="preload" as="font" href="{{ settings.type_body_font | font_url }}" type="font/woff2" crossorigin>
+    {%- endunless -%}
+    {%- unless settings.type_header_font.system? -%}
+      <link rel="preload" as="font" href="{{ settings.type_header_font | font_url }}" type="font/woff2" crossorigin>
+    {%- endunless -%}
+
+    {%- if settings.predictive_search_enabled -%}
+      <link
+        rel="stylesheet"
+        href="{{ 'component-predictive-search.css' | asset_url }}"
+        media="print"
+        onload="this.media='all'"
+      >
+    {%- endif -%}
+
+    <script>
+      document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+      if (Shopify.designMode) {
+        document.documentElement.classList.add('shopify-design-mode');
+      }
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+  </head>
+
+  {%- comment -%}
+    Palette test: the page type is on the body, and the theme's colour tokens
+    are redefined per type in shemakes.css. Custom properties inherit, so one
+    attribute repaints everything on the page, app widgets included.
+  {%- endcomment -%}
+  <body class="gradient" data-sm-palette="{{ request.page_type }}">
+    <a class="skip-to-content-link button visually-hidden" href="#MainContent">
+      {{ 'accessibility.skip_to_text' | t }}
+    </a>
+
+    {%- comment -%}
+      SHEmakes: the cart side panel. No Liquid fallback on purpose — with no
+      JavaScript the header's cart button is still a plain link to /cart, which
+      is the whole cart page, so an empty panel would only be in the way.
+    {%- endcomment -%}
+    {%- capture drawer_props -%}
+{
+  "threshold": {{ settings.sm_free_shipping_threshold | default: 15000 }},
+  "currency": {{ cart.currency.iso_code | json }},
+  "checkoutUrl": {{ routes.cart_url | append: '/checkout' | json }},
+  {%- comment -%}
+    "Add these too" picks for itself unless the shop names a collection here,
+    in Theme settings. Named, these are the products and nothing else decides;
+    left empty, Shopify's own recommendations do — the shop's complementary
+    list first, and what Shopify works out after that.
+  {%- endcomment -%}
+  "upsell": [
+    {%- assign upsell_source = collections[settings.sm_upsell_collection] -%}
+    {%- for product in upsell_source.products limit: 8 -%}
+      {%- unless product.available == false -%}
+        {% unless forloop.first %},{% endunless %}
+        {
+          "id": {{ product.id }},
+          "title": {{ product.title | json }},
+          "url": {{ product.url | json }},
+          "price": {{ product.price }},
+          "featured_image": {{ product.featured_image | image_url: width: 200 | json }},
+          "variantId": {{ product.selected_or_first_available_variant.id }}
+        }
+      {%- endunless -%}
+    {%- endfor -%}
+  ]
+}
+    {%- endcapture -%}
+    {% render 'sm-island', name: 'cart-drawer', props: drawer_props %}
+
+    {%- comment -%}
+      The theme's own drawer is gone. Its CSS and its JavaScript were both
+      loaded by sections/header.liquid, which sm-header replaces — so the
+      drawer rendered as unstyled block markup at the top of every page (the
+      white band above the ticker) and could not be opened. The island above
+      replaces it.
+
+      Put the cart-drawer render back here, and the drawer's assets with it,
+      only if the header goes back to stock.
+    {%- endcomment -%}
+
+    {%- comment -%}
+      SHEmakes: one ticker replaces the three announcement bars the theme
+      stacked on top of each other. It lives here rather than in the homepage
+      template because it belongs on every page, as the old bars did.
+
+      The originals are still in sections/ — put these three lines back to
+      return to them.
+    {%- endcomment -%}
+    {% section 'sm-ticker' %}
+    {%- comment -%}
+      SHEmakes: our own header. Swap back to {% section 'header' %} for stock.
+    {%- endcomment -%}
+    {% section 'sm-header' %}
+    <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
+      {{ content_for_layout }}
+    </main>
+
+    {%- comment -%}
+      SHEmakes: our own footer, not the theme's. Restyling the theme footer
+      with CSS produced a hybrid — its column model, logo block and payment
+      icons do not match the approved design. Swap this line back to
+      {% section 'footer' %} to return to stock.
+    {%- endcomment -%}
+    {% section 'sm-footer' %}
+
+    <ul hidden>
+      <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li>
+    </ul>
+
+    <script>
+      
+      
+      window.shopUrl = '{{ request.origin }}';
+      window.routes = {
+        cart_add_url: '{{ routes.cart_add_url }}',
+        cart_change_url: '{{ routes.cart_change_url }}',
+        cart_update_url: '{{ routes.cart_update_url }}',
+        cart_url: '{{ routes.cart_url }}',
+        predictive_search_url: '{{ routes.predictive_search_url }}'
+      };
+
+      window.cartStrings = {
+        error: `{{ 'sections.cart.cart_error' | t }}`,
+        quantityError: `{{ 'sections.cart.cart_quantity_error_html' | t: quantity: '[quantity]' }}`
+      }
+
+      window.variantStrings = {
+        addToCart: `{{ 'products.product.add_to_cart' | t }}`,
+        soldOut: `{{ 'products.product.sold_out' | t }}`,
+        unavailable: `{{ 'products.product.unavailable' | t }}`,
+      }
+
+      window.accessibilityStrings = {
+        imageAvailable: `{{ 'products.product.media.image_available' | t: index: '[index]' }}`,
+        shareSuccess: `{{ 'general.share.success_message' | t }}`,
+        pauseSlideshow: `{{ 'sections.slideshow.pause_slideshow' | t }}`,
+        playSlideshow: `{{ 'sections.slideshow.play_slideshow' | t }}`,
+      }
+
+
+    </script>
+
+    {%- if settings.predictive_search_enabled -%}
+      <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
+
+    <script src="{{ 'jquery-cookie.js' | asset_url }}" defer="defer"></script>
+
+    {% if settings.enable_newsletter_popup %}
+      {% section 'newsletter-popup' %}
+    {% endif %}
+
+    {%- include 'product-notification-popup' -%}
+    
+  {% render 'uploadkit' %}
+    <style>
+      span.price-item.price-item--regular {
+    color: {{ settings.final_price_color }}!important;
+   {% if settings.final_price_weight %}
+        font-weight: bold!important;
+     {% else %}
+        font-weight: 400!important;
+     {% endif %}
+}
+      .price-item--sale{
+        color: {{ settings.compare_price_color }}!important;
+   {% if settings.compare_price_weight %}
+        font-weight: bold!important;
+     {% else %}
+        font-weight: 400!important;
+     {% endif %}
+      }
+    </style>
+    {% render 'sm-discount-tab' %}
+</body>
+</html>

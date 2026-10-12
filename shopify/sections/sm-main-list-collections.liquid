@@ -1,0 +1,255 @@
+{% comment %}
+  SHEmakes — every collection.
+
+  The same card as the product grid, so the two browse surfaces look like one
+  shop. Plain Liquid: a list of links has nothing to hold in state.
+{% endcomment %}
+
+<div class="sm-section sm-section--tight">
+  <div class="sm-container">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="sm-eyebrow">{{ section.settings.eyebrow }}</p>
+    {%- endif -%}
+
+    {% render 'sm-heading', text: section.settings.heading, tag: 'h1', class: 'sm-heading sm-heading--md' %}
+
+    {%- if section.settings.body != blank -%}
+      <p class="sm-body">{{ section.settings.body }}</p>
+    {%- endif -%}
+
+    {%- liquid
+      comment
+        The page can be given a list, and when it is, that list is the page.
+
+        Word matching against titles and handles came first and kept being
+        wrong in both directions: "Coquette" is a DTF collection and a UV one,
+        "Summer" is neither until it is. The shop already keeps the right
+        answer — its own menus — so the list below is those menus, written out
+        in the order the shop put them in. Nothing is guessed, and a new
+        collection appears here when the shop adds it to the menu and to this
+        list.
+      endcomment
+      assign chosen = section.settings.list | default: '' | strip
+      assign listed = ''
+      if chosen != blank
+        assign lines = chosen | newline_to_br | split: '<br />'
+        for line in lines
+          assign line = line | strip
+          if line == blank
+            continue
+          endif
+          assign parts = line | split: '|'
+          assign label = parts[0] | strip
+          assign url = parts[1] | default: '' | strip
+          assign handle = url | split: '/collections/' | last | split: '?' | first | strip
+          assign item = collections[handle]
+
+          assign t = label | json
+          assign u = url | json
+          assign h = handle | json
+          assign img = ''
+          if item.featured_image != blank
+            assign img = item.featured_image | image_url: width: 600
+          elsif item.products.first.featured_image != blank
+            assign img = item.products.first.featured_image | image_url: width: 600
+          endif
+          assign img = img | json
+          assign count = item.all_products_count | default: 0
+          assign row = '{"id":' | append: forloop.index | append: ',"title":' | append: t | append: ',"handle":' | append: h | append: ',"url":' | append: u | append: ',"image":' | append: img | append: ',"count":' | append: count | append: '}'
+          if listed == blank
+            assign listed = row
+          else
+            assign listed = listed | append: ',' | append: row
+          endif
+        endfor
+      endif
+
+      comment
+        No list given: every collection in the shop, with the category pills
+        the blocks below define. The island does the filtering; this builds
+        the rows.
+      endcomment
+      assign rows = ''
+      for collection in collections
+        assign t = collection.title | json
+        assign u = collection.url | json
+        assign h = collection.handle | json
+        assign img = ''
+        if collection.featured_image != blank
+          assign img = collection.featured_image | image_url: width: 600
+        endif
+        assign img = img | json
+        assign row = '{"id":' | append: collection.id | append: ',"title":' | append: t | append: ',"handle":' | append: h | append: ',"url":' | append: u | append: ',"image":' | append: img | append: ',"count":' | append: collection.all_products_count | append: '}'
+        if forloop.first
+          assign rows = row
+        else
+          assign rows = rows | append: ',' | append: row
+        endif
+      endfor
+
+      assign pills = ''
+      for block in section.blocks
+        assign l = block.settings.label | json
+        assign terms = block.settings.terms | json
+        assign pill = '{"label":' | append: l | append: ',"terms":' | append: terms | append: '}'
+        if forloop.first
+          assign pills = pill
+        else
+          assign pills = pills | append: ',' | append: pill
+        endif
+      endfor
+    -%}
+
+    {%- liquid
+      if listed != blank
+        assign rows = listed
+        assign pills = ''
+      endif
+    -%}
+
+    {%- capture props -%}
+{
+  "collections": [{{ rows }}],
+  "categories": [{{ pills }}],
+  "countLabel": {{ section.settings.count_label | json }},
+  "only": {{ section.settings.only | json }}
+}
+    {%- endcapture -%}
+
+    {%- capture fallback -%}
+      <div class="sm-browse__grid">
+        {%- if chosen != blank -%}
+          {%- for line in lines -%}
+            {%- assign line = line | strip -%}
+            {%- if line == blank -%}{%- continue -%}{%- endif -%}
+            {%- assign parts = line | split: '|' -%}
+            {%- assign label = parts[0] | strip -%}
+            {%- assign url = parts[1] | default: '' | strip -%}
+            {%- assign handle = url | split: '/collections/' | last | split: '?' | first | strip -%}
+            {%- assign item = collections[handle] -%}
+            <a class="sm-card" href="{{ url }}">
+              <div class="sm-card__media">
+                {%- if item.featured_image -%}
+                  <img src="{{ item.featured_image | image_url: width: 600 }}" alt="{{ label | escape }}" loading="lazy">
+                {%- else -%}
+                  <div class="sm-card__placeholder"></div>
+                {%- endif -%}
+              </div>
+              <div class="sm-card__body">
+                <h3 class="sm-card__title">{{ label }}</h3>
+                {%- if section.settings.count_label != blank -%}
+                  <p class="sm-card__price">{{ item.all_products_count | default: 0 }} {{ section.settings.count_label }}</p>
+                {%- endif -%}
+              </div>
+            </a>
+          {%- endfor -%}
+        {%- else -%}
+        {%- for collection in collections -%}
+          <a class="sm-card" href="{{ collection.url }}">
+            <div class="sm-card__media">
+              {%- if collection.featured_image -%}
+                <img src="{{ collection.featured_image | image_url: width: 600 }}" alt="{{ collection.title | escape }}" loading="lazy">
+              {%- else -%}
+                <div class="sm-card__placeholder"></div>
+              {%- endif -%}
+            </div>
+            <div class="sm-card__body">
+              <h3 class="sm-card__title">{{ collection.title }}</h3>
+              {%- if section.settings.count_label != blank -%}
+                <p class="sm-card__price">{{ collection.all_products_count }} {{ section.settings.count_label }}</p>
+              {%- endif -%}
+            </div>
+          </a>
+        {%- endfor -%}
+        {%- endif -%}
+      </div>
+    {%- endcapture -%}
+
+    {%- comment -%}
+      A theme filter, the same control the collection pages carry: one
+      dropdown listing every theme on this page, each a link straight to it.
+      Built from the same list as the cards, so the two cannot disagree.
+    {%- endcomment -%}
+    {%- if section.settings.theme_filter and chosen != blank -%}
+      <aside class="sm-browse__filters sm-browse__filters--real sm-collections__filter">
+        <p class="sm-browse__filters-title">Filter</p>
+        <details class="sm-browse__group">
+          <summary class="sm-eyebrow">{{ section.settings.filter_label | default: 'Theme' }}</summary>
+          <div class="sm-browse__group-body">
+            {%- for line in lines -%}
+              {%- assign line = line | strip -%}
+              {%- if line == blank -%}{%- continue -%}{%- endif -%}
+              {%- assign parts = line | split: '|' -%}
+              <a class="sm-browse__option sm-browse__option--one" href="{{ parts[1] | strip }}">
+                <span class="sm-browse__box" aria-hidden="true"></span>
+                {{ parts[0] | strip }}
+              </a>
+            {%- endfor -%}
+          </div>
+        </details>
+      </aside>
+    {%- endif -%}
+
+    {% render 'sm-island', name: 'collection-list', props: props, fallback: fallback %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "SHEmakes collection list",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "theme_filter",
+      "label": "Theme filter above the grid",
+      "info": "A dropdown of every collection in the list below, each linking to it.",
+      "default": false
+    },
+    { "type": "text", "id": "filter_label", "label": "Filter name", "default": "Theme" },
+    {
+      "type": "textarea",
+      "id": "list",
+      "label": "The collections, in order",
+      "info": "One per line: Label | /collections/handle. Copied from the shop's own menu. With a list here the page shows exactly these, in this order, and the category pills are off."
+    },
+    {
+      "type": "text",
+      "id": "only",
+      "label": "Show one category only",
+      "info": "The exact label of one of the categories below. Used by the /collections?view= pages the menu links to, so DTF and UV DTF never share a page."
+    },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Browse" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Every collection" },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body",
+      "default": "DTF, UV DTF, blanks and seasonal drops — all printed in London, Ontario."
+    },
+    { "type": "text", "id": "count_label", "label": "Word after the number", "info": "Leave empty to drop the count under each collection." }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "DTF" },
+        {
+          "type": "text",
+          "id": "terms",
+          "label": "Matches",
+          "info": "Comma separated. A collection joins this category when its title or handle contains any of these words.",
+          "default": "dtf"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SHEmakes collection list",
+      "blocks": [{ "type": "category" }]
+    }
+  ]
+}
+{% endschema %}

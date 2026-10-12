@@ -1,0 +1,129 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "banner": {
+      "type": "main-collection-banner",
+      "settings": {
+        "enable_title": true,
+        "show_collection_description": false,
+        "show_collection_image": false,
+        "color_scheme": "background-1",
+        "text_alignment": "center",
+        "heading_size": "heading-medium",
+        "font_weight": "400",
+        "letter_spacing": 0,
+        "heading_color_scheme": "background-2",
+        "enable_uppercase": true,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "image_banner_tF4PAX": {
+      "type": "image-banner",
+      "disabled": true,
+      "name": "t:sections.image-banner.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/how_to_submit_customs-6.png",
+        "mobile_image": "shopify://shop_images/how_to_submit_customs_Instagram_Post_-5.png",
+        "image_color_opacity": "#000000",
+        "image_overlay_opacity": 0,
+        "image_height": "large",
+        "adapt_height_first_image": true,
+        "desktop_content_position": "middle-center",
+        "show_text_box": true,
+        "desktop_content_alignment": "center",
+        "color_scheme": "background-1",
+        "mobile_content_alignment": "center",
+        "show_text_below": true
+      }
+    },
+    "rich_text_3HcTXi": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_tF7CTF": {
+          "type": "heading",
+          "disabled": true,
+          "settings": {
+            "heading": "The Best Transfers Ever!",
+            "heading_size": "heading-medium",
+            "font_weight": "400",
+            "letter_spacing": 0,
+            "heading_color_scheme": "background-2"
+          }
+        },
+        "text_aWA78a": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>Ready To Press - Instant HOT Peel Transfers that are:</strong></p><ul><li>soft to the touch</li><li>bright vivid colours</li><li>durable and high-quality</li><li>pre-sized and cut - ready to press</li><li>printed locally - in-studio<br/></li></ul>",
+            "letter_spacing": 0,
+            "text_color_scheme": "background-2"
+          }
+        },
+        "button_t8b83q": {
+          "type": "button",
+          "disabled": true,
+          "settings": {
+            "button_label": "Button label",
+            "button_link": "",
+            "button_text": "background-1",
+            "button_background": "accent-2",
+            "button_outline_style": false,
+            "button_hover": "background-1",
+            "button_hover_bg": "accent-3"
+          }
+        }
+      },
+      "block_order": [
+        "heading_tF7CTF",
+        "text_aWA78a",
+        "button_t8b83q"
+      ],
+      "disabled": true,
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "color_scheme": "background-1",
+        "text_alignment": "center",
+        "full_width": true,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "settings": {
+        "products_per_page": 12,
+        "columns_desktop": 4,
+        "image_ratio": "square",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": true,
+        "enable_quick_add": true,
+        "button_text": "background-1",
+        "button_background": "accent-5",
+        "button_outline_style": false,
+        "button_hover": "background-2",
+        "button_hover_bg": "background-1",
+        "enable_filtering": true,
+        "filter_type": "horizontal",
+        "enable_sorting": true,
+        "columns_mobile": "2",
+        "padding_top": 40,
+        "padding_bottom": 60
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "image_banner_tF4PAX",
+    "rich_text_3HcTXi",
+    "product-grid"
+  ]
+}

@@ -1,0 +1,63 @@
+{% comment %}
+  SHEmakes — the free-shipping progress bar.
+
+  The threshold used to be announced once in a banner at the top of the site
+  and never mentioned again. Here it is a number that keeps counting down on
+  the screen where it can still change the order — the cheapest change on the
+  whole plan, and the one measured by average order value.
+
+  Rendered by Liquid from `cart.total_price`, so it is correct on first paint
+  rather than flashing in after a script runs. Dawn re-renders the cart section
+  on every quantity change, which brings this with it.
+
+  Usage:
+    {% render 'sm-shipping-bar', threshold: 15000 %}
+
+  threshold — in cents, matching Shopify's own money handling.
+{% endcomment %}
+
+{%- liquid
+  assign threshold = threshold | default: 15000
+  assign total = cart.total_price
+  assign remaining = threshold | minus: total
+
+  if remaining < 0
+    assign remaining = 0
+  endif
+
+  assign percent = 0
+  if threshold > 0
+    assign percent = total | times: 100 | divided_by: threshold
+  endif
+  if percent > 100
+    assign percent = 100
+  endif
+-%}
+
+<div class="sm-shipbar">
+  {%- comment -%}
+    The truck rides the fill, the way the shop's live cart does it: the bar on
+    its own is a number, the truck is a distance.
+  {%- endcomment -%}
+  <div
+    class="sm-shipbar__track"
+    role="progressbar"
+    aria-valuenow="{{ percent }}"
+    aria-valuemin="0"
+    aria-valuemax="100"
+    aria-label="Progress towards free shipping"
+  >
+    <div class="sm-shipbar__fill" style="width: {{ percent }}%"></div>
+    <span class="sm-shipbar__truck" style="left: {{ percent }}%" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></span>
+  </div>
+
+  <p class="sm-shipbar__text">
+    {%- if remaining == 0 -%}
+      Your order ships free.
+    {%- else -%}
+      You are only <span class="sm-shipbar__amount">{{ remaining | money }}</span> from Free Shipping!
+    {%- endif -%}
+  </p>
+
+  <p class="sm-shipbar__meta">{{ threshold | money }}</p>
+</div>

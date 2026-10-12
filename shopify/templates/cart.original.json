@@ -1,0 +1,86 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "cart-items": {
+      "type": "main-cart-items",
+      "settings": {
+        "heading_size": "heading-medium",
+        "show_vendor": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "cart-footer": {
+      "type": "main-cart-footer",
+      "blocks": {
+        "subtotal": {
+          "type": "subtotal",
+          "settings": {}
+        },
+        "buttons": {
+          "type": "buttons",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "subtotal",
+        "buttons"
+      ],
+      "settings": {
+        "show_cart_note": true
+      }
+    },
+    "featured-collection": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Frequently Bought With",
+        "heading_color_scheme": "background-2",
+        "heading_size": "h2",
+        "font_weight": "500",
+        "heading_spacing": 1,
+        "enable_uppercase": true,
+        "text_alignment": "center",
+        "description": "",
+        "description_color_scheme": "background-2",
+        "show_description": false,
+        "collection": "newly-added",
+        "products_to_show": 10,
+        "columns_desktop": 5,
+        "full_width": false,
+        "show_view_all": true,
+        "button_text": "background-1",
+        "button_background": "accent-2",
+        "button_outline_style": false,
+        "button_hover": "background-1",
+        "button_hover_bg": "accent-3",
+        "enable_desktop_slider": false,
+        "color_scheme": "background-1",
+        "image_ratio": "adapt",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": true,
+        "enable_quick_add": true,
+        "card_title_size": "body-small",
+        "card_title_color_scheme": "background-2",
+        "card_price_color_scheme": "background-2",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "cart-items",
+    "cart-footer",
+    "featured-collection"
+  ]
+}

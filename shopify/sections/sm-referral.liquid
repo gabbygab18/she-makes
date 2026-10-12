@@ -1,0 +1,300 @@
+{% comment %}
+  SHEmakes — "Refer a maker", the referral programme's landing page.
+
+  Drawn from the shop's comp: the offer and the two rewards up top beside a
+  real photograph, then how it works, why makers refer, what makers say, a
+  second call to action, and the questions. Plain Liquid — none of it has
+  state — and every word is a setting or a block, so the shop can change the
+  offer without a code change.
+
+  The button goes wherever the referral app hands out links. Shopify has no
+  referral programme of its own, so until one is installed it points at the
+  contact page.
+{% endcomment %}
+
+{%- liquid
+  assign hero_photo = ''
+  if section.settings.hero_image != blank
+    assign hero_photo = section.settings.hero_image | image_url: width: 1400
+  elsif section.settings.hero_asset != blank
+    assign hero_photo = section.settings.hero_asset | asset_url
+  endif
+
+  assign cta_photo = ''
+  if section.settings.cta_image != blank
+    assign cta_photo = section.settings.cta_image | image_url: width: 900
+  elsif section.settings.cta_asset != blank
+    assign cta_photo = section.settings.cta_asset | asset_url
+  endif
+
+  assign link_url = section.settings.link_url | default: '/pages/contact'
+-%}
+
+<div class="sm-ref">
+  {%- comment -%} The offer {%- endcomment -%}
+  <section class="sm-ref__hero">
+    <div class="sm-container sm-ref__hero-inner">
+      <div class="sm-ref__hero-copy">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="sm-eyebrow">{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+
+        {% render 'sm-heading', text: section.settings.heading, tag: 'h1', class: 'sm-heading sm-heading--lg sm-ref__title' %}
+
+        {%- if section.settings.intro != blank -%}
+          <p class="sm-body sm-ref__intro">{{ section.settings.intro }}</p>
+        {%- endif -%}
+
+        <div class="sm-ref__rewards">
+          <div class="sm-ref__reward">
+            <span class="sm-ref__reward-icon" aria-hidden="true">{% render 'sm-icon', name: 'gift' %}</span>
+            <div>
+              <p class="sm-ref__reward-label">{{ section.settings.they_label }}</p>
+              <p class="sm-ref__reward-value">{{ section.settings.they_value }}</p>
+              <p class="sm-ref__reward-note">{{ section.settings.they_note }}</p>
+            </div>
+          </div>
+
+          <div class="sm-ref__reward sm-ref__reward--you">
+            <span class="sm-ref__reward-icon" aria-hidden="true">{% render 'sm-icon', name: 'heart' %}</span>
+            <div>
+              <p class="sm-ref__reward-label">{{ section.settings.you_label }}</p>
+              <p class="sm-ref__reward-value">{{ section.settings.you_value }}</p>
+              <p class="sm-ref__reward-note">{{ section.settings.you_note }}</p>
+            </div>
+          </div>
+        </div>
+
+        <a class="sm-button sm-button--primary sm-ref__cta" href="{{ link_url }}">
+          {{ section.settings.link_label }} <span aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+
+      {%- if hero_photo != blank -%}
+        <div class="sm-ref__hero-media">
+          <img src="{{ hero_photo }}" alt="{{ section.settings.hero_alt | escape }}" loading="eager">
+        </div>
+      {%- endif -%}
+    </div>
+  </section>
+
+  {%- comment -%} How it works {%- endcomment -%}
+  {%- assign steps = section.blocks | where: 'type', 'step' -%}
+  {%- if steps.size > 0 -%}
+    <section class="sm-ref__how">
+      <div class="sm-container">
+        {% render 'sm-heading', text: section.settings.how_heading, tag: 'h2', class: 'sm-heading sm-heading--md sm-ref__center' %}
+
+        <ol class="sm-ref__steps" role="list">
+          {%- for block in steps -%}
+            <li class="sm-ref__step" {{ block.shopify_attributes }}>
+              <span class="sm-ref__step-icon" aria-hidden="true">{% render 'sm-icon', name: block.settings.icon %}</span>
+              <h3 class="sm-ref__step-title">{{ block.settings.title }}</h3>
+              <p class="sm-ref__step-body">{{ block.settings.body }}</p>
+            </li>
+          {%- endfor -%}
+        </ol>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} Why makers love referring {%- endcomment -%}
+  {%- assign reasons = section.blocks | where: 'type', 'reason' -%}
+  {%- if reasons.size > 0 -%}
+    <section class="sm-ref__why">
+      <div class="sm-container">
+        <div class="sm-ref__why-card">
+          <div class="sm-ref__why-copy">
+            {% render 'sm-heading', text: section.settings.why_heading, tag: 'h2', class: 'sm-heading sm-heading--md' %}
+            {%- if section.settings.why_body != blank -%}
+              <p class="sm-body">{{ section.settings.why_body }}</p>
+            {%- endif -%}
+          </div>
+
+          <ul class="sm-ref__reasons" role="list">
+            {%- for block in reasons -%}
+              <li class="sm-ref__reason" {{ block.shopify_attributes }}>
+                <span class="sm-ref__reason-icon" aria-hidden="true">{% render 'sm-icon', name: block.settings.icon %}</span>
+                <p class="sm-ref__reason-title">{{ block.settings.title }}</p>
+                {%- if block.settings.body != blank -%}
+                  <p class="sm-ref__reason-body">{{ block.settings.body }}</p>
+                {%- endif -%}
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} What makers say {%- endcomment -%}
+  {%- assign quotes = section.blocks | where: 'type', 'quote' -%}
+  {%- if quotes.size > 0 -%}
+    <section class="sm-ref__quotes">
+      <div class="sm-container sm-ref__quotes-inner">
+        <div class="sm-ref__quotes-copy">
+          {% render 'sm-heading', text: section.settings.quotes_heading, tag: 'h2', class: 'sm-heading sm-heading--md' %}
+          {%- if section.settings.quotes_body != blank -%}
+            <p class="sm-body">{{ section.settings.quotes_body }}</p>
+          {%- endif -%}
+        </div>
+
+        <ul class="sm-ref__quote-list" role="list">
+          {%- for block in quotes -%}
+            <li class="sm-ref__quote" {{ block.shopify_attributes }}>
+              <span class="sm-ref__stars" aria-hidden="true">★★★★★</span>
+              <blockquote>&ldquo;{{ block.settings.quote }}&rdquo;</blockquote>
+              <p class="sm-ref__quote-name">&mdash; {{ block.settings.name }}</p>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} The second ask, and the questions {%- endcomment -%}
+  <section class="sm-ref__close">
+    <div class="sm-container sm-ref__close-inner">
+      {%- if cta_photo != blank -%}
+        <div class="sm-ref__close-media">
+          <img src="{{ cta_photo }}" alt="{{ section.settings.cta_alt | escape }}" loading="lazy">
+        </div>
+      {%- endif -%}
+
+      <div class="sm-ref__close-body">
+        <div class="sm-ref__ready">
+          {% render 'sm-heading', text: section.settings.ready_heading, tag: 'h2', class: 'sm-heading sm-heading--md' %}
+          <a class="sm-button sm-button--primary sm-ref__cta" href="{{ link_url }}">
+            {{ section.settings.link_label }} <span aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
+
+        {%- assign questions = section.blocks | where: 'type', 'question' -%}
+        {%- if questions.size > 0 -%}
+          <div class="sm-ref__faq">
+            <div class="sm-ref__faq-head">
+              {% render 'sm-heading', text: section.settings.faq_heading, tag: 'h2', class: 'sm-heading sm-heading--sm' %}
+              {%- if section.settings.faq_body != blank -%}
+                <p class="sm-body">{{ section.settings.faq_body }}</p>
+              {%- endif -%}
+            </div>
+
+            <div class="sm-ref__faq-list">
+              {%- for block in questions -%}
+                <details class="sm-ref__q" {{ block.shopify_attributes }}>
+                  <summary>{{ block.settings.question }}</summary>
+                  <div class="sm-ref__a">{{ block.settings.answer }}</div>
+                </details>
+              {%- endfor -%}
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "SHEmakes referral page",
+  "tag": "section",
+  "settings": [
+    { "type": "header", "content": "The offer" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Refer a maker" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Makers support *makers*" },
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "Love our transfers? Tell a fellow maker! You'll both get rewarded when they place their first order." },
+    { "type": "text", "id": "they_label", "label": "Their reward — label", "default": "They get" },
+    { "type": "text", "id": "they_value", "label": "Their reward", "default": "20% off" },
+    { "type": "text", "id": "they_note", "label": "Their reward — terms", "default": "their first order of $50+" },
+    { "type": "text", "id": "you_label", "label": "Your reward — label", "default": "You get" },
+    { "type": "text", "id": "you_value", "label": "Your reward", "default": "$20" },
+    { "type": "text", "id": "you_note", "label": "Your reward — terms", "default": "in store credit on your next order of $75+" },
+    { "type": "text", "id": "link_label", "label": "Button", "default": "Get your referral link" },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Button link",
+      "info": "Where the referral app gives out links. Until one is set up, the button goes to the contact page."
+    },
+    { "type": "image_picker", "id": "hero_image", "label": "Photograph" },
+    { "type": "text", "id": "hero_asset", "label": "Photograph (theme file)", "default": "sm-cat-rtp.webp" },
+    { "type": "text", "id": "hero_alt", "label": "Photograph description", "default": "A stack of shirts pressed with SHEmakes transfers" },
+    { "type": "header", "content": "Sections" },
+    { "type": "text", "id": "how_heading", "label": "How it works", "default": "How it *works*" },
+    { "type": "text", "id": "why_heading", "label": "Why heading", "default": "Why makers *love referring*" },
+    { "type": "textarea", "id": "why_body", "label": "Why intro", "default": "You're not just sharing a shop, you're helping another small business get premium transfers, fast turnaround and friendly support." },
+    { "type": "text", "id": "quotes_heading", "label": "Quotes heading", "default": "Real makers. *Real rewards.*" },
+    { "type": "textarea", "id": "quotes_body", "label": "Quotes intro", "default": "Here's what our maker community has to say about referring their fellow maker friends." },
+    { "type": "text", "id": "ready_heading", "label": "Second ask", "default": "Ready to *cash in?*" },
+    { "type": "image_picker", "id": "cta_image", "label": "Second photograph" },
+    { "type": "text", "id": "cta_asset", "label": "Second photograph (theme file)", "default": "sm-cat-uv.webp" },
+    { "type": "text", "id": "cta_alt", "label": "Second photograph description", "default": "A tumbler with a SHEmakes UV DTF decal" },
+    { "type": "text", "id": "faq_heading", "label": "Questions heading", "default": "Frequently asked *questions*" },
+    { "type": "text", "id": "faq_body", "label": "Questions intro", "default": "Have a question? We've got you covered." }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "link", "label": "Link" },
+            { "value": "send", "label": "Send" },
+            { "value": "cart", "label": "Cart" },
+            { "value": "gift", "label": "Gift" },
+            { "value": "heart", "label": "Heart" }
+          ],
+          "default": "link"
+        },
+        { "type": "text", "id": "title", "label": "Title", "default": "Get your unique link" },
+        { "type": "textarea", "id": "body", "label": "Body" }
+      ]
+    },
+    {
+      "type": "reason",
+      "name": "Reason",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "star", "label": "Star" },
+            { "value": "truck", "label": "Delivery" },
+            { "value": "group", "label": "People" },
+            { "value": "heart", "label": "Heart" },
+            { "value": "maple", "label": "Maple leaf" }
+          ],
+          "default": "star"
+        },
+        { "type": "text", "id": "title", "label": "Title", "default": "Premium quality transfers" },
+        { "type": "text", "id": "body", "label": "Small print" }
+      ]
+    },
+    {
+      "type": "quote",
+      "name": "Maker quote",
+      "limit": 3,
+      "settings": [
+        { "type": "textarea", "id": "quote", "label": "Quote", "info": "A real customer's words, with their permission." },
+        { "type": "text", "id": "name", "label": "Name" }
+      ]
+    },
+    {
+      "type": "question",
+      "name": "Question",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question" },
+        { "type": "richtext", "id": "answer", "label": "Answer" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "SHEmakes referral page" }]
+}
+{% endschema %}

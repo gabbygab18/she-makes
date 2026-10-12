@@ -1,0 +1,282 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "sm-hero",
+      "blocks": {
+        "s1": {
+          "type": "stat",
+          "settings": {
+            "value": "24h",
+            "label": "Typical turnaround"
+          }
+        },
+        "s2": {
+          "type": "stat",
+          "settings": {
+            "value": "367",
+            "label": "Five-star reviews"
+          }
+        },
+        "s3": {
+          "type": "stat",
+          "settings": {
+            "value": "$0",
+            "label": "Local pickup"
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "settings": {
+        "pill": "",
+        "heading": "Your artwork, printed and out the door tomorrow",
+        "body": "DTF and UV DTF transfers for small businesses and makers. Upload a file, check it in the browser, and press it this week — no minimums.",
+        "primary_label": "Start a custom order",
+        "primary_url": "/pages/custom-apparel-quote",
+        "secondary_label": "Browse ready to press",
+        "secondary_url": "/collections/all",
+        "rating": "5.0 from 367 reviews · hot peel"
+      }
+    },
+    "promises": {
+      "type": "sm-promises",
+      "blocks": {
+        "p1": {
+          "type": "promise",
+          "settings": {
+            "icon": "truck",
+            "title": "Free shipping $150+",
+            "body": "Discounted flat rates to Canada and the USA."
+          }
+        },
+        "p2": {
+          "type": "promise",
+          "settings": {
+            "icon": "leaf",
+            "title": "Made in Canada",
+            "body": "Printed locally in London, Ontario."
+          }
+        },
+        "p3": {
+          "type": "promise",
+          "settings": {
+            "icon": "shield",
+            "title": "Satisfaction guaranteed",
+            "body": "Order with confidence."
+          }
+        },
+        "p4": {
+          "type": "promise",
+          "settings": {
+            "icon": "star",
+            "title": "Real reviews",
+            "body": "367 five-star reviews and counting."
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3",
+        "p4"
+      ],
+      "settings": {}
+    },
+    "new_this_week": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "New this week",
+        "collection": "",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "show_view_all": true
+      }
+    },
+    "process": {
+      "type": "sm-process",
+      "blocks": {
+        "b1": {
+          "type": "card",
+          "settings": {
+            "title": "Production"
+          }
+        },
+        "b2": {
+          "type": "card",
+          "settings": {
+            "title": "Instant peel"
+          }
+        },
+        "b3": {
+          "type": "card",
+          "settings": {
+            "title": "Customer feedback"
+          }
+        },
+        "b4": {
+          "type": "card",
+          "settings": {
+            "title": "Packing & pickup"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4"
+      ],
+      "settings": {
+        "eyebrow": "Inside the shop",
+        "heading": "Printed by us, in London, Ontario",
+        "body": "Not a reseller and not overseas. Every sheet is printed, checked and packed on our own floor.",
+        "feature_first": true
+      }
+    },
+    "gallery": {
+      "type": "sm-gallery",
+      "blocks": {
+        "g1": {
+          "type": "photo",
+          "settings": {}
+        },
+        "g2": {
+          "type": "photo",
+          "settings": {}
+        },
+        "g3": {
+          "type": "photo",
+          "settings": {}
+        },
+        "g4": {
+          "type": "photo",
+          "settings": {}
+        },
+        "g5": {
+          "type": "photo",
+          "settings": {}
+        },
+        "g6": {
+          "type": "photo",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "g1",
+        "g2",
+        "g3",
+        "g4",
+        "g5",
+        "g6"
+      ],
+      "settings": {
+        "heading": "Happy customers — picture reviews",
+        "body": "Real orders, pressed and photographed by the people who bought them.",
+        "speed": 60,
+        "cta_label": "Order your custom transfers",
+        "cta_url": "/collections/custom"
+      }
+    },
+    "faq": {
+      "type": "sm-faq",
+      "blocks": {
+        "q1": {
+          "type": "question",
+          "settings": {
+            "question": "What file should I send for a custom transfer?",
+            "answer": "<p>A PNG with a transparent background, at 300 DPI for the size you want printed — roughly 3300 pixels across for an 11 inch print.</p>"
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "question": "What is the difference between DTF and UV DTF?",
+            "answer": "<p>DTF is for fabric — heat pressed onto shirts, hoodies and bags. UV DTF is for hard surfaces such as cups, tumblers and keychains: no heat, peel and stick.</p>"
+          }
+        },
+        "q3": {
+          "type": "question",
+          "settings": {
+            "question": "How fast is turnaround, and can you rush it?",
+            "answer": "<p>Most orders print same day or next day. Rush service is available when you need it sooner.</p>"
+          }
+        },
+        "q4": {
+          "type": "question",
+          "settings": {
+            "question": "Do you offer free local pickup?",
+            "answer": "<p>Yes, and it is free. You get an email the moment your order is pressed and ready, with the address and the hours.</p>"
+          }
+        },
+        "q5": {
+          "type": "question",
+          "settings": {
+            "question": "When is shipping free?",
+            "answer": "<p>Free on orders over $150, across Canada and the USA. Under that it is a flat rate.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5"
+      ],
+      "settings": {
+        "eyebrow": "FAQ",
+        "heading": "Questions we get before almost every first order",
+        "cta_label": "View all",
+        "cta_url": "/pages/faqs"
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "blocks": {
+        "n1": {
+          "type": "heading",
+          "settings": {
+            "heading": "First to know when new designs drop"
+          }
+        },
+        "n2": {
+          "type": "paragraph",
+          "settings": {
+            "text": "<p>New drops every Tuesday, plus subscriber-only codes.</p>"
+          }
+        },
+        "n3": {
+          "type": "email_form",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "n1",
+        "n2",
+        "n3"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "promises",
+    "new_this_week",
+    "process",
+    "gallery",
+    "faq",
+    "newsletter"
+  ]
+}

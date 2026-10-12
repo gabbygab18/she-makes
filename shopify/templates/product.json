@@ -1,0 +1,140 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "174718329921db6b0c": {
+      "type": "apps",
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "main": {
+      "type": "sm-main-product",
+      "blocks": {
+        "jedi_stock_counter_stock_counter_wP7UWM": {
+          "type": "shopify://apps/jedi-stock-counter/blocks/stock_counter/3cb229cd-7886-4c0a-b596-0b268868882a",
+          "settings": {}
+        },
+        "judge_me_reviews_preview_badge_MBWtYV": {
+          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        },
+        "spec_press": {
+          "type": "spec",
+          "settings": {
+            "label": "Press",
+            "value": "300°F · 10s"
+          }
+        },
+        "spec_peel": {
+          "type": "spec",
+          "settings": {
+            "label": "Peel",
+            "value": "Hot, instant"
+          }
+        },
+        "spec_ships": {
+          "type": "spec",
+          "settings": {
+            "label": "Ships",
+            "value": "Next day"
+          }
+        },
+        "spec_pickup": {
+          "type": "spec",
+          "settings": {
+            "label": "Pickup",
+            "value": "Free, today"
+          }
+        }
+      },
+      "block_order": [
+        "jedi_stock_counter_stock_counter_wP7UWM",
+        "judge_me_reviews_preview_badge_MBWtYV",
+        "spec_press",
+        "spec_peel",
+        "spec_ships",
+        "spec_pickup"
+      ],
+      "settings": {
+        "gang_sheet_url": "/collections/custom?view=choose"
+      }
+    },
+    "170527802101ac3feb": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_TaGfPc": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "sample_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "empty_widget"
+          }
+        },
+        "judge_me_reviews_featured_carousel_iyJNLG": {
+          "type": "shopify://apps/judge-me-reviews/blocks/featured_carousel/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "maxwidth": 1080
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_TaGfPc",
+        "judge_me_reviews_featured_carousel_iyJNLG"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "settings": {
+        "heading": "Frequently Bought With",
+        "heading_size": "h2",
+        "font_weight": "400",
+        "letter_spacing": 0,
+        "heading_color_scheme": "background-2",
+        "text_alignment": "center",
+        "products_to_show": 10,
+        "columns_desktop": 4,
+        "color_scheme": "background-1",
+        "image_ratio": "square",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": true,
+        "columns_mobile": "2",
+        "padding_top": 36,
+        "padding_bottom": 28
+      },
+      "disabled": true
+    },
+    "1675953019b343b35b": {
+      "type": "apps",
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "1756643492a482077f": {
+      "type": "apps",
+      "settings": {
+        "include_margins": true
+      }
+    }
+  },
+  "order": [
+    "174718329921db6b0c",
+    "main",
+    "170527802101ac3feb",
+    "product-recommendations",
+    "1675953019b343b35b",
+    "1756643492a482077f"
+  ]
+}

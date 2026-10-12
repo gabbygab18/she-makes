@@ -1,0 +1,292 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "rich_text_HgXFig": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_Q3Njbp": {
+          "type": "heading",
+          "settings": {
+            "heading": "{{ collection.title }}",
+            "heading_size": "heading-large",
+            "font_weight": "400",
+            "letter_spacing": 0,
+            "heading_color_scheme": "background-2"
+          }
+        }
+      },
+      "block_order": [
+        "heading_Q3Njbp"
+      ],
+      "disabled": true,
+      "settings": {
+        "color_scheme": "background-1",
+        "text_alignment": "center",
+        "full_width": true,
+        "padding_top": 64,
+        "padding_bottom": 0
+      }
+    },
+    "collection_list_cLwJ46": {
+      "type": "collection-list",
+      "blocks": {
+        "featured_collection_6FBrxe": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "premade-gang-sheets",
+            "font_size": "heading-medium",
+            "font_weight": "400",
+            "letter_spacing": 4
+          }
+        },
+        "featured_collection_aMAxdF": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "mama-mini",
+            "font_size": "heading-medium",
+            "font_weight": "400",
+            "letter_spacing": 0
+          }
+        }
+      },
+      "block_order": [
+        "featured_collection_6FBrxe",
+        "featured_collection_aMAxdF"
+      ],
+      "disabled": true,
+      "settings": {
+        "title": "Subcategories",
+        "heading_size": "h1",
+        "heading_color_scheme": "background-2",
+        "font_weight": "400",
+        "heading_spacing": 0,
+        "subheading": "",
+        "subheading_color_scheme": "background-2",
+        "text_alignment": "center",
+        "color_scheme": "background-1",
+        "image_ratio": "square",
+        "image_color_opacity": "#000000",
+        "image_overlay_opacity": 0,
+        "columns_desktop": 3,
+        "enable_title": true,
+        "font_color_scheme": "background-1",
+        "card_color_scheme": "accent-5",
+        "show_view_all": false,
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "padding_top": 96,
+        "padding_bottom": 100
+      }
+    },
+    "banner": {
+      "type": "main-collection-banner",
+      "disabled": true,
+      "settings": {
+        "enable_title": false,
+        "show_collection_description": true,
+        "show_collection_image": false,
+        "color_scheme": "background-1",
+        "text_alignment": "center",
+        "heading_size": "heading-large",
+        "font_weight": "400",
+        "letter_spacing": 0,
+        "heading_color_scheme": "background-2",
+        "enable_uppercase": true,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "image_banner_fEHTVn": {
+      "type": "image-banner",
+      "disabled": true,
+      "settings": {
+        "image": "shopify://shop_images/Untitled_design_1.png",
+        "mobile_image": "shopify://shop_images/mobile.png",
+        "image_color_opacity": "#000000",
+        "image_overlay_opacity": 0,
+        "image_height": "small",
+        "adapt_height_first_image": true,
+        "desktop_content_position": "middle-center",
+        "show_text_box": true,
+        "desktop_content_alignment": "center",
+        "color_scheme": "background-1",
+        "mobile_content_alignment": "center",
+        "show_text_below": true
+      }
+    },
+    "image_banner_gPwkYk": {
+      "type": "image-banner",
+      "settings": {
+        "image": "shopify://shop_images/how_to_submit_customs-6.png",
+        "mobile_image": "shopify://shop_images/how_to_submit_customs-6.png",
+        "image_color_opacity": "#000000",
+        "image_overlay_opacity": 0,
+        "image_height": "small",
+        "adapt_height_first_image": true,
+        "desktop_content_position": "middle-center",
+        "show_text_box": true,
+        "desktop_content_alignment": "center",
+        "color_scheme": "background-1",
+        "mobile_content_alignment": "center",
+        "show_text_below": true
+      },
+      "disabled": true
+    },
+    "product-grid": {
+      "type": "sm-main-collection",
+      "blocks": {
+        "theme": {
+          "type": "filter",
+          "settings": {
+            "label": "Theme",
+            "values": "Fall, Halloween, Christmas, Winter, Easter, Spring, Summer, Coquette, MAMA, Family, Faith, Sports, Teacher, Coffee, Western, Pets, Small Business, Bundles"
+          }
+        }
+      },
+      "block_order": [
+        "theme"
+      ],
+      "settings": {
+        "prompt_heading": "Are you a screen print shop? A DTF print shop?",
+        "prompt_body": "You may qualify for our B2B account. Send us an email and let’s chat!",
+        "prompt_label": "Let's chat",
+        "prompt_url": "/pages/contact",
+        "how_label": "",
+        "prompt_handles": "custom, custom-dtf-for-fabric, custom-uv-dtf",
+        "filter_overrides": "ornaments: Ornaments=ornament, Santa Trays=santa"
+      }
+    },
+    "slideshow_fNVJeU": {
+      "type": "slideshow",
+      "blocks": {
+        "slide_iLWQ6H": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Banner_1_b5b5fda2-3d51-4ca4-8146-adecd1cd688a.png",
+            "image_link": "",
+            "heading": "",
+            "heading_size": "heading-medium",
+            "font_weight": "400",
+            "heading_spacing": 0,
+            "subheading": "",
+            "font_color_scheme": "accent-2",
+            "button_label": "",
+            "link": "",
+            "button_text": "background-1",
+            "button_background": "accent-2",
+            "button_outline_style": false,
+            "button_hover": "background-1",
+            "button_hover_bg": "accent-3",
+            "box_align": "middle-center",
+            "show_text_box": true,
+            "text_alignment": "center",
+            "color_scheme": "background-1",
+            "text_alignment_mobile": "center"
+          }
+        },
+        "slide_jRhJXh": {
+          "type": "slide",
+          "settings": {
+            "image_link": "",
+            "heading": "Image slide",
+            "heading_size": "heading-medium",
+            "font_weight": "400",
+            "heading_spacing": 0,
+            "subheading": "Tell your brand's story through images",
+            "font_color_scheme": "accent-2",
+            "button_label": "Button label",
+            "link": "",
+            "button_text": "background-1",
+            "button_background": "accent-2",
+            "button_outline_style": false,
+            "button_hover": "background-1",
+            "button_hover_bg": "accent-3",
+            "box_align": "middle-center",
+            "show_text_box": true,
+            "text_alignment": "center",
+            "color_scheme": "background-1",
+            "text_alignment_mobile": "center"
+          }
+        }
+      },
+      "block_order": [
+        "slide_iLWQ6H",
+        "slide_jRhJXh"
+      ],
+      "disabled": true,
+      "settings": {
+        "layout": "full_bleed",
+        "slide_height": "adapt_image",
+        "slider_visual": "counter",
+        "show_pagination": true,
+        "auto_rotate": false,
+        "change_slides_speed": 5,
+        "show_text_below": true,
+        "accessibility_info": "Slideshow about our brand"
+      }
+    },
+    "perks": {
+      "type": "sm-perks",
+      "blocks": {
+        "k1": {
+          "type": "perk",
+          "settings": {
+            "icon": "image",
+            "title": "Free transfer mockups",
+            "body": "Promote your products with watermark-free mockups."
+          }
+        },
+        "k2": {
+          "type": "perk",
+          "settings": {
+            "icon": "folder",
+            "title": "Free design library",
+            "body": "Use our design library when creating your gang sheets."
+          }
+        },
+        "k3": {
+          "type": "perk",
+          "settings": {
+            "icon": "gift",
+            "title": "Free sample pack",
+            "body": "New customers can try our premium transfers on us!",
+            "url": "/pages/grab-your-free-sample"
+          }
+        }
+      },
+      "block_order": [
+        "k1",
+        "k2",
+        "k3"
+      ],
+      "settings": {
+        "handles": "custom, custom-dtf-for-fabric",
+        "tint": "none",
+        "eyebrow": "SHEmakes perks",
+        "heading": "We don't just print your transfers. *We help you grow your business too.*",
+        "subheading": "",
+        "note": "Free tools and extras to help you create, market, and grow.",
+        "strip": "Free shipping on orders $150+",
+        "strip_url": "/policies/shipping-policy"
+      }
+    }
+  },
+  "order": [
+    "rich_text_HgXFig",
+    "collection_list_cLwJ46",
+    "banner",
+    "image_banner_fEHTVn",
+    "image_banner_gPwkYk",
+    "product-grid",
+    "perks",
+    "slideshow_fNVJeU"
+  ]
+}

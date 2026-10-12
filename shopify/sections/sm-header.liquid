@@ -1,0 +1,704 @@
+{% comment %}
+  SHEmakes — the header.
+
+  Built, not restyled. Five categories with a dropdown under each, replacing a
+  three-level mega-menu — the change the whole redesign turns on.
+
+  The menu is a real Shopify menu (Navigation → Menus). A top-level link with
+  children becomes a category; its children open beneath it. One level deep on
+  purpose: any third level is ignored rather than rendered, so the mega-menu
+  cannot grow back through the admin.
+
+  The dropdown opens on hover and on focus, so it is reachable from a keyboard.
+  No JavaScript — CSS :hover and :focus-within do both.
+{% endcomment %}
+
+{%- liquid
+  assign menu = linklists[section.settings.menu]
+
+  comment
+    A menu typed into the theme, one block per top-level item. The shop wanted
+    eight specific entries out of a menu it also uses elsewhere, which no
+    amount of hiding gets to. Blocks present means the Shopify menu below is
+    not read at all.
+  endcomment
+  assign nav_blocks = section.blocks | where: 'type', 'nav'
+
+  comment
+    Two adjustments the theme can make to a Shopify menu without anyone editing
+    the menu itself: drop entries by title, and add one link of the shop's own.
+
+    The shop wanted "ALL Collections - DTF" — a category with twenty-three
+    children nobody reads — replaced by a single "Ready to Press Transfers"
+    link to the collections page, which now groups those same collections. Both
+    are settings, so the menu in the admin stays as it is and this stays
+    reversible.
+  endcomment
+  assign hidden_titles = section.settings.hide_titles | default: '' | downcase
+  assign hidden_blob = hidden_titles | replace: ', ', ',' | prepend: ',' | append: ','
+
+  assign extra_label = section.settings.extra_label
+  assign extra_after = section.settings.extra_after | downcase | strip
+
+  comment
+    Count what will actually be in the bar before deciding what spills into
+    "More": hiding one link and adding another both move that line.
+  endcomment
+  assign visible_count = 0
+  for link in menu.links
+    assign candidate = link.title | downcase | strip | prepend: ',' | append: ','
+    unless hidden_blob contains candidate
+      assign visible_count = visible_count | plus: 1
+    endunless
+  endfor
+  if extra_label != blank
+    assign visible_count = visible_count | plus: 1
+  endif
+
+  if nav_blocks.size > 0
+    assign visible_count = nav_blocks.size
+  endif
+
+  assign shown = section.settings.max_categories | default: 5
+  assign overflow = visible_count | minus: shown
+
+  comment
+    With one link left over, "More" costs as much room as the link itself.
+  endcomment
+  if overflow == 1
+    assign shown = shown | plus: 1
+    assign overflow = 0
+  endif
+-%}
+
+<header class="sm-header" style="--sm-logo-height: {{ section.settings.logo_height | default: 48 }}px">
+  <div class="sm-container sm-header__inner">
+    <a href="{{ routes.root_url }}" class="sm-header__logo" aria-label="{{ shop.name | escape }}">
+      {%- if section.settings.logo -%}
+        <img
+          src="{{ section.settings.logo | image_url: width: 300 }}"
+          alt="{{ shop.name | escape }}"
+          width="{{ section.settings.logo.width }}"
+          height="{{ section.settings.logo.height }}"
+          loading="eager"
+        >
+      {%- else -%}
+        <span class="sm-header__wordmark">{{ shop.name }}</span>
+      {%- endif -%}
+    </a>
+
+    <nav class="sm-header__nav" aria-label="Main">
+      <ul role="list">
+        {%- if nav_blocks.size > 0 -%}
+          {%- for block in nav_blocks -%}
+            {%- if forloop.index > shown -%}{%- break -%}{%- endif -%}
+
+            {%- comment -%}
+              Children are one "Label | /url" per line, parsed the way the
+              footer parses its columns. Blank stays an empty array rather
+              than a one-element one, or every item grows an empty dropdown.
+            {%- endcomment -%}
+            {%- assign kids = '' | split: ',' -%}
+            {%- if block.settings.children != blank -%}
+              {%- assign kids = block.settings.children | newline_to_br | split: '<br />' -%}
+            {%- endif -%}
+
+            <li class="sm-header__item{% if kids.size > 0 %} sm-header__item--has-menu{% endif %}" {{ block.shopify_attributes }}>
+              <a
+                href="{{ block.settings.url | default: routes.root_url }}"
+                class="sm-header__link{% if request.path == block.settings.url %} is-active{% endif %}"
+              >
+                {{ block.settings.label }}
+
+                {%- if kids.size > 0 -%}
+                  <svg class="sm-header__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                    <path d="m6 9 6 6 6-6"/>
+                  </svg>
+                {%- endif -%}
+              </a>
+
+              {%- if kids.size > 0 -%}
+                {%- comment -%}
+                  A menu the length of the shop's own — twenty-three DTF
+                  themes, seventeen UV ones — is a column of links taller than
+                  the window. Past eight it is set in columns instead, and the
+                  panel is centred under its item so neither edge of the page
+                  cuts it off.
+                {%- endcomment -%}
+                {%- comment -%}
+                  A line that starts with a dash is a child of the line above
+                  it, and a menu with any of those is drawn as columns with
+                  their own headings — the shop's UV DTF menu is three levels
+                  deep and the third was being dropped on the floor.
+                {%- endcomment -%}
+                {%- assign grouped = false -%}
+                {%- for row in kids -%}
+                  {%- assign mark = row | strip | slice: 0 -%}
+                  {%- if mark == '-' -%}
+                    {%- assign grouped = true -%}
+                    {%- break -%}
+                  {%- endif -%}
+                {%- endfor -%}
+
+                <div class="sm-header__dropdown{% if grouped %} sm-header__dropdown--wide{% endif %}">
+                  {%- if grouped -%}
+                    <div class="sm-header__columns">
+                      {%- assign group_open = false -%}
+                      {%- assign list_open = false -%}
+                      {%- for row in kids -%}
+                        {%- assign line = row | strip -%}
+                        {%- if line == blank -%}{%- continue -%}{%- endif -%}
+
+                        {%- assign is_child = false -%}
+                        {%- assign mark = line | slice: 0 -%}
+                        {%- if mark == '-' -%}
+                          {%- assign is_child = true -%}
+                          {%- assign line = line | remove_first: '-' | strip -%}
+                        {%- endif -%}
+
+                        {%- assign parts = line | split: '|' -%}
+                        {%- assign label = parts[0] | strip -%}
+                        {%- assign url = parts[1] | default: '#' | strip -%}
+
+                        {%- if is_child -%}
+                          {%- unless list_open -%}<ul role="list">{%- assign list_open = true -%}{%- endunless -%}
+                          <li><a href="{{ url }}">{{ label }}</a></li>
+                        {%- else -%}
+                          {%- if list_open -%}</ul>{%- assign list_open = false -%}{%- endif -%}
+                          {%- if group_open -%}</div>{%- endif -%}
+                          <div class="sm-header__group">
+                            <a class="sm-header__group-title" href="{{ url }}">{{ label }}</a>
+                          {%- assign group_open = true -%}
+                        {%- endif -%}
+                      {%- endfor -%}
+                      {%- if list_open -%}</ul>{%- endif -%}
+                      {%- if group_open -%}</div>{%- endif -%}
+                    </div>
+                  {%- else -%}
+                    <ul role="list">
+                      {%- for row in kids -%}
+                        {%- assign parts = row | strip | split: '|' -%}
+                        {%- if parts.size > 1 -%}
+                          <li><a href="{{ parts[1] | strip }}">{{ parts[0] | strip }}</a></li>
+                        {%- endif -%}
+                      {%- endfor -%}
+                    </ul>
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        {%- else -%}
+        {%- assign position = 0 -%}
+        {%- for link in menu.links -%}
+          {%- liquid
+            assign title_key = link.title | downcase | strip | prepend: ',' | append: ','
+            assign is_hidden = false
+            if hidden_blob contains title_key
+              assign is_hidden = true
+            endif
+          -%}
+
+          {%- if is_hidden -%}
+            {%- continue -%}
+          {%- endif -%}
+
+          {%- assign position = position | plus: 1 -%}
+
+          {%- comment -%}
+            Anything past the category limit moves into "More" below rather
+            than off the edge of the bar. The shop's menu has long labels;
+            left alone the last one was cut in half.
+          {%- endcomment -%}
+          {%- if position > shown -%}
+            {%- break -%}
+          {%- endif -%}
+
+          {%- assign is_active = false -%}
+          {%- if link.active or link.child_active -%}
+            {%- assign is_active = true -%}
+          {%- endif -%}
+
+          {%- liquid
+            comment
+              Where a category's children live.
+
+              The shop's own menus carry the nesting: `main-menu` is flat, and
+              each category has a menu of its own named after it — which is how
+              the old theme drew its mega-menu. Reading both means the sub-links
+              the shop already maintains appear here without anyone re-entering
+              them.
+            endcomment
+            assign children = link.links
+            if children.size == 0
+              assign handled = link.title | handleize
+              assign children = linklists[handled].links
+            endif
+          -%}
+
+          <li class="sm-header__item{% if children.size > 0 %} sm-header__item--has-menu{% endif %}">
+            <a
+              href="{{ link.url }}"
+              class="sm-header__link{% if is_active %} is-active{% endif %}"
+              {% if is_active %}aria-current="page"{% endif %}
+            >
+              {{ link.title }}
+
+              {%- if children.size > 0 -%}
+                <svg class="sm-header__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                  <path d="m6 9 6 6 6-6"/>
+                </svg>
+              {%- endif -%}
+            </a>
+
+            {%- if children.size > 0 -%}
+              {%- comment -%}
+                A child with children of its own becomes a column with its own
+                heading — the shop's UV DTF menu is three levels deep, and the
+                third level was being dropped on the floor.
+              {%- endcomment -%}
+              {%- assign has_columns = false -%}
+              {%- for child in children -%}
+                {%- if child.links.size > 0 -%}
+                  {%- assign has_columns = true -%}
+                {%- endif -%}
+              {%- endfor -%}
+
+              <div class="sm-header__dropdown{% if has_columns %} sm-header__dropdown--wide{% endif %}">
+                {%- if has_columns -%}
+                  <div class="sm-header__columns">
+                    {%- for child in children -%}
+                      <div class="sm-header__group">
+                        <a class="sm-header__group-title" href="{{ child.url }}">{{ child.title }}</a>
+
+                        {%- if child.links.size > 0 -%}
+                          <ul role="list">
+                            {%- for grandchild in child.links -%}
+                              <li><a href="{{ grandchild.url }}">{{ grandchild.title }}</a></li>
+                            {%- endfor -%}
+                          </ul>
+                        {%- endif -%}
+                      </div>
+                    {%- endfor -%}
+                  </div>
+                {%- else -%}
+                  <ul role="list">
+                    {%- for child in children -%}
+                      <li>
+                        <a href="{{ child.url }}">{{ child.title }}</a>
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          </li>
+
+          {%- liquid
+            assign follows = link.title | downcase | strip
+            assign show_extra = false
+            if extra_label != blank and follows == extra_after
+              assign show_extra = true
+            endif
+          -%}
+
+          {%- if show_extra -%}
+            {%- assign position = position | plus: 1 -%}
+            <li class="sm-header__item">
+              <a
+                href="{{ section.settings.extra_url | default: routes.collections_url }}"
+                class="sm-header__link{% if request.path == section.settings.extra_url %} is-active{% endif %}"
+              >
+                {{ extra_label }}
+              </a>
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+        {%- endif -%}
+
+        {%- if overflow > 0 -%}
+          <li class="sm-header__item sm-header__item--has-menu">
+            <a href="{{ routes.root_url }}" class="sm-header__link">
+              {{ section.settings.more_label }}
+              <svg class="sm-header__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                <path d="m6 9 6 6 6-6"/>
+              </svg>
+            </a>
+
+            <div class="sm-header__dropdown">
+              <ul role="list">
+                {%- if nav_blocks.size > 0 -%}
+                  {%- for block in nav_blocks -%}
+                    {%- if forloop.index <= shown -%}{%- continue -%}{%- endif -%}
+                    <li><a href="{{ block.settings.url | default: routes.root_url }}">{{ block.settings.label }}</a></li>
+                  {%- endfor -%}
+                {%- else -%}
+                {%- assign counted = 0 -%}
+                {%- for link in menu.links -%}
+                  {%- liquid
+                    assign title_key = link.title | downcase | strip | prepend: ',' | append: ','
+                    assign is_hidden = false
+                    if hidden_blob contains title_key
+                      assign is_hidden = true
+                    endif
+                  -%}
+
+                  {%- if is_hidden -%}{%- continue -%}{%- endif -%}
+
+                  {%- assign counted = counted | plus: 1 -%}
+                  {%- if counted <= shown -%}{%- continue -%}{%- endif -%}
+
+                  <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                {%- endfor -%}
+                {%- endif -%}
+              </ul>
+            </div>
+          </li>
+        {%- endif -%}
+      </ul>
+    </nav>
+
+    {%- if section.settings.show_search -%}
+      {%- capture search_props -%}
+{
+  "action": {{ routes.search_url | json }},
+  "placeholder": {{ section.settings.search_placeholder | default: 'Search designs, sizes…' | json }},
+  "value": {{ search.terms | default: '' | json }},
+  "currency": {{ cart.currency.iso_code | json }}
+}
+      {%- endcapture -%}
+
+      {%- capture search_fallback -%}
+        {%- comment -%}
+          The plain GET form. React adds the results-as-you-type dropdown on
+          top of it; without the bundle this still searches the shop.
+        {%- endcomment -%}
+        <form action="{{ routes.search_url }}" method="get" role="search" class="sm-header__search">
+          <label class="visually-hidden" for="sm-search">Search</label>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/>
+          </svg>
+          <input
+            id="sm-search"
+            type="search"
+            name="q"
+            placeholder="{{ section.settings.search_placeholder | default: 'Search designs, sizes…' }}"
+            value="{{ search.terms | escape }}"
+          >
+        </form>
+      {%- endcapture -%}
+
+      <div class="sm-header__searchbox">
+        {% render 'sm-island', name: 'search', props: search_props, fallback: search_fallback %}
+      </div>
+    {%- endif -%}
+
+    <div class="sm-header__actions">
+
+      {%- comment -%}
+        On a phone the bar reads the way the shop asked for: menu and search on
+        the left, the logo centred, account and bag on the right. The order is
+        CSS, so the desktop bar is untouched — see `.sm-header__inner` in
+        shemakes.css.
+      {%- endcomment -%}
+      {%- if section.settings.show_search -%}
+        <button type="button" class="sm-header__searchtoggle" data-sm-search-toggle aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/>
+          </svg>
+          <span class="visually-hidden">Search</span>
+        </button>
+      {%- endif -%}
+
+      {%- if shop.customer_accounts_enabled -%}
+        <a href="{{ routes.account_url }}" class="sm-header__account" aria-label="Account">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.42 3.58-7 8-7s8 2.58 8 7"/>
+          </svg>
+        </a>
+      {%- endif -%}
+
+      <a href="{{ routes.cart_url }}" class="sm-header__cart" data-sm-cart-open aria-label="Cart, {{ cart.item_count }} items">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M2.95 20c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V7c0-.16-.05-.31-.11-.44s-1.72-3.45-1.72-3.45A2 2 0 0 0 17.33 2H6.56c-.76 0-1.45.42-1.79 1.11L3.05 6.56c-.07.14-.11.29-.11.45v13ZM12 15c-2.76 0-5-2.24-5-5h2c0 1.65 1.35 3 3 3s3-1.35 3-3h2c0 2.76-2.24 5-5 5M6.56 4h10.76l1 2H5.56z"/>
+        </svg>
+        {%- comment -%}
+          Always rendered, hidden at zero: the count is updated in place by
+          shemakes.js when the cart changes, and it cannot update an element
+          that Liquid decided not to print.
+        {%- endcomment -%}
+        <span class="sm-header__count" data-sm-cart-count {% if cart.item_count == 0 %}hidden{% endif %}>
+          {{- cart.item_count -}}
+        </span>
+      </a>
+
+      {%- if section.settings.cta_label != blank -%}
+        <a href="{{ section.settings.cta_url | default: '#' }}" class="sm-button sm-button--primary sm-header__cta">
+          {{ section.settings.cta_label }}
+        </a>
+      {%- endif -%}
+
+      {%- comment -%}
+        The mobile panel is a <details>, so it opens without JavaScript and
+        closes on Escape for free.
+      {%- endcomment -%}
+      <details class="sm-header__mobile">
+        <summary aria-label="Menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/>
+          </svg>
+        </summary>
+
+        <div class="sm-header__panel">
+          {%- comment -%}
+            The two controls that live in the bar on a desktop and are simply
+            not in the bar on a phone: the account link, and the button the
+            whole shop turns on. The hamburger is the only place left for
+            them, so it carries them at the top rather than leaving a shopper
+            to find the custom order page through the menu.
+          {%- endcomment -%}
+          <div class="sm-header__panel-top">
+            {%- if section.settings.cta_label != blank -%}
+              <a href="{{ section.settings.cta_url | default: '#' }}" class="sm-button sm-button--primary sm-header__panel-cta">
+                {{ section.settings.cta_label }}
+              </a>
+            {%- endif -%}
+
+            <a href="{{ routes.account_url }}" class="sm-header__panel-account">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+              </svg>
+              {% if customer %}{{ customer.first_name | default: 'Account' }}{% else %}Sign in{% endif %}
+            </a>
+          </div>
+
+          {%- if nav_blocks.size > 0 -%}
+            {%- comment -%}
+              The panel lists every block, children and all: a phone scrolls,
+              so nothing needs to spill into More the way the bar does.
+            {%- endcomment -%}
+            {%- for block in nav_blocks -%}
+              {%- if block.settings.children == blank -%}
+                <a href="{{ block.settings.url | default: routes.root_url }}" class="sm-header__panel-link">{{ block.settings.label }}</a>
+              {%- else -%}
+                {%- comment -%}
+                  A category with children is a fold, not a link followed by
+                  its whole list. Twenty-four collections under one heading
+                  turned the menu into a page of its own, and the item a
+                  shopper wanted was three screens down.
+
+                  The heading still goes somewhere: the summary is the
+                  category, and the first child is the link to all of it.
+                {%- endcomment -%}
+                <details class="sm-header__panel-group">
+                  <summary class="sm-header__panel-link">{{ block.settings.label }}</summary>
+                {%- assign kids = block.settings.children | newline_to_br | split: '<br />' -%}
+                {%- comment -%}
+                  Inside the fold a group heading and its children are both
+                  just links — the dash that marks a child in the setting is
+                  stripped rather than printed.
+                {%- endcomment -%}
+                {%- comment -%}
+                  A group heading with its own list under it ("Cup Wraps +
+                  Decals" and its twenty themes) is a fold of its own, shut
+                  until tapped: opened all at once the themes ran three
+                  screens long. The first row inside is the group itself.
+                {%- endcomment -%}
+                <ul class="sm-header__panel-children" role="list">
+                  {%- assign sub_open = false -%}
+                  {%- for row in kids -%}
+                    {%- assign line = row | strip -%}
+                    {%- assign is_child = false -%}
+                    {%- assign mark = line | slice: 0 -%}
+                    {%- if mark == '-' -%}
+                      {%- assign is_child = true -%}
+                      {%- assign line = line | remove_first: '-' | strip -%}
+                    {%- endif -%}
+                    {%- assign parts = line | split: '|' -%}
+                    {%- if parts.size < 2 -%}{%- continue -%}{%- endif -%}
+
+                    {%- if is_child -%}
+                      <li><a href="{{ parts[1] | strip }}">{{ parts[0] | strip }}</a></li>
+                    {%- else -%}
+                      {%- if sub_open -%}</ul></details></li>{%- assign sub_open = false -%}{%- endif -%}
+
+                      {%- assign next_line = kids[forloop.index] | default: '' | strip -%}
+                      {%- assign next_mark = next_line | slice: 0 -%}
+                      {%- if next_mark == '-' -%}
+                        <li class="sm-header__panel-subwrap">
+                          <details class="sm-header__panel-sub">
+                            <summary>{{ parts[0] | strip }}</summary>
+                            <ul role="list">
+                              <li class="sm-header__panel-all"><a href="{{ parts[1] | strip }}">Shop all {{ parts[0] | strip }}</a></li>
+                        {%- assign sub_open = true -%}
+                      {%- else -%}
+                        <li class="sm-header__panel-group"><a href="{{ parts[1] | strip }}">{{ parts[0] | strip }}</a></li>
+                      {%- endif -%}
+                    {%- endif -%}
+                  {%- endfor -%}
+                  {%- if sub_open -%}</ul></details></li>{%- endif -%}
+                </ul>
+                </details>
+              {%- endif -%}
+            {%- endfor -%}
+          {%- else -%}
+          {%- for link in menu.links -%}
+            {%- liquid
+              assign title_key = link.title | downcase | strip | prepend: ',' | append: ','
+              assign is_hidden = false
+              if hidden_blob contains title_key
+                assign is_hidden = true
+              endif
+            -%}
+
+            {%- if is_hidden -%}{%- continue -%}{%- endif -%}
+
+            <a href="{{ link.url }}" class="sm-header__panel-link">{{ link.title }}</a>
+
+            {%- if link.links.size > 0 -%}
+              {%- comment -%}
+                On a phone the categories are headings with their children
+                listed under them — a dropdown inside a panel that is already a
+                dropdown is the mega-menu all over again.
+              {%- endcomment -%}
+              <ul class="sm-header__panel-children" role="list">
+                {%- for child in link.links -%}
+                  <li><a href="{{ child.url }}">{{ child.title }}</a></li>
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+          {%- endfor -%}
+          {%- endif -%}
+
+          {%- comment -%}
+            The upsell row the shop asked for: opening the menu on a phone is
+            the moment someone is deciding where to go, so the shortcut sits
+            there rather than three taps further in.
+          {%- endcomment -%}
+          {%- liquid
+            assign panel_collection = collections[section.settings.menu_collection]
+            comment
+              Nothing chosen still shows something worth tapping, rather than
+              an empty strip at the bottom of every menu.
+            endcomment
+            if panel_collection == blank or panel_collection.products_count == 0
+              assign panel_collection = collections.all
+            endif
+          -%}
+          {%- if panel_collection.products_count > 0 -%}
+            <div class="sm-header__promo">
+              <p class="sm-eyebrow">{{ section.settings.menu_heading }}</p>
+
+              <ul class="sm-header__promo-rail" role="list">
+                {%- for product in panel_collection.products limit: section.settings.menu_count -%}
+                  <li>
+                    <a href="{{ product.url }}">
+                      {%- if product.featured_image -%}
+                        <img src="{{ product.featured_image | image_url: width: 300 }}" alt="" loading="lazy">
+                      {%- else -%}
+                        <span class="sm-card__placeholder"></span>
+                      {%- endif -%}
+                      <span class="sm-header__promo-title">{{ product.title }}</span>
+                      <span class="sm-header__promo-price">{{ product.price | money }}</span>
+                    </a>
+                  </li>
+                {%- endfor -%}
+              </ul>
+            </div>
+          {%- endif -%}
+        </div>
+      </details>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "SHEmakes header",
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Logo" },
+    {
+      "type": "range",
+      "id": "logo_height",
+      "label": "Logo height",
+      "min": 28,
+      "max": 72,
+      "step": 4,
+      "unit": "px",
+      "default": 48,
+      "info": "The header row is 76px, so anything above about 60 crowds it."
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu",
+      "info": "A top-level link with children becomes a category with a dropdown. Five categories is the target — a third level is ignored."
+    },
+    {
+      "type": "range",
+      "id": "max_categories",
+      "label": "Categories in the bar",
+      "min": 3,
+      "max": 8,
+      "step": 1,
+      "default": 5,
+      "info": "Anything past this moves into the More dropdown."
+    },
+    { "type": "text", "id": "more_label", "label": "Overflow label", "default": "More" },
+    {
+      "type": "text",
+      "id": "hide_titles",
+      "label": "Hide menu items",
+      "info": "Comma separated, matched on the link's title. The menu in Shopify is left as it is.",
+      "default": "ALL Collections - DTF"
+    },
+    {
+      "type": "text",
+      "id": "extra_label",
+      "label": "Extra link",
+      "info": "One link the theme adds to the bar, for a destination the menu has no entry for.",
+      "default": "Ready to Press Transfers"
+    },
+    { "type": "url", "id": "extra_url", "label": "Extra link target" },
+    {
+      "type": "text",
+      "id": "extra_after",
+      "label": "Extra link goes after",
+      "info": "The title of the menu item it should follow.",
+      "default": "Custom Transfers"
+    },
+    { "type": "checkbox", "id": "show_search", "label": "Show search", "default": true },
+    { "type": "text", "id": "search_placeholder", "label": "Search placeholder", "default": "Search designs, sizes…" },
+    { "type": "header", "content": "Menu promotion" },
+    {
+      "type": "collection",
+      "id": "menu_collection",
+      "label": "Collection shown in the menu",
+      "info": "Appears under the links when the menu is opened on a phone."
+    },
+    { "type": "text", "id": "menu_heading", "label": "Heading", "default": "Popular right now" },
+    { "type": "range", "id": "menu_count", "label": "How many", "min": 2, "max": 12, "step": 1, "default": 8 },
+    { "type": "header", "content": "Button" },
+    { "type": "text", "id": "cta_label", "label": "Button label", "default": "Custom order" },
+    { "type": "url", "id": "cta_url", "label": "Button link" }
+  ],
+  "blocks": [
+    {
+      "type": "nav",
+      "name": "Menu item",
+      "limit": 10,
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label" },
+        { "type": "url", "id": "url", "label": "Link" },
+        {
+          "type": "textarea",
+          "id": "children",
+          "label": "Sub-links",
+          "info": "One per line, as \"Label | /url\". Leave empty for a plain link."
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

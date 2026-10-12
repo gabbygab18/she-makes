@@ -1,0 +1,72 @@
+{% comment %}
+  One product as a JSON row for the card islands.
+
+  The homepage strip and the browse grid draw the same card, so they have to
+  send it the same shape. They each built this inline, and the strip was a
+  copy that had already fallen behind — no variant id, so no add to cart.
+
+  Usage:
+    {% render 'sm-product-json', product: product, new_for_days: 21 %}
+
+  Emits an object with no trailing comma; the caller joins them.
+{% endcomment %}
+
+{%- liquid
+  assign t = product.title | json
+  assign u = product.url | json
+  assign img = ''
+  if product.featured_image != blank
+    assign img = product.featured_image | image_url: width: 600
+  endif
+  assign img = img | json
+  assign compare = product.compare_at_price | default: 0
+
+  comment
+    Recently published counts as new.
+  endcomment
+  assign age_limit = new_for_days | default: 21
+  assign now_seconds = 'now' | date: '%s' | times: 1
+  assign published_seconds = product.published_at | date: '%s' | times: 1
+  assign age_days = now_seconds | minus: published_seconds | divided_by: 86400
+  assign is_new = false
+  if age_days <= age_limit
+    assign is_new = true
+  endif
+
+  comment
+    Judge.me writes its score into Shopify's standard reviews metafields when
+    the sync is on. Absent, these are 0 and the card draws no stars.
+  endcomment
+  assign rating = product.metafields.reviews.rating.value.rating | default: 0
+  assign rating_count = product.metafields.reviews.rating_count.value | default: 0
+  assign first_available = product.selected_or_first_available_variant
+  assign variant_id = first_available.id | default: 0
+  assign variant_count = product.variants.size
+
+  assign ty = product.type | json
+  assign tg = product.tags | json
+
+  comment
+    The sizes themselves, so the card can offer them without a page load —
+    the "add to cart, then pick a size" flow the shop asked for.
+  endcomment
+  assign variant_rows = ''
+  for variant in product.variants
+    assign vt = variant.title | json
+    assign vqty = variant.inventory_quantity | default: 0
+    if variant.inventory_management == blank
+      comment
+        Not tracked means "as many as you like", not "none left" — Shopify
+        reports 0 for both.
+      endcomment
+      assign vqty = 0
+    endif
+    assign vrow = '{"id":' | append: variant.id | append: ',"title":' | append: vt | append: ',"price":' | append: variant.price | append: ',"available":' | append: variant.available | append: ',"inventory":' | append: vqty | append: '}'
+    if forloop.first
+      assign variant_rows = vrow
+    else
+      assign variant_rows = variant_rows | append: ',' | append: vrow
+    endif
+  endfor
+-%}
+{"id":{{ product.id }},"title":{{ t }},"url":{{ u }},"image":{{ img }},"price":{{ product.price }},"compareAt":{{ compare }},"available":{{ product.available }},"inventory":{{ product.selected_or_first_available_variant.inventory_quantity | default: 0 }},"type":{{ ty }},"tags":{{ tg }},"variantId":{{ variant_id }},"variantCount":{{ variant_count }},"isNew":{{ is_new }},"rating":{{ rating }},"reviewCount":{{ rating_count }},"variants":[{{ variant_rows }}]}

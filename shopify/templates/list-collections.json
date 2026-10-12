@@ -1,0 +1,104 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "1654527948b37c0443": {
+      "type": "slideshow",
+      "disabled": true,
+      "blocks": {
+        "1654527948436097a1-0": {
+          "type": "slide",
+          "settings": {
+            "image_link": "",
+            "heading": "",
+            "heading_size": "heading-medium",
+            "font_weight": "400",
+            "heading_spacing": 1,
+            "subheading": "",
+            "font_color_scheme": "accent-2",
+            "button_label": "",
+            "link": "",
+            "button_text": "background-2",
+            "button_background": "background-1",
+            "button_outline_style": false,
+            "button_hover": "background-1",
+            "button_hover_bg": "background-1",
+            "box_align": "middle-center",
+            "show_text_box": false,
+            "text_alignment": "center",
+            "color_scheme": "background-1",
+            "text_alignment_mobile": "center"
+          }
+        }
+      },
+      "block_order": [
+        "1654527948436097a1-0"
+      ],
+      "settings": {
+        "layout": "full_bleed",
+        "slide_height": "adapt_image",
+        "slider_visual": "counter",
+        "show_pagination": false,
+        "auto_rotate": false,
+        "change_slides_speed": 5,
+        "show_text_below": false,
+        "accessibility_info": "Slideshow about our brand"
+      }
+    },
+    "main": {
+      "type": "sm-main-list-collections",
+      "settings": {
+        "heading": "Ready to press *transfers*",
+        "body": "Every ready-to-press collection, grouped. DTF for fabric, UV DTF for hard surfaces, blanks and seasonal drops — all printed in London, Ontario.",
+        "count_label": ""
+      },
+      "blocks": {
+        "c1": {
+          "type": "category",
+          "settings": {
+            "label": "UV DTF",
+            "terms": "uv dtf, uv-dtf, uvdtf"
+          }
+        },
+        "c2": {
+          "type": "category",
+          "settings": {
+            "label": "DTF transfers",
+            "terms": "dtf"
+          }
+        },
+        "c3": {
+          "type": "category",
+          "settings": {
+            "label": "Blanks",
+            "terms": "blank, ornament, mug, drinkware, tumbler, keychain, straw"
+          }
+        },
+        "c4": {
+          "type": "category",
+          "settings": {
+            "label": "Seasonal",
+            "terms": "christmas, winter, valentine, fall, halloween, easter, spring, summer, thanksgiving, canada day, independence"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ]
+    }
+  },
+  "order": [
+    "1654527948b37c0443",
+    "main"
+  ]
+}

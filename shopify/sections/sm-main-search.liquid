@@ -1,0 +1,150 @@
+{% comment %}
+  SHEmakes — search results.
+
+  Reuses the browse island rather than growing a second grid: results are
+  products, and the filter/grid component already knows how to show them. The
+  query box and the paging stay with Shopify, for the same reason sorting does
+  on the collection page — the whole catalogue is on the server, not here.
+{% endcomment %}
+
+{%- paginate search.results by section.settings.per_page -%}
+{%- liquid
+  assign products = ''
+  for item in search.results
+    if item.object_type != 'product'
+      continue
+    endif
+
+    assign t = item.title | json
+    assign u = item.url | json
+    assign img = ''
+    if item.featured_image != blank
+      assign img = item.featured_image | image_url: width: 600
+    endif
+    assign img = img | json
+    assign compare = item.compare_at_price | default: 0
+    assign ty = item.type | json
+    assign tg = item.tags | json
+    assign row = '{"id":' | append: item.id | append: ',"title":' | append: t | append: ',"url":' | append: u | append: ',"image":' | append: img | append: ',"price":' | append: item.price | append: ',"compareAt":' | append: compare | append: ',"available":' | append: item.available | append: ',"type":' | append: ty | append: ',"tags":' | append: tg | append: '}'
+    if products == ''
+      assign products = row
+    else
+      assign products = products | append: ',' | append: row
+    endif
+  endfor
+-%}
+
+<div class="sm-section sm-section--tight">
+  <div class="sm-container">
+    <p class="sm-eyebrow">{{ section.settings.eyebrow }}</p>
+
+    <h1 class="sm-heading sm-heading--md">
+      {%- if search.performed -%}
+        {{ search.results_count }} results for “{{ search.terms }}”
+      {%- else -%}
+        {{ section.settings.heading }}
+      {%- endif -%}
+    </h1>
+
+    <form action="{{ routes.search_url }}" method="get" role="search" class="sm-404__search">
+      <label class="visually-hidden" for="sm-search-input">Search</label>
+      <input
+        id="sm-search-input"
+        type="search"
+        name="q"
+        value="{{ search.terms | escape }}"
+        placeholder="{{ section.settings.placeholder }}"
+      >
+      <button type="submit" class="sm-button sm-button--primary">Search</button>
+    </form>
+
+    {%- if search.performed -%}
+      {%- if products == '' -%}
+        <div class="sm-browse__empty">
+          <p class="sm-body">{{ section.settings.empty_body }}</p>
+          <a href="{{ routes.all_products_collection_url }}" class="sm-button sm-button--secondary">
+            {{ section.settings.empty_label }}
+          </a>
+        </div>
+      {%- else -%}
+        {%- capture props -%}
+{
+  "products": [{{ products }}],
+  "filters": [],
+  "currency": {{ cart.currency.iso_code | json }},
+  "prompt": {
+    "heading": {{ section.settings.prompt_heading | json }},
+    "body": {{ section.settings.prompt_body | json }},
+    "label": {{ section.settings.prompt_label | json }},
+    "url": {{ section.settings.prompt_url | default: '#' | json }}
+  }
+}
+        {%- endcapture -%}
+
+        {%- capture fallback -%}
+          <div class="sm-browse__grid">
+            {%- for item in search.results -%}
+              {%- if item.object_type == 'product' -%}
+                <a class="sm-card" href="{{ item.url }}">
+                  <div class="sm-card__media">
+                    {%- if item.featured_image -%}
+                      <img src="{{ item.featured_image | image_url: width: 600 }}" alt="{{ item.title | escape }}" loading="lazy">
+                    {%- endif -%}
+                  </div>
+                  <div class="sm-card__body">
+                    <h3 class="sm-card__title">{{ item.title }}</h3>
+                    <p class="sm-card__price">{{ item.price | money }}</p>
+                  </div>
+                </a>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        {%- endcapture -%}
+
+        {% render 'sm-island', name: 'collection-grid', props: props, fallback: fallback %}
+      {%- endif -%}
+
+      {% render 'sm-pagination', paginate: paginate, label: 'results' %}
+    {%- endif -%}
+  </div>
+</div>
+
+{%- endpaginate -%}
+
+{% schema %}
+{
+  "name": "SHEmakes search",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "per_page",
+      "label": "Per page",
+      "min": 12,
+      "max": 48,
+      "step": 12,
+      "default": 24
+    },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Search" },
+    { "type": "text", "id": "heading", "label": "Heading when nothing is searched yet", "default": "Find a transfer" },
+    { "type": "text", "id": "placeholder", "label": "Placeholder", "default": "Search designs, sizes…" },
+    {
+      "type": "textarea",
+      "id": "empty_body",
+      "label": "No results text",
+      "default": "Nothing matched that. Try a shorter word, or browse everything in stock."
+    },
+    { "type": "text", "id": "empty_label", "label": "No results button", "default": "Browse ready to press" },
+    { "type": "header", "content": "Gang sheet prompt" },
+    { "type": "text", "id": "prompt_heading", "label": "Heading", "default": "Buying more than three?" },
+    {
+      "type": "textarea",
+      "id": "prompt_body",
+      "label": "Body",
+      "default": "Build a gang sheet and drop your cost per print by up to 40%."
+    },
+    { "type": "text", "id": "prompt_label", "label": "Button", "default": "Open builder" },
+    { "type": "url", "id": "prompt_url", "label": "Button link" }
+  ]
+}
+{% endschema %}

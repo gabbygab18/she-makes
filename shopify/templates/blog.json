@@ -1,0 +1,112 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "1654567888ca1a2cff": {
+      "type": "slideshow",
+      "blocks": {
+        "16545678889dc715f7-0": {
+          "type": "slide",
+          "settings": {
+            "image_link": "",
+            "heading": "",
+            "heading_size": "heading-medium",
+            "font_weight": "400",
+            "heading_spacing": 1,
+            "subheading": "",
+            "font_color_scheme": "accent-2",
+            "button_label": "",
+            "link": "",
+            "button_text": "background-2",
+            "button_background": "background-1",
+            "button_outline_style": false,
+            "button_hover": "background-1",
+            "button_hover_bg": "background-1",
+            "box_align": "middle-center",
+            "show_text_box": false,
+            "text_alignment": "center",
+            "color_scheme": "background-1",
+            "text_alignment_mobile": "center"
+          }
+        }
+      },
+      "block_order": [
+        "16545678889dc715f7-0"
+      ],
+      "disabled": true,
+      "settings": {
+        "layout": "full_bleed",
+        "slide_height": "adapt_image",
+        "slider_visual": "counter",
+        "show_pagination": false,
+        "auto_rotate": false,
+        "change_slides_speed": 5,
+        "show_text_below": false,
+        "accessibility_info": "Slideshow about our brand"
+      }
+    },
+    "1654529848343d24aa": {
+      "type": "newsletter",
+      "blocks": {
+        "1654529848f969a1a4-0": {
+          "type": "heading",
+          "settings": {
+            "heading": "Subscribe to our emails",
+            "heading_size": "heading-medium",
+            "font_weight": "400",
+            "letter_spacing": 0,
+            "heading_color_scheme": "background-1"
+          }
+        },
+        "1654529848f969a1a4-1": {
+          "type": "paragraph",
+          "settings": {
+            "text": "<p>Be the first to know about new collections and exclusive offers.</p>",
+            "text_color_scheme": "background-1",
+            "letter_spacing": 0
+          }
+        },
+        "1654529848f969a1a4-2": {
+          "type": "email_form",
+          "settings": {
+            "newsletter_color_scheme": "accent-2",
+            "newsletter_background": "background-1",
+            "button_text": "accent-2",
+            "button_background": "accent-5",
+            "button_outline_style": false,
+            "button_hover": "background-1",
+            "button_hover_bg": "accent-2"
+          }
+        }
+      },
+      "block_order": [
+        "1654529848f969a1a4-0",
+        "1654529848f969a1a4-1",
+        "1654529848f969a1a4-2"
+      ],
+      "disabled": true,
+      "settings": {
+        "color_scheme": "accent-4",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "main": {
+      "type": "sm-main-blog",
+      "settings": {}
+    }
+  },
+  "order": [
+    "1654567888ca1a2cff",
+    "1654529848343d24aa",
+    "main"
+  ]
+}

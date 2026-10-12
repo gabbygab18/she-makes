@@ -1,0 +1,377 @@
+{% comment %}
+  SHEmakes — the product page.
+
+  The gallery stays Liquid: Shopify's image_url does responsive sizing better
+  than anything shipped in a bundle, and a picture should not wait for React.
+
+  The buying panel is an island, because that is where the interaction is —
+  size and price together, quantity, and add-to-cart through Shopify's AJAX
+  Cart API so the page never reloads.
+
+  App blocks are still supported (`@app`), so the Judge.me badge and the stock
+  counter keep working exactly where the shop put them.
+{% endcomment %}
+
+{%- liquid
+  assign current = product.selected_or_first_available_variant
+
+  assign variants = ''
+  for variant in product.variants
+    assign t = variant.title | json
+    comment
+      Shopify reports 0 both for "sold out" and for "not tracked", so an
+      untracked variant is sent as 0 and the panel says nothing rather than
+      claiming none are left.
+    endcomment
+    assign qty = variant.inventory_quantity | default: 0
+    if variant.inventory_management == blank
+      assign qty = 0
+    endif
+    assign row = '{"id":' | append: variant.id | append: ',"title":' | append: t | append: ',"price":' | append: variant.price | append: ',"available":' | append: variant.available | append: ',"inventory":' | append: qty | append: '}'
+    if forloop.first
+      assign variants = row
+    else
+      assign variants = variants | append: ',' | append: row
+    endif
+  endfor
+
+  assign specs = ''
+  for block in section.blocks
+    if block.type == 'spec'
+      assign l = block.settings.label | json
+      assign v = block.settings.value | json
+      assign row = '{"label":' | append: l | append: ',"value":' | append: v | append: '}'
+      if specs == ''
+        assign specs = row
+      else
+        assign specs = specs | append: ',' | append: row
+      endif
+    endif
+  endfor
+-%}
+
+<div class="sm-section sm-section--tight">
+  <div class="sm-container">
+    <nav class="sm-crumbs" aria-label="Breadcrumb">
+      <a href="{{ routes.root_url }}">Home</a>
+      <span aria-hidden="true">·</span>
+      {%- if collection != blank -%}
+        <a href="{{ collection.url }}">{{ collection.title }}</a>
+        <span aria-hidden="true">·</span>
+      {%- endif -%}
+      <span aria-current="page">{{ product.title }}</span>
+    </nav>
+
+    {%- comment -%}
+      A product with no photography — the design-edit services, the fees — must
+      not leave half the page empty. It gets one column.
+    {%- endcomment -%}
+    <div class="sm-product{% if product.images.size == 0 %} sm-product--textonly{% endif %}">
+      <div class="sm-product__media">
+        {%- liquid
+          comment
+            The shop's extra images are instructions and size charts, not
+            alternate angles — they have to be openable, and the thumbnails
+            have to be big enough to tell apart.
+          endcomment
+          assign gallery = ''
+          for image in product.images limit: 8
+            assign thumb = image | image_url: width: 300
+            assign medium = image | image_url: width: 600
+            assign large = image | image_url: width: 1400
+            assign image_alt = image.alt | default: product.title | json
+            assign row = '{"id":' | append: image.id | append: ',"thumb":"' | append: thumb | append: '","medium":"' | append: medium | append: '","large":"' | append: large | append: '","alt":' | append: image_alt | append: ',"width":' | append: image.width | append: ',"height":' | append: image.height | append: '}'
+            if forloop.first
+              assign gallery = row
+            else
+              assign gallery = gallery | append: ',' | append: row
+            endif
+          endfor
+        -%}
+
+        {%- if product.images.size > 0 -%}
+          {%- capture gallery_props -%}
+{ "images": [{{ gallery }}], "alt": {{ product.title | json }} }
+          {%- endcapture -%}
+
+          {%- capture gallery_fallback -%}
+            {%- if product.featured_image -%}
+              <img
+                src="{{ product.featured_image | image_url: width: 1200 }}"
+                srcset="
+                  {{ product.featured_image | image_url: width: 600 }} 600w,
+                  {{ product.featured_image | image_url: width: 1200 }} 1200w
+                "
+                sizes="(min-width: 990px) 45vw, 92vw"
+                alt="{{ product.featured_image.alt | escape }}"
+                width="{{ product.featured_image.width }}"
+                height="{{ product.featured_image.height }}"
+                loading="eager"
+              >
+            {%- endif -%}
+
+            {%- if product.images.size > 1 -%}
+              <ul class="sm-product__thumbs" role="list">
+                {%- for image in product.images limit: 5 -%}
+                  {%- unless forloop.first -%}
+                    <li>
+                      <img src="{{ image | image_url: width: 300 }}" alt="{{ image.alt | escape }}" loading="lazy">
+                    </li>
+                  {%- endunless -%}
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+          {%- endcapture -%}
+
+          {% render 'sm-island', name: 'product-gallery', props: gallery_props, fallback: gallery_fallback %}
+        {%- endif -%}
+      </div>
+
+      <div class="sm-product__info">
+        {%- liquid
+          comment
+            Judge.me syncs its totals into Shopify's own review metafields, so
+            the count is on the product already — no second widget for one
+            line of text.
+          endcomment
+          assign review_count = product.metafields.reviews.rating_count.value | default: 0
+        -%}
+        {%- if review_count > 0 -%}
+          <p class="sm-product__reviewcount">
+            <a href="#sm-reviews">
+              <span class="sm-product__stars" aria-hidden="true">★★★★★</span>
+              <span class="sm-mono">{{ review_count }} {% if review_count == 1 %}review{% else %}reviews{% endif %}</span>
+            </a>
+          </p>
+        {%- endif -%}
+
+        <h1 class="sm-heading sm-heading--md">{{ product.title }}</h1>
+
+
+        {%- capture props -%}
+{
+  {%- comment -%}
+    The stock line is off for a product tagged `hide-stock`, whatever the
+    count says.
+  {%- endcomment -%}
+  {%- assign stock_rule = section.settings.stock_threshold | default: 0 -%}
+  {%- if product.tags contains 'hide-stock' -%}{%- assign stock_rule = 0 -%}{%- endif -%}
+  "stockThreshold": {{ stock_rule }},
+  "variants": [{{ variants }}],
+  "specs": [{{ specs }}],
+  "currency": {{ cart.currency.iso_code | json }},
+  "compareAt": {{ current.compare_at_price | default: 0 }},
+  {%- comment -%}
+    A service — the rush fee, the editing fee — is bought, not pressed. It
+    gets no press-and-peel strip and no gang sheet nudge, and its choice is
+    named for what it is ("Number of Gang Sheets"), not "size".
+  {%- endcomment -%}
+  {%- liquid
+    assign is_service = false
+    assign service_tags = section.settings.service_tags | default: '' | downcase | split: ','
+    for service_tag in service_tags
+      assign service_clean = service_tag | strip
+      for product_tag in product.tags
+        assign product_clean = product_tag | downcase | strip
+        if service_clean != blank and product_clean == service_clean
+          assign is_service = true
+        endif
+      endfor
+    endfor
+    assign option_name = product.options.first | default: ''
+  -%}
+  "service": {{ is_service }},
+  "optionName": {{ option_name | json }},
+  "gangSheetUrl": {{ section.settings.gang_sheet_url | default: '' | json }}
+}
+        {%- endcapture -%}
+
+        {%- capture fallback -%}
+          {%- comment -%}
+            A real form, posting to Shopify the ordinary way. If the bundle
+            never arrives, the product is still buyable.
+          {%- endcomment -%}
+          <form method="post" action="{{ routes.cart_add_url }}" class="sm-buy">
+            <input type="hidden" name="form_type" value="product">
+            <input type="hidden" name="utf8" value="✓">
+
+            <div class="sm-buy__price">
+              <span class="sm-buy__amount">{{ current.price | money }}</span>
+              {%- if current.compare_at_price > current.price -%}
+                <span class="sm-buy__compare">{{ current.compare_at_price | money }}</span>
+              {%- endif -%}
+            </div>
+
+            {%- if product.variants.size > 1 -%}
+              {%- assign option_label = product.options.first | default: 'Size' -%}
+              <label class="sm-eyebrow" for="sm-variant">{% if option_label contains 'ize' %}Choose a size{% else %}{{ option_label }}{% endif %}</label>
+              <select id="sm-variant" name="id" class="sm-buy__select">
+                {%- for variant in product.variants -%}
+                  <option value="{{ variant.id }}" {% if variant == current %}selected{% endif %} {% unless variant.available %}disabled{% endunless %}>
+                    {{ variant.title }} · {{ variant.price | money }}
+                  </option>
+                {%- endfor -%}
+              </select>
+            {%- else -%}
+              <input type="hidden" name="id" value="{{ current.id }}">
+            {%- endif -%}
+
+            <button type="submit" class="sm-button sm-button--primary sm-buy__submit" {% unless current.available %}disabled{% endunless %}>
+              {%- if current.available -%}Add to cart{%- else -%}Sold out{%- endif -%}
+            </button>
+          </form>
+        {%- endcapture -%}
+
+        {% render 'sm-island', name: 'product-panel', props: props, fallback: fallback %}
+
+        {%- comment -%}
+          App blocks sit under the buying panel: stock counters, review badges,
+          and on the gang-sheet templates the builder's own buttons. Above it
+          they pushed the price and the sizes below the fold.
+        {%- endcomment -%}
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when '@app' -%}
+              <div class="sm-product__app">{% render block %}</div>
+          {%- endcase -%}
+        {%- endfor -%}
+
+      </div>
+    </div>
+
+    {%- comment -%}
+      Judge.me's own widget is rendered by its app block in the apps section
+      below, not here — rendering the metafield copy as well is what showed
+      "Customer Reviews" twice. This island finds whatever the app injects,
+      wherever it lands, and redraws it in the shop's cards.
+    {%- endcomment -%}
+    {%- if product.description != blank -%}
+      {%- capture description_props -%}
+{ "html": {{ product.description | json }}, "heading": {{ section.settings.description_heading | json }} }
+      {%- endcapture -%}
+
+      {%- capture description_fallback -%}
+        <div class="sm-product__description sm-prose rte">{{ product.description }}</div>
+      {%- endcapture -%}
+
+      {% render 'sm-island', name: 'product-description', props: description_props, fallback: description_fallback %}
+    {%- endif -%}
+
+    {% render 'sm-product-tail', opts: section.settings, product: product, collection: collection %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "SHEmakes product",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_related",
+      "label": "\"You might also like\" row",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "related_heading",
+      "label": "Related row heading",
+      "default": "You might also *like*"
+    },
+    {
+      "type": "range",
+      "id": "stock_threshold",
+      "label": "Show \"N left\" under",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "default": 20,
+      "info": "0 turns it off everywhere. A product only shows it when Shopify is tracking its stock \u2014 and a product tagged hide-stock never shows it."
+    },
+    { "type": "header", "content": "Closing card" },
+    { "type": "text", "id": "cta_eyebrow", "label": "Eyebrow", "default": "Still have a question?" },
+    {
+      "type": "select",
+      "id": "cta_layout",
+      "label": "Layout",
+      "options": [
+        { "value": "left", "label": "Copy on the left" },
+        { "value": "centre", "label": "Copy in the middle" }
+      ],
+      "default": "left"
+    },
+    { "type": "image_picker", "id": "cta_image", "label": "Card photo", "info": "A print from the shop floor ships with the theme." },
+    { "type": "text", "id": "cta_heading", "label": "Heading", "default": "Not quite the *one*?" },
+    {
+      "type": "textarea",
+      "id": "cta_body",
+      "label": "Body",
+      "default": "Send us the artwork and we print it. Custom DTF for fabric, UV DTF for hard surfaces — no minimum and no account."
+    },
+    { "type": "text", "id": "cta_label", "label": "Button", "default": "Start a custom order" },
+    { "type": "url", "id": "cta_url", "label": "Button goes to" },
+    { "type": "text", "id": "cta2_label", "label": "Second button", "default": "Browse ready to press" },
+    { "type": "url", "id": "cta2_url", "label": "Second button goes to" },
+    { "type": "text", "id": "cta_email", "label": "Email", "default": "info@shemakestransfers.com" },
+    { "type": "textarea", "id": "cta_hours", "label": "Hours", "info": "One line. Line breaks are printed as written.", "default": "Business Hours\nMonday \u2013 Friday: 9:00 AM \u2013 5:00 PM EST\nSaturday & Sunday: Closed" },
+    {
+      "type": "checkbox",
+      "id": "show_reviews",
+      "label": "Reviews below the product",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "reviews_heading",
+      "label": "Reviews heading",
+      "default": "Rating & reviews"
+    },
+    {
+      "type": "range",
+      "id": "reviews_shown",
+      "label": "Reviews shown at first",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "url",
+      "id": "gang_sheet_url",
+      "label": "Gang sheet builder link",
+      "info": "Shown as a nudge when fewer than six are being ordered."
+    },
+    {
+      "type": "text",
+      "id": "service_tags",
+      "label": "Service product tags",
+      "info": "Comma separated. A product with one of these tags drops the press-and-peel strip and the gang sheet tip.",
+      "default": "rush service, gang sheet fee, service"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "spec",
+      "name": "Spec",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Press"
+        },
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Value",
+          "default": "300\u00b0F \u00b7 10s"
+        }
+      ]
+    },
+    {
+      "type": "@app"
+    }
+  ]
+}
+{% endschema %}

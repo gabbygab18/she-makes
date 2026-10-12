@@ -1,0 +1,74 @@
+{% comment %}
+  SHEmakes — page not found.
+
+  The theme shipped with its 404 section disabled, so this page rendered a
+  header, a footer and nothing at all in between. A dead end is exactly where
+  somebody needs the two links that get them moving again.
+
+  Deliberately plain Liquid, no island: when something has already gone wrong,
+  the recovery page should not depend on a bundle loading.
+{% endcomment %}
+
+<div class="sm-section sm-404">
+  <div class="sm-container">
+    <div class="sm-404__card">
+      <p class="sm-mono sm-404__code">Error 404</p>
+
+      <h1 class="sm-heading sm-heading--md">{{ section.settings.heading }}</h1>
+
+      {%- if section.settings.body != blank -%}
+        <p class="sm-body">{{ section.settings.body }}</p>
+      {%- endif -%}
+
+      <div class="sm-404__actions">
+        {%- if section.settings.primary_label != blank -%}
+          <a href="{{ section.settings.primary_url | default: routes.all_products_collection_url }}" class="sm-button sm-button--primary">
+            {{ section.settings.primary_label }}
+          </a>
+        {%- endif -%}
+
+        {%- if section.settings.secondary_label != blank -%}
+          <a href="{{ section.settings.secondary_url | default: routes.root_url }}" class="sm-button sm-button--secondary">
+            {{ section.settings.secondary_label }}
+          </a>
+        {%- endif -%}
+      </div>
+
+      {%- comment -%}
+        Search is the other way out of a dead end, and on a catalogue this size
+        it is often the faster one.
+      {%- endcomment -%}
+      <form action="{{ routes.search_url }}" method="get" role="search" class="sm-404__search">
+        <label class="visually-hidden" for="sm-404-search">Search</label>
+        <input
+          id="sm-404-search"
+          type="search"
+          name="q"
+          placeholder="{{ section.settings.search_placeholder }}"
+        >
+        <button type="submit" class="sm-button sm-button--secondary">Search</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "SHEmakes 404",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "We could not find that page" },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body",
+      "default": "The link may be old, or the design may have been retired. Everything still in stock is on the browse page."
+    },
+    { "type": "text", "id": "primary_label", "label": "Primary button", "default": "Browse ready to press" },
+    { "type": "url", "id": "primary_url", "label": "Primary link" },
+    { "type": "text", "id": "secondary_label", "label": "Secondary button", "default": "Start a custom order" },
+    { "type": "url", "id": "secondary_url", "label": "Secondary link" },
+    { "type": "text", "id": "search_placeholder", "label": "Search placeholder", "default": "Search designs, sizes…" }
+  ]
+}
+{% endschema %}

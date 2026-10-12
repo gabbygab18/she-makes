@@ -1,0 +1,15 @@
+# The theme folder doubles as the island source tree. Shopify CLI uploads
+# everything it finds, so everything that is not one of the seven theme
+# directories has to be named here — otherwise `shopify theme push` fails on
+# files Shopify has no place for.
+#
+# Keep this in step with THEME_DIRS in ../build_theme_zip.py.
+node_modules/
+src/
+_source/*
+*.mjs
+*.md
+package.json
+package-lock.json
+vite.config.js
+.shopifyignore

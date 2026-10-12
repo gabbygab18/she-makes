@@ -1,0 +1,71 @@
+{% comment %}
+  SHEmakes — the blog index.
+
+  The theme shipped this section disabled, so the blog was a header and a
+  footer with nothing between them. Same card as the rest of the shop.
+{% endcomment %}
+
+{%- paginate blog.articles by section.settings.per_page -%}
+<div class="sm-section sm-section--tight">
+  <div class="sm-container">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="sm-eyebrow">{{ section.settings.eyebrow }}</p>
+    {%- endif -%}
+
+    <h1 class="sm-heading sm-heading--md">{{ blog.title }}</h1>
+
+    {%- if blog.articles_count == 0 -%}
+      <p class="sm-body">{{ section.settings.empty_body }}</p>
+    {%- else -%}
+      <div class="sm-browse__grid">
+        {%- for article in blog.articles -%}
+          <a class="sm-card" href="{{ article.url }}">
+            <div class="sm-card__media">
+              {%- if article.image -%}
+                <img src="{{ article.image | image_url: width: 600 }}" alt="{{ article.title | escape }}" loading="lazy">
+              {%- else -%}
+                <div class="sm-card__placeholder"></div>
+              {%- endif -%}
+            </div>
+            <div class="sm-card__body">
+              <p class="sm-mono">{{ article.published_at | date: '%B %-d, %Y' }}</p>
+              <h3 class="sm-card__title">{{ article.title }}</h3>
+              {%- if article.excerpt_or_content != blank -%}
+                <p class="sm-card__price">{{ article.excerpt_or_content | strip_html | truncate: 90 }}</p>
+              {%- endif -%}
+            </div>
+          </a>
+        {%- endfor -%}
+      </div>
+
+      {% render 'sm-pagination', paginate: paginate, label: 'posts' %}
+    {%- endif -%}
+  </div>
+</div>
+
+{%- endpaginate -%}
+
+{% schema %}
+{
+  "name": "SHEmakes blog",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "per_page",
+      "label": "Per page",
+      "min": 12,
+      "max": 48,
+      "step": 12,
+      "default": 24
+    },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Journal" },
+    {
+      "type": "textarea",
+      "id": "empty_body",
+      "label": "Text when there are no posts",
+      "default": "Nothing published yet. Pressing guides and drop notes land here first."
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,106 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "choose": {
+      "type": "sm-options",
+      "blocks": {
+        "o1": {
+          "type": "option",
+          "settings": {
+            "label": "For apparel",
+            "title": "DTF Transfers",
+            "note": "Printed on film, heat pressed onto fabric. Upload your artwork and we print, cut and ship it ready to press.",
+            "url": "/collections/custom-dtf-for-fabric",
+            "badge": "Requires heat press",
+            "icon": "shirt",
+            "surfaces": "T-shirts\nHoodies\nSweatpants\nCanvas & tote bags\nHats",
+            "cta_label": "Order custom fabric transfers",
+            "featured": true
+          }
+        },
+        "o2": {
+          "type": "option",
+          "settings": {
+            "label": "For hard surfaces",
+            "title": "UV DTF Decals",
+            "note": "Peel, stick and apply. No heat, no press, and it is on for good.",
+            "url": "/collections/custom-uv-dtf",
+            "badge": "No heat needed",
+            "icon": "tumbler",
+            "surfaces": "Glass cans\nStainless tumblers\nMugs & glassware\nAcrylic & hard plastic\nWood & signs",
+            "cta_label": "Order custom hard surface decals"
+          }
+        }
+      },
+      "block_order": [
+        "o1",
+        "o2"
+      ],
+      "settings": {
+        "eyebrow": "Custom transfers",
+        "heading": "Which custom transfer *do you need*?",
+        "body": "Two ways to print your own artwork. Pick the one that matches what you are putting it on.",
+        "compare": true
+      }
+    },
+    "steps": {
+      "type": "sm-steps",
+      "blocks": {
+        "s1": {
+          "type": "step",
+          "settings": {
+            "label": "Step",
+            "icon": "upload",
+            "title": "Upload your artwork",
+            "body": "Using our online sheet builder tool, upload a .PNG file with a transparent background, at 300 DPI. See our graphics guide for help.",
+            "url": "/collections/custom?view=choose"
+          }
+        },
+        "s2": {
+          "type": "step",
+          "settings": {
+            "label": "Step",
+            "icon": "shield",
+            "title": "Submitted sheet and quality checks",
+            "body": "Once your sheet is submitted and paid for, it'll automatically upload to our state of the art printers where we begin the printing process."
+          }
+        },
+        "s3": {
+          "type": "step",
+          "settings": {
+            "label": "Step",
+            "icon": "truck",
+            "title": "Printed and on it's way to you",
+            "body": "We print and ship fast so you're not having to wait long. Within 24-48 hours, on business days, it'll be out our door and on its way to you."
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "settings": {
+        "eyebrow": "How it works",
+        "heading": "Order your own custom transfers in *3 Easy Steps*",
+        "tint": true,
+        "cta_label": "How-to guide for beginners",
+        "cta_url": "/pages/dtf-uv-instructions?view=guide",
+        "secondary_label": "Ask us a question",
+        "secondary_url": "/pages/contact"
+      }
+    }
+  },
+  "order": [
+    "choose",
+    "steps"
+  ]
+}

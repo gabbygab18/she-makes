@@ -1,0 +1,203 @@
+{% comment %}
+  SHEmakes — the picture-review wall.
+
+  What buyers actually pressed, in their own photos. Nothing sells a transfer
+  like the finished garment.
+
+  The row scrolls itself: the list is rendered twice and the track slides
+  exactly half its width, so the loop has no seam. The second copy is hidden
+  from assistive technology rather than read out again.
+{% endcomment %}
+{%- liquid
+  comment
+    The blocks are where the shop puts real customer photos. Until they do,
+    the wall pulls product photography from a collection instead — the section
+    shipped with six empty blocks, which rendered a heading over nothing.
+  endcomment
+  comment
+    A photo can come from the theme's own assets as well as the shop's files:
+    the customers' photos arrived as a folder, and putting them in assets
+    means they ship with the theme rather than waiting on a files upload.
+  endcomment
+  assign wall = ''
+  for block in section.blocks
+    if block.settings.image == blank and block.settings.asset == blank
+      continue
+    endif
+
+    if block.settings.image != blank
+      assign src = block.settings.image | image_url: width: 700 | json
+    else
+      assign src = block.settings.asset | asset_url | json
+    endif
+    if wall == ''
+      assign wall = src
+    else
+      assign wall = wall | append: ',' | append: src
+    endif
+  endfor
+
+  assign fallback_images = false
+  if wall == ''
+    assign fallback_images = true
+    assign source = collections[section.settings.collection]
+    if source == blank or source.products_count == 0
+      assign source = collections.all
+    endif
+
+    for product in source.products limit: 12
+      if product.featured_image == blank
+        continue
+      endif
+      assign src = product.featured_image | image_url: width: 700 | json
+      if wall == ''
+        assign wall = src
+      else
+        assign wall = wall | append: ',' | append: src
+      endif
+    endfor
+  endif
+
+  assign photos = wall
+-%}
+{%- capture props -%}
+{
+  "heading": {{ section.settings.heading | json }},
+  "body": {{ section.settings.body | json }},
+  "photos": [{{ photos }}],
+  "speed": {{ section.settings.speed | default: 60 }},
+  "cta": { "label": {{ section.settings.cta_label | json }}, "url": {{ section.settings.cta_url | default: '#' | json }} }
+}
+{%- endcapture -%}
+
+{%- comment -%}
+  The Liquid below is the fallback: it renders the whole section, so the
+  page is complete before the bundle arrives and stays complete if it
+  never does. React replaces it on mount.
+{%- endcomment -%}
+{%- capture fallback -%}
+<div class="sm-section">
+  <div class="sm-container sm-gallery__head">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="sm-heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+
+    {%- if section.settings.body != blank -%}
+      <p class="sm-body">{{ section.settings.body }}</p>
+    {%- endif -%}
+  </div>
+
+  {%- if photos != '' -%}
+    {%- comment -%}
+      Full-bleed on purpose: the wall runs off both edges so it reads as a
+      stream of finished garments rather than a row of cards in a box.
+    {%- endcomment -%}
+    <div class="sm-marquee" style="--sm-marquee-duration: {{ section.settings.speed | default: 60 }}s">
+      <div class="sm-marquee__track">
+        {%- for pass in (1..2) -%}
+          <ul class="sm-marquee__list" {% if pass == 2 %}aria-hidden="true"{% endif %}>
+            {%- if fallback_images -%}
+              {%- for product in source.products limit: 12 -%}
+                {%- if product.featured_image -%}
+                  <li class="sm-marquee__item">
+                    <img src="{{ product.featured_image | image_url: width: 700 }}" alt="{{ product.title | escape }}" loading="lazy">
+                  </li>
+                {%- endif -%}
+              {%- endfor -%}
+            {%- else -%}
+              {%- for block in section.blocks -%}
+                {%- if block.settings.image -%}
+                  <li class="sm-marquee__item" {{ block.shopify_attributes }}>
+                    <img
+                      src="{{ block.settings.image | image_url: width: 700 }}"
+                      alt="{{ block.settings.image.alt | escape }}"
+                      width="{{ block.settings.image.width }}"
+                      height="{{ block.settings.image.height }}"
+                      loading="lazy"
+                    >
+                  </li>
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endif -%}
+          </ul>
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endif -%}
+
+  {%- if section.settings.cta_label != blank -%}
+    <div class="sm-container sm-gallery__cta">
+      <a href="{{ section.settings.cta_url | default: '#' }}" class="sm-button sm-button--primary">
+        {{ section.settings.cta_label }}
+      </a>
+    </div>
+  {%- endif -%}
+</div>
+{%- endcapture -%}
+
+<div class="sm-reveal">
+  {% render 'sm-island', name: 'gallery', props: props, fallback: fallback %}
+</div>
+
+{% schema %}
+{
+  "name": "SHEmakes picture wall",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Fall back to this collection",
+      "info": "Used only while no photo blocks have an image."
+    },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Happy customers — picture reviews" },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body",
+      "default": "Real orders, pressed and photographed by the people who bought them."
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "label": "Seconds per loop",
+      "info": "Higher is slower.",
+      "min": 30,
+      "max": 120,
+      "step": 5,
+      "default": 60,
+      "unit": "s"
+    },
+    { "type": "text", "id": "cta_label", "label": "Button", "default": "Order your custom transfers" },
+    { "type": "url", "id": "cta_url", "label": "Button link" }
+  ],
+  "blocks": [
+    {
+      "type": "photo",
+      "name": "Photo",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Customer photo" },
+        {
+          "type": "text",
+          "id": "asset",
+          "label": "Theme asset",
+          "info": "A file name in the theme's assets, used when no photo is chosen above."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SHEmakes picture wall",
+      "blocks": [
+        { "type": "photo" },
+        { "type": "photo" },
+        { "type": "photo" },
+        { "type": "photo" },
+        { "type": "photo" },
+        { "type": "photo" }
+      ]
+    }
+  ]
+}
+{% endschema %}

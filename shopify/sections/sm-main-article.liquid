@@ -1,0 +1,78 @@
+{% comment %}
+  SHEmakes — one blog post.
+
+  Plain Liquid, and the body keeps a reading measure. Comments stay on
+  Shopify's own form — it carries the spam token, and re-implementing that in a
+  bundle would only be a way to lose it.
+{% endcomment %}
+
+<div class="sm-section sm-section--tight">
+  <div class="sm-container">
+    <header class="sm-page__head">
+      <p class="sm-mono">{{ article.published_at | date: '%B %-d, %Y' }}</p>
+      <h1 class="sm-heading sm-heading--md">{{ article.title }}</h1>
+      {%- if section.settings.show_author and article.author != blank -%}
+        <p class="sm-body">{{ article.author }}</p>
+      {%- endif -%}
+    </header>
+
+    {%- if article.image -%}
+      <img
+        src="{{ article.image | image_url: width: 1400 }}"
+        alt="{{ article.title | escape }}"
+        width="{{ article.image.width }}"
+        height="{{ article.image.height }}"
+        class="sm-article__image"
+        loading="eager"
+      >
+    {%- endif -%}
+
+    <div class="sm-prose rte">{{ article.content }}</div>
+
+    <div class="sm-page__actions">
+      <a href="{{ blog.url }}" class="sm-button sm-button--secondary">All posts</a>
+    </div>
+
+    {%- if blog.comments_enabled? -%}
+      <section class="sm-prose">
+        <h2 class="sm-heading sm-heading--md">{{ article.comments_count }} comments</h2>
+
+        {%- for comment in article.comments -%}
+          <article class="sm-article__comment">
+            <p class="sm-mono">{{ comment.author }} · {{ comment.created_at | date: '%B %-d, %Y' }}</p>
+            <p class="sm-body">{{ comment.content }}</p>
+          </article>
+        {%- endfor -%}
+
+        {% form 'new_comment', article %}
+          {%- if form.errors -%}
+            <p class="sm-cart__error">Please check the fields below.</p>
+          {%- elsif form.posted_successfully? -%}
+            <p class="sm-footer__success">Thanks — your comment is in.</p>
+          {%- endif -%}
+
+          <label class="sm-eyebrow" for="sm-comment-author">Name</label>
+          <input id="sm-comment-author" type="text" name="comment[author]" value="{{ form.author }}" required>
+
+          <label class="sm-eyebrow" for="sm-comment-email">Email</label>
+          <input id="sm-comment-email" type="email" name="comment[email]" value="{{ form.email }}" required>
+
+          <label class="sm-eyebrow" for="sm-comment-body">Comment</label>
+          <textarea id="sm-comment-body" name="comment[body]" rows="5" required>{{ form.body }}</textarea>
+
+          <button type="submit" class="sm-button sm-button--primary">Post comment</button>
+        {% endform %}
+      </section>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "SHEmakes article",
+  "tag": "section",
+  "settings": [
+    { "type": "checkbox", "id": "show_author", "label": "Show author", "default": false }
+  ]
+}
+{% endschema %}
