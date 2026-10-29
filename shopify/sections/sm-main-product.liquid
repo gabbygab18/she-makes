@@ -40,7 +40,8 @@
     if block.type == 'spec'
       assign l = block.settings.label | json
       assign v = block.settings.value | json
-      assign row = '{"label":' | append: l | append: ',"value":' | append: v | append: '}'
+      assign ic = block.settings.icon | default: '' | json
+      assign row = '{"label":' | append: l | append: ',"value":' | append: v | append: ',"icon":' | append: ic | append: '}'
       if specs == ''
         assign specs = row
       else
@@ -236,6 +237,29 @@
           {%- endcase -%}
         {%- endfor -%}
 
+        {%- comment -%}
+          The shop's four tabs — sizing, pressing, care, store policy — under
+          the buy box, shut until opened, the way the old product page carried
+          them. Plain <details>, so they work before any script arrives.
+        {%- endcomment -%}
+        {%- assign tabs = section.blocks | where: 'type', 'tab' -%}
+        {%- if tabs.size > 0 -%}
+          <div class="sm-tabs">
+            {%- for block in tabs -%}
+              <details class="sm-tabs__item" {{ block.shopify_attributes }}>
+                <summary class="sm-tabs__head">
+                  {%- if block.settings.icon != blank and block.settings.icon != 'none' -%}
+                    <span class="sm-tabs__icon" aria-hidden="true">{% render 'sm-icon', name: block.settings.icon %}</span>
+                  {%- endif -%}
+                  <span class="sm-tabs__title">{{ block.settings.heading }}</span>
+                  <span class="sm-tabs__marker" aria-hidden="true"></span>
+                </summary>
+                <div class="sm-tabs__body rte">{{ block.settings.content }}</div>
+              </details>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+
       </div>
     </div>
 
@@ -286,34 +310,87 @@
       "max": 50,
       "step": 5,
       "default": 20,
-      "info": "0 turns it off everywhere. A product only shows it when Shopify is tracking its stock \u2014 and a product tagged hide-stock never shows it."
+      "info": "0 turns it off everywhere. A product only shows it when Shopify is tracking its stock — and a product tagged hide-stock never shows it."
     },
-    { "type": "header", "content": "Closing card" },
-    { "type": "text", "id": "cta_eyebrow", "label": "Eyebrow", "default": "Still have a question?" },
+    {
+      "type": "header",
+      "content": "Closing card"
+    },
+    {
+      "type": "text",
+      "id": "cta_eyebrow",
+      "label": "Eyebrow",
+      "default": "Still have a question?"
+    },
     {
       "type": "select",
       "id": "cta_layout",
       "label": "Layout",
       "options": [
-        { "value": "left", "label": "Copy on the left" },
-        { "value": "centre", "label": "Copy in the middle" }
+        {
+          "value": "left",
+          "label": "Copy on the left"
+        },
+        {
+          "value": "centre",
+          "label": "Copy in the middle"
+        }
       ],
       "default": "left"
     },
-    { "type": "image_picker", "id": "cta_image", "label": "Card photo", "info": "A print from the shop floor ships with the theme." },
-    { "type": "text", "id": "cta_heading", "label": "Heading", "default": "Not quite the *one*?" },
+    {
+      "type": "image_picker",
+      "id": "cta_image",
+      "label": "Card photo",
+      "info": "A print from the shop floor ships with the theme."
+    },
+    {
+      "type": "text",
+      "id": "cta_heading",
+      "label": "Heading",
+      "default": "Not quite the *one*?"
+    },
     {
       "type": "textarea",
       "id": "cta_body",
       "label": "Body",
       "default": "Send us the artwork and we print it. Custom DTF for fabric, UV DTF for hard surfaces — no minimum and no account."
     },
-    { "type": "text", "id": "cta_label", "label": "Button", "default": "Start a custom order" },
-    { "type": "url", "id": "cta_url", "label": "Button goes to" },
-    { "type": "text", "id": "cta2_label", "label": "Second button", "default": "Browse ready to press" },
-    { "type": "url", "id": "cta2_url", "label": "Second button goes to" },
-    { "type": "text", "id": "cta_email", "label": "Email", "default": "info@shemakestransfers.com" },
-    { "type": "textarea", "id": "cta_hours", "label": "Hours", "info": "One line. Line breaks are printed as written.", "default": "Business Hours\nMonday \u2013 Friday: 9:00 AM \u2013 5:00 PM EST\nSaturday & Sunday: Closed" },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button",
+      "default": "Start a custom order"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Button goes to"
+    },
+    {
+      "type": "text",
+      "id": "cta2_label",
+      "label": "Second button",
+      "default": "Browse ready to press"
+    },
+    {
+      "type": "url",
+      "id": "cta2_url",
+      "label": "Second button goes to"
+    },
+    {
+      "type": "text",
+      "id": "cta_email",
+      "label": "Email",
+      "default": "info@shemakestransfers.com"
+    },
+    {
+      "type": "textarea",
+      "id": "cta_hours",
+      "label": "Hours",
+      "info": "One line. Line breaks are printed as written.",
+      "default": "Business Hours\nMonday – Friday: 9:00 AM – 5:00 PM EST\nSaturday & Sunday: Closed"
+    },
     {
       "type": "checkbox",
       "id": "show_reviews",
@@ -365,7 +442,81 @@
           "type": "text",
           "id": "value",
           "label": "Value",
-          "default": "300\u00b0F \u00b7 10s"
+          "default": "300°F · 10s"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            {
+              "value": "none",
+              "label": "No icon"
+            },
+            {
+              "value": "press",
+              "label": "Heat press"
+            },
+            {
+              "value": "flame",
+              "label": "Flame"
+            },
+            {
+              "value": "truck",
+              "label": "Delivery"
+            },
+            {
+              "value": "time",
+              "label": "Clock"
+            }
+          ],
+          "default": "none"
+        }
+      ]
+    },
+    {
+      "type": "tab",
+      "name": "Tab",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Sizing"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            {
+              "value": "none",
+              "label": "No icon"
+            },
+            {
+              "value": "ruler",
+              "label": "Ruler"
+            },
+            {
+              "value": "press",
+              "label": "Heat press"
+            },
+            {
+              "value": "heart",
+              "label": "Heart"
+            },
+            {
+              "value": "shield",
+              "label": "Policy"
+            }
+          ],
+          "default": "none"
+        },
+        {
+          "type": "html",
+          "id": "content",
+          "label": "Content"
         }
       ]
     },

@@ -10,7 +10,7 @@
   is the same accordion the FAQ uses.
 {% endcomment %}
 
-<div class="sm-pagehead sm-pagehead--offer">
+<div class="sm-pagehead sm-pagehead--offer sm-guide__head">
   <div class="sm-container">
     {%- if section.settings.eyebrow != blank -%}
       <p class="sm-eyebrow">{{ section.settings.eyebrow }}</p>
@@ -24,16 +24,35 @@
   </div>
 </div>
 
-<div class="sm-section sm-section--tight">
+{%- comment -%}
+  The three settings everything else depends on, as cards over the foot of a
+  photo of the press — readable at a glance, then one button down to the
+  full walk-through for anyone who wants it.
+{%- endcomment -%}
+<div class="sm-guide__press">
   <div class="sm-container">
-    {%- comment -%} The settings strip: the four numbers everything else depends on. {%- endcomment -%}
+    {%- if section.settings.hero_image != blank -%}
+      <img class="sm-guide__press-photo" src="{{ section.settings.hero_image | image_url: width: 1600 }}" alt="" width="{{ section.settings.hero_image.width }}" height="{{ section.settings.hero_image.height }}" loading="eager">
+    {%- else -%}
+      <img class="sm-guide__press-photo" src="{{ 'sm-guide-press.jpg' | asset_url }}" alt="" width="1200" height="800" loading="eager">
+    {%- endif -%}
+
     {%- assign facts = section.blocks | where: 'type', 'fact' -%}
     {%- if facts.size > 0 -%}
       <div class="sm-guide__facts">
         {%- for block in facts -%}
           <div class="sm-guide__fact" {{ block.shopify_attributes }}>
-            <p class="sm-mono sm-guide__fact-label">{{ block.settings.label }}</p>
+            {%- if block.settings.image != blank -%}
+              <img class="sm-guide__fact-photo" src="{{ block.settings.image | image_url: width: 400 }}" alt="" loading="lazy">
+            {%- elsif block.settings.image_asset != blank -%}
+              <img class="sm-guide__fact-photo" src="{{ block.settings.image_asset | asset_url }}" alt="" loading="lazy">
+            {%- elsif block.settings.icon != blank and block.settings.icon != 'none' -%}
+              <span class="sm-guide__fact-icon" aria-hidden="true">{% render 'sm-icon', name: block.settings.icon %}</span>
+            {%- endif -%}
             <p class="sm-guide__fact-value">{{ block.settings.value }}</p>
+            {%- if block.settings.label != blank -%}
+              <p class="sm-mono sm-guide__fact-label">{{ block.settings.label }}</p>
+            {%- endif -%}
             {%- if block.settings.note != blank -%}
               <p class="sm-guide__fact-note">{{ block.settings.note }}</p>
             {%- endif -%}
@@ -42,32 +61,24 @@
       </div>
     {%- endif -%}
 
-    {%- assign bands = section.blocks | where: 'type', 'band' -%}
-    {%- assign steps = section.blocks | where: 'type', 'step' -%}
-    {%- if steps.size > 0 -%}
-      <div class="sm-guide__block">
-        <h2 class="sm-heading sm-heading--md">{{ section.settings.steps_heading }}</h2>
-
-        <ol class="sm-guide__steps" role="list">
-          {%- for block in steps -%}
-            <li class="sm-guide__step" {{ block.shopify_attributes }}>
-              <span class="sm-guide__step-number" aria-hidden="true">{{ forloop.index }}</span>
-              <div>
-                <h3 class="sm-guide__step-title">{{ block.settings.title }}</h3>
-                {%- if block.settings.body != blank -%}
-                  <div class="sm-prose sm-guide__step-body rte">{{ block.settings.body }}</div>
-                {%- endif -%}
-              </div>
-            </li>
-          {%- endfor -%}
-        </ol>
-      </div>
+    {%- if section.settings.tips != blank -%}
+      <p class="sm-guide__tips">
+        <span class="sm-guide__tips-icon" aria-hidden="true">{% render 'sm-icon', name: 'press' %}</span>
+        {{ section.settings.tips }}
+      </p>
     {%- endif -%}
 
-    {%- if bands[0] -%}
-      {% render 'sm-band', block: bands[0] %}
+    {%- if section.settings.jump_label != blank -%}
+      <p class="sm-guide__jump">
+        <a class="sm-button sm-button--primary" href="#sm-guide-steps">{{ section.settings.jump_label }} <span aria-hidden="true">&darr;</span></a>
+      </p>
     {%- endif -%}
+  </div>
+</div>
 
+<div class="sm-section sm-section--tight">
+  <div class="sm-container">
+    {%- comment -%} The file rules first: a bad file is the one thing pressing cannot fix. {%- endcomment -%}
     {%- assign rules = section.blocks | where: 'type', 'rule' -%}
     {%- if rules.size > 0 -%}
       <div class="sm-guide__block">
@@ -89,6 +100,32 @@
           {%- endfor -%}
         </ul>
       </div>
+    {%- endif -%}
+
+    {%- assign bands = section.blocks | where: 'type', 'band' -%}
+    {%- assign steps = section.blocks | where: 'type', 'step' -%}
+    {%- if steps.size > 0 -%}
+      <div class="sm-guide__block" id="sm-guide-steps">
+        <h2 class="sm-heading sm-heading--md">{{ section.settings.steps_heading }}</h2>
+
+        <ol class="sm-guide__steps" role="list">
+          {%- for block in steps -%}
+            <li class="sm-guide__step" {{ block.shopify_attributes }}>
+              <span class="sm-guide__step-number" aria-hidden="true">{{ forloop.index }}</span>
+              <div>
+                <h3 class="sm-guide__step-title">{{ block.settings.title }}</h3>
+                {%- if block.settings.body != blank -%}
+                  <div class="sm-prose sm-guide__step-body rte">{{ block.settings.body }}</div>
+                {%- endif -%}
+              </div>
+            </li>
+          {%- endfor -%}
+        </ol>
+      </div>
+    {%- endif -%}
+
+    {%- if bands[0] -%}
+      {% render 'sm-band', block: bands[0] %}
     {%- endif -%}
 
     {%- if bands[1] -%}
@@ -185,6 +222,9 @@
       "label": "Intro",
       "default": "Never pressed a DTF transfer before? This is everything you need, in the order you need it — the settings, what your file has to be, and what to do when it does not come out right."
     },
+    { "type": "image_picker", "id": "hero_image", "label": "Press photo", "info": "A press from the shop floor ships with the theme; this replaces it." },
+    { "type": "text", "id": "tips", "label": "Line under the settings", "default": "Firm pressure • Pre-press 5s • Final press 5s" },
+    { "type": "text", "id": "jump_label", "label": "Button to the steps", "default": "Full step-by-step pressing guide" },
     { "type": "text", "id": "steps_heading", "label": "Steps heading", "default": "How to press it" },
     { "type": "text", "id": "rules_heading", "label": "File rules heading", "default": "What your file has to be" },
     { "type": "text", "id": "fixes_heading", "label": "Troubleshooting heading", "default": "When it does not come out right" },
@@ -206,7 +246,22 @@
       "settings": [
         { "type": "text", "id": "label", "label": "Label", "default": "Press" },
         { "type": "text", "id": "value", "label": "Value", "default": "300°F" },
-        { "type": "text", "id": "note", "label": "Note" }
+        { "type": "text", "id": "note", "label": "Note" },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "none", "label": "None" },
+            { "value": "press", "label": "Heat press" },
+            { "value": "time", "label": "Timer" },
+            { "value": "flame", "label": "Flame" },
+            { "value": "tumbler", "label": "Peel" }
+          ],
+          "default": "none"
+        },
+        { "type": "image_picker", "id": "image", "label": "Photo", "info": "Replaces the icon." },
+        { "type": "text", "id": "image_asset", "label": "Photo (theme file)", "info": "Used when nothing is picked above, e.g. sm-why-3.jpg." }
       ]
     },
     {

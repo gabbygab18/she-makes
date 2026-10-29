@@ -283,19 +283,23 @@ export default function ProductCard({ product, currency }) {
                     not needed on a card. Nothing renders when it is unset. */}
                 {product.rating > 0 && (
                     <p className="sm-card__rating">
+                        {/* Always five: the earned ones in gold, the rest pale. A
+                            4.4 drew four stars and nothing after them, which read
+                            as a broken row rather than a score. */}
                         <span className="sm-card__stars" aria-hidden="true">
                             {'★★★★★'.slice(0, Math.round(product.rating))}
+                            <span className="sm-card__stars-off">{'★★★★★'.slice(Math.round(product.rating))}</span>
                         </span>
                         <span className="visually-hidden">
                             {product.rating} out of 5
                         </span>
                         {product.reviewCount > 0 && (
-                            <span className="sm-card__reviews">({product.reviewCount})</span>
+                            <span className="sm-card__reviews">{product.reviewCount} {product.reviewCount === 1 ? 'review' : 'reviews'}</span>
                         )}
                     </p>
                 )}
 
-                <p className="sm-card__price">
+                <p className={`sm-card__price${product.compareAt > product.price ? ' sm-card__price--sale' : ''}`}>
                     {money(product.price, currency)}
                     {product.compareAt > product.price && (
                         <span className="sm-card__compare">{money(product.compareAt, currency)}</span>

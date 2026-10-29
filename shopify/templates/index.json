@@ -53,7 +53,7 @@
         "primary_label": "Start a Custom Order",
         "primary_url": "/collections/custom?view=choose",
         "secondary_label": "Browse Ready To Press",
-        "secondary_url": "/collections?view=choose",
+        "secondary_url": "/collections?view=dtf",
         "rating": "4.9/5 from 367 customers",
         "rating_url": "#sm-reviews",
         "rating_heading": "Real customers. Real feedback."
@@ -316,7 +316,7 @@
             "photo_asset": "sm-cat-rtp.webp",
             "body": "Premade designs for apparel.",
             "label": "Shop designs",
-            "url": "/collections?view=choose"
+            "url": "/collections?view=dtf"
           }
         },
         "t3": {
@@ -444,7 +444,7 @@
         "blurb_heading": "Can't be bothered?",
         "blurb_body": "Take the guesswork out of figuring our designing and sizing with our Ready to Press Transfers. They come pre-cut, pre-sized and quite literally - ready for you to press them!",
         "cta_label": "Browse Ready To Press",
-        "cta_url": "/collections?view=choose"
+        "cta_url": "/collections?view=dtf"
       }
     },
     "perks": {
@@ -453,7 +453,7 @@
         "k1": {
           "type": "perk",
           "settings": {
-            "icon": "image",
+            "icon": "shirt",
             "title": "Free transfer mockups",
             "body": "Promote your products with watermark-free mockups."
           }

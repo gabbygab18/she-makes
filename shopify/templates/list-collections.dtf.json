@@ -55,7 +55,7 @@
     "main": {
       "type": "sm-main-list-collections",
       "settings": {
-        "heading": "ALL Ready to Press DTF - *by Theme*",
+        "heading": "DTF - *Ready to Press*",
         "body": "Pre-cut, pre-designed and literally ready for you to just press on! These make it so easy (and fun!) for you.",
         "list": "Blanket Collection | /collections/blanket-collection\nBlanks De-Stash | /collections/blanks\nCanada Day/Independence Day | /collections/canada-day-independence-day\nCoffee | /collections/coffee\nChristmas + Winter | /collections/christmas-winter\nCoquette | /collections/coquette\nCountry - Western | /collections/country-western\nCurrently Trending | /collections/bestselling\nFaith | /collections/faith\nMisc | /collections/misc\nFamily | /collections/family\nFall + Halloween | /collections/fall-halloween\nInspirational | /collections/inspirational\nNEWLY ADDED | /collections/newly-added\nMAMA | /collections/mama\nMama & Mini | /collections/mama-mini\nMen/Father's Day | /collections/trending-now\nPet Lovers | /collections/pet-lovers\nPink Shirt Day | /collections/pink-shirt-day\nPremade Gang Sheets | /collections/premade-gang-sheets\nSmall Business | /collections/small-business\nSports | /collections/sports\nTeachers/School/Ocupations | /collections/occupations",
         "count_label": "",

@@ -9,7 +9,7 @@ import { accent } from '@/lib/accent';
  * of behaviour here that Liquid cannot do, and the reason this is an island
  * rather than a template.
  */
-function useCountUp(target, duration = 1600) {
+function useCountUp(duration = 1600) {
     const [value, setValue] = useState(0);
     const ref = useRef(null);
     const started = useRef(false);
@@ -23,7 +23,7 @@ function useCountUp(target, duration = 1600) {
         const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 
         if (reduced || !('IntersectionObserver' in window)) {
-            setValue(target);
+            setValue(1);
             return undefined;
         }
 
@@ -39,7 +39,7 @@ function useCountUp(target, duration = 1600) {
                     // Ease out: the number settles rather than stopping dead.
                     const eased = 1 - Math.pow(1 - progress, 3);
 
-                    setValue(Math.round(target * eased));
+                    setValue(eased);
 
                     if (progress < 1) requestAnimationFrame(tick);
                 };
@@ -51,19 +51,17 @@ function useCountUp(target, duration = 1600) {
         observer.observe(node);
 
         return () => observer.disconnect();
-    }, [target, duration]);
+    }, [duration]);
 
     return [value, ref];
 }
 
 function Stat({ value, label, icon = '', note = '', url = '' }) {
-    // "24h", "367", "$0" — split into the number that animates and the
-    // characters that sit either side of it. A figure with digits on both
-    // sides of something else ("1–2", "4.9/5") is a range, not a count, and
-    // counting the first half of it up reads as a glitch — so it stays put.
-    const match = String(value ?? '').match(/^(\D*)([\d.]+)(\D*)$/);
-    const target = match ? Number(match[2]) : 0;
-    const [count, ref] = useCountUp(target);
+    // Every figure counts up together, keeping its decimals: "1–2" rises as
+    // a range, "4.9/5" as a score. The "/5" a score is out of stays put.
+    const [progress, ref] = useCountUp();
+    const shown = String(value ?? '').replace(/(\/?)(\d+(?:\.(\d+))?)/g, (whole, slash, n, dec = '') =>
+        slash ? whole : (Number(n) * progress).toFixed(dec.length));
 
     return (
         <div className="sm-stats__cell" ref={ref}>
@@ -77,7 +75,7 @@ function Stat({ value, label, icon = '', note = '', url = '' }) {
             <div className="sm-stats__text">
                 {value && (
                     <dd className="sm-stats__value">
-                        {match ? `${match[1]}${count}${match[3]}` : value}
+                        {shown}
                     </dd>
                 )}
                 {label && <dt className="sm-stats__label">{label}</dt>}

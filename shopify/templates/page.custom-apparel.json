@@ -17,7 +17,8 @@
         "secondary_label": "",
         "secondary_url": "",
         "rating": "Trusted by 3,000+ makers across Canada and the USA"
-      }
+      },
+      "disabled": true
     },
     "quote": {
       "type": "sm-contact",
@@ -33,12 +34,136 @@
         "consent": "We only use your details to answer this quote.",
         "success": "Thanks — that is with us. You get a price back the same working day.",
         "embed_page": "custom-apparel-quote"
+      },
+      "disabled": true
+    },
+    "quote_form": {
+      "type": "sm-quote",
+      "blocks": {
+        "t1": {
+          "type": "trust",
+          "settings": {
+            "icon": "leaf",
+            "text": "Locally printed in Canada"
+          }
+        },
+        "t2": {
+          "type": "trust",
+          "settings": {
+            "icon": "flame",
+            "text": "Quote within 1 business day"
+          }
+        },
+        "t3": {
+          "type": "trust",
+          "settings": {
+            "icon": "group",
+            "text": "Trusted by 3,000+ makers"
+          }
+        },
+        "a1": {
+          "type": "apparel",
+          "settings": {
+            "label": "T-Shirts",
+            "image_asset": "sm-quote-tee.webp"
+          }
+        },
+        "a2": {
+          "type": "apparel",
+          "settings": {
+            "label": "Hoodies",
+            "image_asset": "",
+            "product": "mama-bow"
+          }
+        },
+        "a3": {
+          "type": "apparel",
+          "settings": {
+            "label": "Crewnecks",
+            "image_asset": "sm-quote-crew.webp"
+          }
+        },
+        "a4": {
+          "type": "apparel",
+          "settings": {
+            "label": "Hats",
+            "image_asset": "sm-quote-hat.webp",
+            "icon": "cap"
+          }
+        },
+        "a5": {
+          "type": "apparel",
+          "settings": {
+            "label": "Tote Bags",
+            "image_asset": "sm-quote-tote.webp"
+          }
+        },
+        "a6": {
+          "type": "apparel",
+          "settings": {
+            "label": "Other",
+            "image_asset": "",
+            "product": "chick-blue-hat-bunny-purple-bow"
+          }
+        },
+        "l1": {
+          "type": "location",
+          "settings": {
+            "label": "Front",
+            "mark": "front"
+          }
+        },
+        "l2": {
+          "type": "location",
+          "settings": {
+            "label": "Back",
+            "mark": "back"
+          }
+        },
+        "l3": {
+          "type": "location",
+          "settings": {
+            "label": "Left Chest",
+            "mark": "chest"
+          }
+        },
+        "l4": {
+          "type": "location",
+          "settings": {
+            "label": "Other",
+            "mark": "other"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "a1",
+        "a2",
+        "a3",
+        "a4",
+        "a5",
+        "a6",
+        "l1",
+        "l2",
+        "l3",
+        "l4"
+      ],
+      "settings": {
+        "heading": "Custom apparel. *Made easy.*",
+        "body": "Tell us what you need, share your design and get a quote within 1 business day.",
+        "form_heading": "Get your custom quote",
+        "form_note": "It's quick and easy!",
+        "cta": "Get my free quote",
+        "small_print": "No payment required • Reply within 1 business day"
       }
     }
   },
   "order": [
     "main",
     "hero",
-    "quote"
+    "quote",
+    "quote_form"
   ]
 }

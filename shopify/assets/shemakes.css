@@ -4741,196 +4741,140 @@ a.sm-options__card:hover .sm-options__go { transform: translateX(3px); color: va
 /* Two paths, side by side.
    -------------------------------------------------------------------------
 
-   The custom transfers page sells one decision: fabric or hard surface. As a
-   strip of equal cards that reads as a list to work through; as two cards
-   with a VS between them it reads as a fork, which is what it is.
-
-   Canvas cards with a hairline, and one of them in ink when the shop wants a
-   recommendation made. The tint used to carry that job — cream against blush
-   — but two tints are two options with no opinion between them, and a page
-   that recommends nothing makes the reader do the deciding twice. */
+   The custom transfers page sells one decision: fabric or hard surface. Two
+   photo cards, each one link straight to its sheet builder — the photo says
+   what it goes on, the pill says which surface, one line lists the things,
+   one line says how it goes on, and the button says what happens next. No
+   paragraphs and no VS: returning customers came here to click, not read. */
 .sm-options--compare {
-  position: relative;
-  /* Stacked on a phone the VS sits in this gap, and the badge of the card
-     below straddles its own top edge — at 14px the two collided. */
-  gap: 44px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  max-width: 760px;
+  margin-inline: auto;
+  border: 0;
   background: none;
   overflow: visible;
   box-shadow: none;
 }
 
 @media screen and (min-width: 750px) {
-  .sm-options--compare { gap: 28px; }
+  .sm-options--compare { gap: 24px; }
 }
 
 .sm-options--compare .sm-options__card {
-  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
-  padding: 34px 20px 24px;
+  gap: 6px;
+  padding: 0 10px 12px;
+  overflow: hidden;
   border: 1px solid var(--sm-line-soft);
   border-radius: var(--sm-radius-card);
   background: var(--sm-shell);
+  color: var(--sm-ink);
   text-align: center;
+  text-decoration: none;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.sm-options--compare .sm-options__card:hover {
+  background: var(--sm-shell);
+  box-shadow: 0 10px 28px rgb(58 26 36 / 0.12);
+  transform: translateY(-2px);
 }
 
 @media screen and (min-width: 750px) {
-  .sm-options--compare .sm-options__card { padding: 44px 30px 32px; }
+  .sm-options--compare .sm-options__card { gap: 8px; padding: 0 20px 20px; }
 }
 
-/* The one that is picked out. Ink, not a tint: a recommendation has to be a
-   different kind of thing, not a warmer version of the same thing. */
-.sm-options--compare .sm-options__card--featured {
-  background: var(--sm-ink);
-  border-color: var(--sm-ink);
-  color: #fff;
+/* Full bleed across the card's top. The decal photo is cut out, so the frame
+   behind it is cream rather than white-on-white. */
+.sm-options__photo {
+  display: block;
+  width: calc(100% + 20px);
+  max-width: none;
+  height: auto;
+  margin: 0 -10px;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background: var(--sm-paper);
 }
 
-.sm-options--compare .sm-options__card--featured .sm-options__title { color: #fff; }
-.sm-options--compare .sm-options__card--featured .sm-options__note { color: rgb(255 255 255 / 0.78); }
+@media screen and (min-width: 750px) {
+  .sm-options__photo { width: calc(100% + 40px); margin: 0 -20px; }
+}
 
-/* The badge straddles the top edge. */
+/* The pill rides the photo's bottom edge. */
 .sm-options__badge {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  margin: 0;
-  background: var(--sm-blush);
+  position: relative;
+  z-index: 1;
+  margin: -13px 0 0;
+  padding: 5px 10px;
+  border-radius: var(--sm-radius-pill);
+  background: var(--sm-block-honey);
   color: var(--sm-ink);
+  font-family: var(--sm-font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   white-space: nowrap;
 }
 
-.sm-options--compare .sm-options__card--featured .sm-options__badge {
-  background: var(--sm-brand);
-  color: #fff;
-}
+.sm-options--compare .sm-options__card--featured .sm-options__badge { background: var(--sm-blush); }
 
-.sm-options__icon {
-  display: grid;
-  place-items: center;
-  width: 62px;
-  height: 62px;
-  border-radius: var(--sm-radius-pill);
-  background: var(--sm-paper);
-  color: var(--sm-brand);
-}
+.sm-options--compare .sm-options__title { margin: 2px 0 0; font-family: var(--sm-font-display); font-size: 18px; font-weight: 400; line-height: 1.15; }
 
-.sm-options--compare .sm-options__card--featured .sm-options__icon {
-  background: rgb(255 255 255 / 0.12);
-  color: #fff;
-}
-
-.sm-options__icon svg { width: 30px; height: 30px; }
-
-.sm-options--compare .sm-options__title { margin: 4px 0 0; font-size: 21px; }
-
-@media screen and (min-width: 750px) {
-  .sm-options--compare .sm-options__title { font-size: 24px; }
-}
-
-.sm-options--compare .sm-options__note { margin: 0; max-width: 34ch; }
-
-/* The surfaces as chips rather than a sentence: "will this go on a glass mug"
-   is answered by scanning for the word. */
 .sm-options__surfaces {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 6px;
-  margin: 6px 0 0;
-  padding: 0;
-  list-style: none;
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.35;
+  color: var(--sm-ink-muted);
 }
 
-.sm-options__surfaces li {
-  padding: 5px 11px;
-  border-radius: var(--sm-radius-pill);
-  border: 1px solid var(--sm-line-soft);
-  background: var(--sm-shell);
-  font-family: var(--sm-font);
-  font-size: 13px;
+.sm-options__how {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 4px 0 6px;
+  font-size: 11.5px;
   line-height: 1.2;
   color: var(--sm-ink-muted);
 }
 
-.sm-options--compare .sm-options__card--featured .sm-options__surfaces li {
-  border-color: rgb(255 255 255 / 0.22);
-  background: transparent;
-  color: rgb(255 255 255 / 0.85);
-}
+.sm-options__how svg { width: 16px; height: 16px; flex: none; color: var(--sm-brand); }
 
-/* An outlined pill, full width of the card: the button is the card's last
-   line, so it takes the card's measure rather than sitting in the middle of
-   it like a full stop. */
+/* Big enough to hit with a thumb: 44px tall at the smallest. Ink on the
+   first card, raspberry on the one picked out. */
 .sm-options__cta {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 6px;
   width: 100%;
+  min-height: 44px;
   margin-top: auto;
-  padding-top: 0;
-  border: 1px solid var(--sm-line);
-  border-radius: var(--sm-radius-pill);
-  background: var(--sm-shell);
-  color: var(--sm-ink);
-}
-
-.sm-options__cta:hover {
-  background: var(--sm-ink);
-  border-color: var(--sm-ink);
-  color: var(--sm-shell);
-  opacity: 1;
-}
-
-.sm-options--compare .sm-options__card--featured .sm-options__cta {
-  border-color: transparent;
-  background: var(--sm-paper);
-  color: var(--sm-ink);
-}
-
-.sm-options--compare .sm-options__card--featured .sm-options__cta:hover {
-  background: #fff;
-  color: var(--sm-ink);
-}
-
-/* The button is pinned to the foot of the card, not pushed 18px under the
-   text. `margin-top: 18px` overrode the `margin-top: auto` that did the
-   pinning, so the card with the shorter copy left its button floating with
-   empty card under it and the two buttons sat at different heights. The gap
-   above it is the list's bottom margin now, which cannot fight the pin. */
-.sm-options--compare .sm-options__card > .sm-options__cta { margin-top: auto; }
-.sm-options--compare .sm-options__surfaces { margin-bottom: 18px; }
-.sm-options--compare .sm-options__note:last-of-type { margin-bottom: 4px; }
-
-.sm-options__vs {
-  justify-self: center;
-  display: grid;
-  place-items: center;
-  width: 50px;
-  height: 50px;
+  padding: 10px 12px;
   border-radius: var(--sm-radius-pill);
   background: var(--sm-ink);
   color: #fff;
-  font-family: var(--sm-font-mono);
+  font-weight: 700;
   font-size: 13px;
-  letter-spacing: 0.08em;
-  /* A ring of page colour, so it reads as sitting over the gap. */
-  box-shadow: 0 0 0 6px var(--sm-shell);
+  line-height: 1.2;
 }
 
+.sm-options--compare .sm-options__card--featured .sm-options__cta { background: var(--sm-brand); }
+
 @media screen and (min-width: 750px) {
-  .sm-options__vs {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    z-index: 1;
-    transform: translate(-50%, -50%);
-  }
+  .sm-options--compare .sm-options__title { font-size: 26px; }
+  .sm-options__surfaces { font-size: 15px; }
+  .sm-options__how { font-size: 13px; }
+  .sm-options__badge { padding: 6px 12px; font-size: 11px; }
+  .sm-options__cta { min-height: 50px; font-size: 15px; }
 }
+
+/* Compact head over the pair, so both buttons sit inside a phone's first
+   screen. */
+.sm-options__head--center { margin-inline: auto; text-align: center; }
 
 /* ---------------------------------------------------------------------------
    The beginner's guide (templates/page.guide.json).
@@ -5022,48 +4966,139 @@ a.sm-options__card:hover .sm-options__go { transform: translateX(3px); color: va
   color: rgb(255 255 255 / 0.7);
 }
 
-.sm-guide__facts {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1px;
-  margin-top: -56px;
-  border-radius: var(--sm-radius-card);
-  background: var(--sm-line-soft);
-  overflow: hidden;
-  box-shadow: var(--sm-shadow-panel);
-}
+/* The guide opens on the press itself: the pink band runs on behind the
+   photo, and the three settings sit as cards over the photo's foot. */
+.sm-guide__head { padding-bottom: 20px; }
+.sm-guide__head .sm-heading { text-transform: uppercase; letter-spacing: 0; }
+.sm-guide__head .sm-pagehead__intro { margin-top: 8px; }
 
 @media screen and (min-width: 750px) {
-  .sm-guide__facts { grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: -72px; }
+  .sm-guide__head { padding-bottom: 28px; }
 }
 
-.sm-guide__fact {
-  padding: 20px 18px;
-  background: var(--sm-shell);
+.sm-guide__press {
+  padding-bottom: 8px;
+  background: linear-gradient(var(--sm-block-sand) 0 30%, var(--sm-shell) 100%);
   text-align: center;
 }
 
-.sm-guide__fact-label {
-  margin: 0 0 6px;
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--sm-ink-faint);
+.sm-guide__press-photo {
+  display: block;
+  width: 100%;
+  max-width: 880px;
+  height: auto;
+  margin-inline: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: var(--sm-radius-card);
+}
+
+.sm-guide__facts {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  max-width: 820px;
+  margin: -64px auto 0;
+  padding-inline: 4px;
+}
+
+@media screen and (min-width: 750px) {
+  .sm-guide__facts { gap: 16px; margin-top: -96px; padding-inline: 24px; }
+}
+
+.sm-guide__fact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 6px 14px;
+  border-radius: 18px;
+  background: var(--sm-shell);
+  box-shadow: var(--sm-shadow-panel);
+  text-align: center;
+}
+
+.sm-guide__fact-icon {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  margin: 4px 0 8px;
+  border-radius: var(--sm-radius-pill);
+  background: var(--sm-blush);
+  color: var(--sm-brand);
+}
+
+.sm-guide__fact-icon svg { width: 30px; height: 30px; }
+
+.sm-guide__fact-photo {
+  width: 100%;
+  height: 64px;
+  margin-bottom: 8px;
+  object-fit: cover;
+  border-radius: 12px;
 }
 
 .sm-guide__fact-value {
   margin: 0;
   font-family: var(--sm-font);
-  font-size: 22px;
-  font-weight: 600;
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1.1;
+  text-transform: uppercase;
+  white-space: nowrap;
   color: var(--sm-ink);
 }
 
-.sm-guide__fact-note {
-  margin: 6px 0 0;
-  font-family: var(--sm-font);
-  font-size: 13px;
+.sm-guide__fact-label {
+  margin: 4px 0 0;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   color: var(--sm-ink-muted);
+}
+
+.sm-guide__fact-note {
+  margin: 4px 0 0;
+  font-family: var(--sm-font);
+  font-size: 12px;
+  line-height: 1.3;
+  color: var(--sm-ink-muted);
+}
+
+@media screen and (min-width: 750px) {
+  .sm-guide__press-photo { aspect-ratio: 2 / 1; }
+  .sm-guide__fact { padding: 16px 14px 20px; border-radius: var(--sm-radius-card); }
+  .sm-guide__fact-icon { width: 72px; height: 72px; }
+  .sm-guide__fact-icon svg { width: 38px; height: 38px; }
+  .sm-guide__fact-photo { height: 88px; }
+  .sm-guide__fact-value { font-size: 30px; }
+  .sm-guide__fact-label { font-size: 12px; }
+  .sm-guide__fact-note { font-size: 14px; }
+}
+
+.sm-guide__tips {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  max-width: 820px;
+  margin: 14px auto 0;
+  padding: 10px 14px;
+  border-radius: var(--sm-radius-pill);
+  background: var(--sm-blush);
+  font-size: 13px;
+  line-height: 1.3;
+  color: var(--sm-ink);
+}
+
+.sm-guide__tips-icon svg { display: block; width: 18px; height: 18px; color: var(--sm-brand); }
+
+.sm-guide__jump { margin: 18px 0 0; }
+.sm-guide__jump .sm-button { background: var(--sm-ink); border-color: var(--sm-ink); color: #fff; }
+
+@media screen and (min-width: 750px) {
+  .sm-guide__tips { font-size: 15px; }
 }
 
 .sm-guide__block { margin-top: 56px; }
@@ -5628,8 +5663,8 @@ a.sm-options__card:hover .sm-options__go { transform: translateX(3px); color: va
 :root {
   --jdgm-primary-color: #8c0137 !important;
   --jdgm-secondary-color: rgb(140 1 55 / 0.08) !important;
-  --jdgm-star-color: #e74a86 !important;
-  --jdgm-snippet-star-color: #e74a86 !important;
+  --jdgm-star-color: #f7c14b !important;
+  --jdgm-snippet-star-color: #f7c14b !important;
   --jdgm-reviewer-name-color: #3a1a24 !important;
   --jdgm-paginate-color: #8c0137 !important;
   --jdgm-write-review-bg-color: #8c0137 !important;
@@ -8771,13 +8806,11 @@ a.sm-promise__link:hover .sm-promise__title { color: var(--sm-brand); }
    card's top edge clean in half. The corner clips itself instead: a
    background is clipped by its own box's radius, so the pseudo-element
    carries the card's bottom-right corner and nothing else is trimmed. */
-.sm-options__card--peel,
 .sm-promises__grid .sm-promise:nth-child(4n + 1),
 .sm-promises__grid .sm-promise:nth-child(4n + 4) {
   position: relative;
 }
 
-.sm-options__card--peel::after,
 .sm-promises__grid .sm-promise:nth-child(4n + 1)::after,
 .sm-promises__grid .sm-promise:nth-child(4n + 4)::after {
   content: '';
@@ -9633,80 +9666,6 @@ a.sm-promise__link:hover .sm-promise__title { color: var(--sm-brand); }
 
 @media (prefers-reduced-motion: reduce) {
   .sm-browse__group > summary::after { transition: none; }
-}
-
-/* The two paths stay side by side on a phone.
-   -------------------------------------------------------------------------
-
-   Stacked, the decision became a scroll: read one card, lose it off the top,
-   read the other, scroll back. The whole point of the pair is seeing them at
-   once, and at 390px two columns still leave 165px each — enough for the
-   icon, the name, three lines of copy and the button, once the padding and
-   the type come down a step.
-
-   The VS keeps its place between them, and the badges still straddle the top
-   edge, so the gap between the columns is what carries both. */
-@media screen and (max-width: 749px) {
-  .sm-options--compare {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    align-items: stretch;
-    gap: 10px;
-  }
-
-  .sm-options--compare .sm-options__card {
-    gap: 8px;
-    padding: 26px 12px 16px;
-    border-radius: 20px;
-  }
-
-  .sm-options--compare .sm-options__title { font-size: 16px; line-height: 1.2; }
-
-  .sm-options--compare .sm-options__note {
-    font-size: 13px;
-    line-height: 1.45;
-    max-width: none;
-  }
-
-  .sm-options__icon { width: 46px; height: 46px; }
-  .sm-options__icon svg { width: 22px; height: 22px; }
-
-  /* The surfaces stay chips, just smaller ones. */
-  .sm-options__surfaces { gap: 4px; }
-  .sm-options__surfaces li { padding: 4px 8px; font-size: 11px; }
-
-  .sm-options__badge {
-    padding: 4px 9px;
-    font-size: 10px;
-    letter-spacing: 0.06em;
-  }
-
-  /* The label is a sentence — "Order custom hard surface decals" — and at
-     165px wide it was wrapping to four lines and dragging the button to the
-     height of a card. The arrow goes (it costs a word's worth of width and
-     says nothing the button does not), the type comes down a step, and the
-     words are balanced across two lines instead of breaking wherever they
-     land. */
-  .sm-options__cta {
-    padding: 9px 10px;
-    font-size: 12.5px;
-    line-height: 1.3;
-    text-wrap: balance;
-  }
-
-  .sm-options__cta > span[aria-hidden='true'] { display: none; }
-
-  /* Between the columns rather than between two stacked cards. */
-  .sm-options__vs {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    z-index: 2;
-    width: 36px;
-    height: 36px;
-    font-size: 11px;
-    transform: translate(-50%, -50%);
-    box-shadow: 0 0 0 4px var(--sm-shell);
-  }
 }
 
 /* The stars, then the line that explains them. Side by side, a sentence long
@@ -12142,3 +12101,625 @@ a.sm-perks__strip:focus-visible { opacity: 0.9; color: #fff; }
   .sm-strip__text { flex: 1 1 calc(100% - 52px); font-size: 14px; }
   .sm-strip__button { flex: 1 1 100%; text-align: center; }
 }
+
+/* ---------------------------------------------------------------------------
+   Review stars are yellow, everywhere, at the shop's request — the theme's
+   own rows and Judge.me's alike. The hero already used this gold on its
+   photograph; now every rating reads the same.
+   ------------------------------------------------------------------------- */
+
+:root { --sm-gold: var(--sm-star, #f7c14b); }
+
+.jdgm-star,
+.jdgm-star.jdgm--on,
+.jdgm-star.jdgm--half,
+.jdgm-prev-badge__stars,
+.sm-card__stars,
+.sm-product__stars,
+.sm-reviews__stars,
+.sm-ref__stars,
+.sm-proof__stars,
+.sm-hero__stars { color: var(--sm-star) !important; }
+
+/* Judge.me can draw its stars as SVG with its own fill. */
+.jdgm-star svg,
+.jdgm-star path { fill: var(--sm-star) !important; }
+
+/* The add-on app's own heading over the rush box ("Rush My Order — does
+   NOT include upgraded express shipping") is removed at the shop's request;
+   the box keeps its product name. */
+.lb-upsell-ppa-title-cont { display: none !important; }
+
+/* A little more room under the size buttons on the builder products, before
+   the quantity. */
+.product__info-container variant-radios,
+.product__info-container variant-selects { display: block; margin-bottom: 26px; }
+
+/* Judge.me reads its star colour from this variable as well. */
+:root, .jdgm-widget, .jdgm-carousel-wrapper { --jdgm-star-color: #f7c14b !important; }
+
+/* The size buttons on the builder products, two to a row and all one width,
+   so the eight sizes read as an even table: 22.75 x 12 beside 22.75 x 24,
+   22.75 x 48 beside 22.75 x 60, and on down. */
+.product__info-container fieldset.product-form__input {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.product__info-container fieldset.product-form__input legend { grid-column: 1 / -1; margin-bottom: 2px; }
+.product__info-container fieldset.product-form__input input[type="radio"] { position: absolute; }
+
+.product__info-container fieldset.product-form__input input[type="radio"] + label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 0 !important;
+  text-align: center;
+}
+
+/* The rating above the title on the builder products too, drawn like the
+   redesigned product pages: small yellow stars and "175 REVIEWS" in the
+   mono face, underlined, on the left. The stock section stacks its blocks
+   as a plain column, so the badge is lifted to the top with `order`. */
+.product__info-container { display: flex; flex-direction: column; }
+.product__info-container > * { width: 100%; }
+.product__info-container > .jdgm-preview-badge { order: -1; margin: 0 0 10px; }
+
+.product__info-container .jdgm-prev-badge {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: flex-start !important;
+  gap: 10px;
+  text-align: left !important;
+}
+
+.product__info-container .jdgm-prev-badge__stars { font-size: 13px; letter-spacing: 1px; }
+
+.product__info-container .jdgm-prev-badge__text {
+  font-family: var(--sm-font-mono) !important;
+  font-size: 11px !important;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  color: var(--sm-ink-muted) !important;
+}
+
+/* Yellow on the redesigned product pages too: an earlier rule there
+   coloured Judge.me's badge stars with three classes and !important, and
+   `--sm-gold` is re-pointed by the theme settings at the shop's pink. */
+.sm-product__info .jdgm-prev-badge__stars .jdgm-star,
+.sm-product__info .jdgm-prev-badge__stars .jdgm-star::before,
+.product__info-container .jdgm-prev-badge__stars .jdgm-star,
+.product__info-container .jdgm-prev-badge__stars .jdgm-star::before,
+.product-recommendations .jdgm-star,
+.sm-card .jdgm-star { color: var(--sm-star) !important; }
+
+/* The builder products' title and rating set the way the redesigned
+   product pages set them: the title in the sans at the same weight, the
+   rating flush left above it. */
+.product__info-container .product__title h1 {
+  font-family: var(--sm-font) !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.01em;
+}
+
+.product__info-container > .jdgm-preview-badge,
+.product__info-container > .jdgm-preview-badge .jdgm-prev-badge {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+  text-align: left !important;
+}
+
+/* Same size as the redesigned product title: 48px on a desktop, 32px on a
+   phone. */
+.product__info-container .product__title h1 {
+  font-size: clamp(32px, 3.4vw, 48px) !important;
+  line-height: 1.16 !important;
+}
+
+/* A card's rating as the shop's current site shows it: five stars at a size
+   that reads, then "174 reviews". */
+.sm-card__rating { display: flex; align-items: center; gap: 6px; }
+.sm-card__stars { font-size: 15px; letter-spacing: 1px; line-height: 1; }
+.sm-card__reviews { font-size: 13px; color: var(--sm-ink-muted); }
+
+/* The extras section follows the buy box directly, so it does not need the
+   full top gap of a section of its own. */
+.sm-product-extras { padding-top: 8px; }
+
+/* A product's own reviews in the rail's card, as a grid: three across on a
+   desktop, two on a tablet, one on a phone. The cards stretch to the tallest
+   in their row so the hairline and the name line up across it. */
+.sm-reviews__rail--grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  overflow: visible;
+  padding: 2px 0 18px;
+}
+
+.sm-reviews__rail--grid .sm-reviews__slide { flex: none; width: auto; max-width: none; }
+
+@media screen and (max-width: 989px) {
+  .sm-reviews__rail--grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media screen and (max-width: 749px) {
+  .sm-reviews__rail--grid { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+}
+
+/* Perks: a breath between "We don't just print your transfers." and the
+   pink second line. */
+.sm-perks__head .sm-heading__accent { display: block; margin-top: 0.3em; }
+
+/* ---------------------------------------------------------------------------
+   Product tabs — sizing, pressing, care, store policy.
+
+   Hairline rows under the buy box, each opening in place: the same plus
+   that turns to a minus as the FAQ, the icon in a blush disc, and the shop's
+   own formatted text inside.
+   ------------------------------------------------------------------------- */
+
+.sm-tabs { margin-top: 26px; border-top: 1px solid var(--sm-line-soft); }
+
+.sm-tabs__item { border-bottom: 1px solid var(--sm-line-soft); }
+
+.sm-tabs__head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 15px 2px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.sm-tabs__head::-webkit-details-marker { display: none; }
+
+.sm-tabs__icon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--sm-radius-pill);
+  background: var(--sm-blush);
+  color: var(--sm-brand);
+}
+
+.sm-tabs__icon svg { width: 16px; height: 16px; }
+
+.sm-tabs__title { flex: 1 1 auto; font-size: 15px; font-weight: 600; color: var(--sm-ink); }
+
+.sm-tabs__marker {
+  flex: 0 0 auto;
+  width: 13px;
+  height: 13px;
+  background:
+    linear-gradient(var(--sm-brand), var(--sm-brand)) center / 13px 1.6px no-repeat,
+    linear-gradient(var(--sm-brand), var(--sm-brand)) center / 1.6px 13px no-repeat;
+}
+
+.sm-tabs__item[open] .sm-tabs__marker {
+  background: linear-gradient(var(--sm-brand), var(--sm-brand)) center / 13px 1.6px no-repeat;
+}
+
+.sm-tabs__item[open] .sm-tabs__title { color: var(--sm-brand); }
+
+.sm-tabs__body {
+  padding: 0 2px 18px 44px;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--sm-ink-body);
+}
+
+.sm-tabs__body p { margin: 0 0 10px; }
+.sm-tabs__body ul { margin: 0 0 10px; padding-left: 1.1em; }
+.sm-tabs__body li { margin: 0 0 4px; }
+.sm-tabs__body strong { color: var(--sm-ink); }
+
+@media screen and (max-width: 749px) {
+  .sm-tabs__body { padding-left: 2px; }
+}
+
+/* The press-and-peel strip with its two icons, now two cells. */
+.sm-buy__specs dt { display: inline-flex; align-items: center; gap: 6px; }
+.sm-buy__spec-icon { display: inline-grid; place-items: center; color: var(--sm-brand); }
+.sm-buy__specs { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+
+/* On a phone the thumbnails sat 40px above the rating and title — a gap the
+   two-column desktop needs and a stacked page does not. */
+@media screen and (max-width: 749px) {
+  .sm-product { row-gap: 16px !important; gap: 16px !important; }
+  .sm-product__info .sm-product__reviewcount,
+  .sm-product__info > .jdgm-preview-badge,
+  .sm-product__info .sm-product__app:first-child { margin-top: 0; }
+}
+
+/* Empty app blocks (a stock counter with nothing to count) left a tall gap
+   between the press strip and the tabs. */
+.sm-product__app:empty,
+.sm-product__app:not(:has(*:not(script, style, link))) { display: none; }
+.sm-tabs { margin-top: 18px; }
+.sm-product__info > .sm-product__app { margin-top: 0; }
+.sm-product__info > .sm-tabs { margin-top: 0; }
+
+/* A card's rating on one line however narrow the card: five stars, then
+   "1 review" — it was wrapping the count under a short row of stars. */
+.sm-card__rating {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 5px;
+  margin: 4px 0 2px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.sm-card__stars { flex: 0 0 auto; font-size: 13px; letter-spacing: 0.5px; color: var(--sm-star) !important; }
+.sm-card__stars-off { color: var(--sm-line); }
+.sm-card__reviews { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; font-size: 12px; color: var(--sm-ink-muted); }
+
+@media screen and (max-width: 749px) {
+  .sm-card__stars { font-size: 12px; letter-spacing: 0; }
+  .sm-card__reviews { font-size: 11.5px; }
+}
+
+/* A sale price in red, with the old price struck through beside it. */
+.sm-card__price--sale { color: var(--sm-sale-red) !important; }
+.sm-card__price--sale .sm-card__compare { color: var(--sm-ink-faint); font-weight: 400; }
+
+/* Product card titles a size down on a phone: two cards to a row left a
+   16px title three or four lines long. */
+@media screen and (max-width: 749px) {
+  .sm-card__title { font-size: 14px !important; line-height: 1.3; }
+}
+
+/* ---------------------------------------------------------------------------
+   The rating under the product title, on every product page — the shop
+   changed her mind from above it. The redesigned page's column is a flex
+   stack, so the rating takes `order` after the title; the stock section
+   drops the lift it was given.
+   ------------------------------------------------------------------------- */
+
+.sm-product__info > h1 { order: -2; }
+.sm-product__info > .sm-product__reviewcount,
+.sm-product__info > .sm-product__app:has(.jdgm-preview-badge) { order: -1; margin-top: -8px; }
+
+.product__info-container > .jdgm-preview-badge { order: 0; margin: 6px 0 4px; }
+
+/* ---------------------------------------------------------------------------
+   The builder products' tabs, set like the ready-to-press listings' tabs:
+   hairline rows, the icon in a blush disc, the title in the sans, and the
+   plus that turns to a minus at the end of the row instead of the old
+   theme's chevron.
+   ------------------------------------------------------------------------- */
+
+.product__info-container .product__accordion {
+  margin: 0;
+  border-top: 0 !important;
+  border-bottom: 1px solid var(--sm-line-soft) !important;
+}
+
+.product__info-container .product__accordion:first-of-type { border-top: 1px solid var(--sm-line-soft) !important; }
+
+.product__info-container .product__accordion summary {
+  display: flex;
+  align-items: center;
+  padding: 15px 2px;
+}
+
+.product__info-container .product__accordion .summary__title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1 1 auto;
+}
+
+/* The old theme printed a stylesheet as text inside each summary — the
+   "svg.icon:hover path { fill: accent-1 }" a screen reader read out. */
+.product__info-container .product__accordion summary style { display: none !important; }
+
+.product__info-container .product__accordion .summary__title > svg,
+.product__info-container .product__accordion .icon-accordion {
+  flex: 0 0 auto;
+  width: 32px !important;
+  height: 32px !important;
+  padding: 8px;
+  border-radius: var(--sm-radius-pill);
+  background: var(--sm-blush);
+  color: var(--sm-brand) !important;
+  fill: var(--sm-brand) !important;
+}
+
+.product__info-container .product__accordion .icon-accordion path { fill: var(--sm-brand) !important; }
+
+.product__info-container .accordion__title {
+  margin: 0;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  color: var(--sm-ink) !important;
+}
+
+/* Their chevron, replaced by the plus and minus. */
+.product__info-container .product__accordion summary > .icon-caret { display: none; }
+
+.product__info-container .product__accordion summary::after {
+  content: '';
+  flex: 0 0 auto;
+  width: 13px;
+  height: 13px;
+  background:
+    linear-gradient(var(--sm-brand), var(--sm-brand)) center / 13px 1.6px no-repeat,
+    linear-gradient(var(--sm-brand), var(--sm-brand)) center / 1.6px 13px no-repeat;
+}
+
+.product__info-container .product__accordion details[open] > summary::after {
+  background: linear-gradient(var(--sm-brand), var(--sm-brand)) center / 13px 1.6px no-repeat;
+}
+
+.product__info-container .product__accordion details[open] .accordion__title { color: var(--sm-brand) !important; }
+
+.product__info-container .product__accordion .accordion__content {
+  padding: 0 2px 18px 44px;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--sm-ink-body);
+}
+
+@media screen and (max-width: 749px) {
+  .product__info-container .product__accordion .accordion__content { padding-left: 2px; }
+}
+.product__info-container > .product__title { margin-bottom: 0 !important; }
+.product__info-container > .product__title h1 { margin-bottom: 0 !important; }
+.product__info-container > .jdgm-preview-badge { margin: 8px 0 6px !important; }
+
+/* Every sale price in one bright red, at the shop's request: product cards,
+   the redesigned buy box, and the stock product pages. */
+:root { --sm-sale-red: #ff0000; }
+
+.sm-buy__price--sale,
+.sm-buy__price--sale > :first-child:not(.sm-buy__compare),
+.sm-card__price--sale,
+.price--on-sale .price-item--sale,
+.price-item--sale.price-item--last { color: var(--sm-sale-red) !important; }
+
+.sm-buy__price--sale .sm-buy__compare { color: var(--sm-ink-faint) !important; }
+
+/* The filled tab icons in the stock product section's disc. */
+.product__info-container .product__accordion .sm-acc-icon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border-radius: var(--sm-radius-pill);
+  background: var(--sm-blush);
+  color: var(--sm-brand);
+}
+
+.product__info-container .product__accordion .sm-acc-icon svg { width: 16px; height: 16px; fill: currentColor; }
+
+/* Cards in a row line up under their titles: the title takes whatever room
+   is left, so the rating, the price and the button sit at the same height
+   in every card whether the name runs to one line or three. */
+.sm-card__body > .sm-card__title { flex: 1 0 auto; }
+
+/* "Sold out" / "Only 2 left" sits on a line every card keeps, empty or not,
+   so a sold-out card's price does not ride up above its neighbours'. */
+.sm-card__body > .sm-card__stock,
+.sm-card__body > .sm-card__stock:empty {
+  display: block !important;
+  min-height: 1.35em;
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.35;
+}
+
+/* The builder products show the redesigned gallery; the theme's own one is
+   kept in the page for its variant script, out of sight. */
+.product__media-wrapper:has(.sm-stock-gallery) media-gallery,
+.product__media-wrapper:has(.sm-stock-gallery) .custom_badge { display: none !important; }
+.sm-stock-gallery { position: sticky; top: 110px; }
+@media screen and (max-width: 749px) { .sm-stock-gallery { position: static; margin-bottom: 4px; } }
+
+/* Accordions open and close smoothly — the content's height is animated by
+   shemakes.js; this keeps it from spilling while it moves. */
+.sm-tabs__item > .sm-tabs__body,
+.product__accordion details > .accordion__content { overflow: hidden; }
+.sm-tabs__marker,
+.product__info-container .product__accordion summary::after { transition: background 0.2s ease; }
+
+/* A collection's siblings, as pills under its title. One row that scrolls
+   sideways on a phone rather than four rows of wrapping pills. */
+.sm-pagehead__siblings {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin: 16px auto 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.sm-pagehead__siblings::-webkit-scrollbar { display: none; }
+.sm-pagehead__sibling { flex: none; min-height: 40px; padding: 8px 16px; font-size: 13px; white-space: nowrap; }
+.sm-pagehead--photo .sm-pagehead__sibling[aria-current='page'] { background: var(--sm-shell); border-color: var(--sm-shell); color: var(--sm-ink); }
+@media screen and (max-width: 749px) {
+  .sm-pagehead__siblings { justify-content: flex-start; margin-inline: calc(var(--sm-gutter) * -1); padding: 0 var(--sm-gutter); }
+}
+
+/* Custom apparel quote (sections/sm-quote.liquid).
+   -------------------------------------------------------------------------
+   A pink band with the promise and a photo, then the form as five numbered
+   steps on a card that rides up into the band. Picked tiles are drawn from
+   `:has(:checked)` — the checkbox inside each label is the whole state. */
+.sm-quote { padding-bottom: 56px; }
+.sm-quote__hero { padding-block: 40px 88px; background: var(--sm-block-sand); }
+
+.sm-quote__hero-grid { display: grid; gap: 24px; align-items: center; }
+
+@media screen and (min-width: 750px) {
+  .sm-quote { padding-bottom: 96px; }
+  .sm-quote__hero { padding-block: 64px 120px; }
+  .sm-quote__hero-grid { grid-template-columns: 1.15fr 0.85fr; gap: 48px; }
+}
+
+.sm-quote__heading { margin: 0; }
+.sm-quote__lead { max-width: 34ch; margin-top: 14px; font-size: 17px; }
+
+.sm-quote__trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  margin: 22px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--sm-ink);
+}
+
+.sm-quote__trust li { display: flex; align-items: center; gap: 8px; max-width: 150px; }
+.sm-quote__trust-icon svg { display: block; width: 22px; height: 22px; color: var(--sm-brand); }
+
+.sm-quote__hero-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--sm-radius-card);
+}
+
+@media screen and (min-width: 750px) {
+  .sm-quote__hero-media img { aspect-ratio: 4 / 5; }
+}
+
+.sm-quote__card {
+  position: relative;
+  max-width: 880px;
+  margin: -64px auto 0;
+  padding: 24px 16px 28px;
+  border-radius: var(--sm-radius-card);
+  background: var(--sm-shell);
+  box-shadow: var(--sm-shadow-panel);
+}
+
+@media screen and (min-width: 750px) {
+  .sm-quote__card { margin-top: -88px; padding: 40px 44px 44px; }
+}
+
+.sm-quote__card-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 16px; }
+.sm-quote__card-head .sm-heading { margin: 0; }
+.sm-quote__note { margin: 0; font-family: var(--sm-font-display); font-style: italic; font-size: 17px; color: var(--sm-brand); }
+
+.sm-quote__form { display: grid; gap: 30px; margin-top: 22px; }
+
+.sm-quote__step { min-width: 0; margin: 0; padding: 0; border: 0; }
+
+.sm-quote__legend { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 14px; padding: 0; }
+
+.sm-quote__num {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--sm-radius-pill);
+  background: var(--sm-brand);
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.sm-quote__title { display: block; font-size: 19px; font-weight: 700; line-height: 1.25; color: var(--sm-ink); }
+.sm-quote__hint { display: block; margin-top: 2px; font-size: 14px; line-height: 1.4; color: var(--sm-ink-muted); }
+
+.sm-quote__tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.sm-quote__tiles--places { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+@media screen and (min-width: 750px) {
+  .sm-quote__tiles { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; }
+  .sm-quote__tiles--places { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+.sm-quote__tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 6px 10px;
+  border: 1px solid var(--sm-line);
+  border-radius: 14px;
+  background: var(--sm-shell);
+  cursor: pointer;
+  text-align: center;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.sm-quote__tile:hover { border-color: var(--sm-brand); }
+.sm-quote__tile:has(:checked) { border: 2px solid var(--sm-brand); background: var(--sm-block-sage); }
+.sm-quote__tile:has(:focus-visible) { outline: 2px solid var(--sm-brand); outline-offset: 2px; }
+
+.sm-quote__tile-photo { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; border-radius: 10px; }
+
+.sm-quote__tile-icon {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 10px;
+  background: var(--sm-paper);
+  color: var(--sm-ink-muted);
+}
+
+.sm-quote__tile-icon svg { width: 40%; height: 40%; }
+
+.sm-quote__tile-label { font-size: 13px; font-weight: 600; line-height: 1.2; color: var(--sm-ink); }
+
+.sm-quote__tee { width: 52px; height: 52px; margin-top: 6px; color: var(--sm-ink); fill: var(--sm-signal); }
+
+.sm-quote__row { display: grid; gap: 14px; }
+
+@media screen and (min-width: 750px) {
+  .sm-quote__row { grid-template-columns: 1fr 1fr; }
+}
+
+.sm-quote .sm-field label { font-family: var(--sm-font); font-size: 14px; letter-spacing: 0; text-transform: none; color: var(--sm-ink); }
+.sm-quote .sm-field label em { font-style: normal; font-weight: 400; color: var(--sm-ink-muted); }
+.sm-quote .sm-field textarea { min-height: 52px; }
+
+.sm-quote__artwork {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  padding: 20px 16px;
+  border: 2px dashed var(--sm-line);
+  border-radius: 16px;
+}
+
+.sm-quote__artwork .sm-field { width: 100%; max-width: 420px; }
+.sm-quote__form--rest { margin-top: 30px; }
+.sm-quote__upload { width: 100%; }
+
+.sm-quote__notes { margin-top: 14px; padding: 14px 16px; border-radius: 14px; background: var(--sm-block-sage); }
+.sm-quote__notes summary { display: grid; cursor: pointer; list-style: none; }
+.sm-quote__notes summary::-webkit-details-marker { display: none; }
+.sm-quote__notes-title { font-weight: 700; }
+.sm-quote__notes-title::after { content: '+'; float: right; font-weight: 400; color: var(--sm-brand); }
+.sm-quote__notes[open] .sm-quote__notes-title::after { content: '−'; }
+.sm-quote__notes-title em { font-style: normal; font-weight: 400; color: var(--sm-ink-muted); }
+.sm-quote__notes .sm-field { margin-top: 12px; }
+
+.sm-quote__submit {
+  justify-self: stretch;
+  min-height: 56px;
+  font-size: 17px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.sm-quote__small { margin: -18px 0 0; text-align: center; font-size: 13px; color: var(--sm-ink-muted); }

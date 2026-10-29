@@ -161,7 +161,8 @@
         "prompt_url": "/pages/contact",
         "how_label": "",
         "prompt_handles": "custom, custom-dtf-for-fabric, custom-uv-dtf",
-        "filter_overrides": "ornaments: Ornaments=ornament, Santa Trays=santa"
+        "filter_overrides": "ornaments: Ornaments=ornament, Santa Trays=santa",
+        "sibling_links": "uv-dtf: Custom UV DTF=/collections/custom-uv-dtf, Cup Wraps + Decals=/collections/uv-dtf, Ornament & Santa Tray UV DTF=/collections/ornaments, Keychain UV DTF=/collections/keychain-uv-dtf-decals, Bookmark UV DTF=/collections/bookmark-uv-dtf-decals"
       }
     },
     "slideshow_fNVJeU": {
@@ -239,7 +240,7 @@
         "k1": {
           "type": "perk",
           "settings": {
-            "icon": "image",
+            "icon": "shirt",
             "title": "Free transfer mockups",
             "body": "Promote your products with watermark-free mockups."
           }

@@ -1,0 +1,334 @@
+{% comment %}
+  SHEmakes — custom apparel quote.
+
+  A hero, then the quote as five numbered steps on one card: what, how many,
+  where, the artwork, who. It posts through Shopify's own contact form, so a
+  request lands in the shop's inbox like any other message — every tile that
+  is ticked arrives as its own line ("Apparel: Hoodies — Yes").
+
+  Shopify's contact form cannot carry a file, so step four asks for the
+  artwork as a reply to the quote email, with a box for a link if the design
+  already lives somewhere online.
+
+  The tiles are checkboxes inside their labels; the stylesheet draws the
+  picked state from `:has(:checked)`. No script.
+{% endcomment %}
+
+{%- liquid
+  assign apparel = section.blocks | where: 'type', 'apparel'
+  assign places = section.blocks | where: 'type', 'location'
+  assign trust = section.blocks | where: 'type', 'trust'
+-%}
+
+<div class="sm-quote">
+  <div class="sm-quote__hero">
+    <div class="sm-container sm-quote__hero-grid">
+      <div class="sm-quote__hero-text">
+        {% render 'sm-heading', text: section.settings.heading, tag: 'h1', class: 'sm-heading sm-heading--lg sm-quote__heading' %}
+
+        {%- if section.settings.body != blank -%}
+          <p class="sm-body sm-quote__lead">{{ section.settings.body }}</p>
+        {%- endif -%}
+
+        {%- if trust.size > 0 -%}
+          <ul class="sm-quote__trust" role="list">
+            {%- for block in trust -%}
+              <li {{ block.shopify_attributes }}>
+                <span class="sm-quote__trust-icon" aria-hidden="true">{% render 'sm-icon', name: block.settings.icon %}</span>
+                {{ block.settings.text }}
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+      </div>
+
+      <div class="sm-quote__hero-media">
+        {%- if section.settings.image != blank -%}
+          <img src="{{ section.settings.image | image_url: width: 1000 }}" alt="{{ section.settings.image.alt | escape }}" width="{{ section.settings.image.width }}" height="{{ section.settings.image.height }}" loading="eager" fetchpriority="high">
+        {%- else -%}
+          <img src="{{ 'sm-quote-hero.jpg' | asset_url }}" alt="A stack of shirts printed at SHEmakes" width="960" height="1200" loading="eager" fetchpriority="high">
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+
+  <div class="sm-container">
+    <div class="sm-quote__card" id="sm-quote">
+      <div class="sm-quote__card-head">
+        {% render 'sm-heading', text: section.settings.form_heading, tag: 'h2', class: 'sm-heading sm-heading--md' %}
+        {%- if section.settings.form_note != blank -%}
+          <p class="sm-quote__note">{{ section.settings.form_note }}</p>
+        {%- endif -%}
+      </div>
+
+      {%- form 'contact', id: 'sm-quote-form', class: 'sm-quote__form' -%}
+        {%- if form.posted_successfully? -%}
+          <p class="sm-footer__success" role="status">{{ section.settings.success }}</p>
+        {%- elsif form.errors -%}
+          <p class="sm-cart__error" role="alert">{{ form.errors | default_errors }}</p>
+        {%- endif -%}
+
+        <input type="hidden" name="contact[Request]" value="Custom apparel quote">
+
+        {%- if apparel.size > 0 -%}
+          <fieldset class="sm-quote__step">
+            <legend class="sm-quote__legend">
+              <span class="sm-quote__num" aria-hidden="true">1</span>
+              <span>
+                <span class="sm-quote__title">{{ section.settings.step1_title }}</span>
+                <span class="sm-quote__hint">{{ section.settings.step1_hint }}</span>
+              </span>
+            </legend>
+
+            <div class="sm-quote__tiles">
+              {%- for block in apparel -%}
+                {%- liquid
+                  assign pic = ''
+                  if block.settings.image != blank
+                    assign pic = block.settings.image | image_url: width: 300
+                  elsif block.settings.product.featured_image != blank
+                    assign pic = block.settings.product.featured_image | image_url: width: 300
+                  elsif block.settings.image_asset != blank
+                    assign pic = block.settings.image_asset | asset_url
+                  endif
+                -%}
+                <label class="sm-quote__tile" {{ block.shopify_attributes }}>
+                  <input class="visually-hidden" type="checkbox" name="contact[Apparel: {{ block.settings.label | escape }}]" value="Yes">
+                  {%- if pic != blank -%}
+                    <img class="sm-quote__tile-photo" src="{{ pic }}" alt="" loading="lazy" width="300" height="300">
+                  {%- else -%}
+                    <span class="sm-quote__tile-icon" aria-hidden="true">{% render 'sm-icon', name: block.settings.icon %}</span>
+                  {%- endif -%}
+                  <span class="sm-quote__tile-label">{{ block.settings.label }}</span>
+                </label>
+              {%- endfor -%}
+            </div>
+          </fieldset>
+        {%- endif -%}
+
+        <fieldset class="sm-quote__step">
+          <legend class="sm-quote__legend">
+            <span class="sm-quote__num" aria-hidden="true">2</span>
+            <span>
+              <span class="sm-quote__title">{{ section.settings.step2_title }}</span>
+              <span class="sm-quote__hint">{{ section.settings.step2_hint }}</span>
+            </span>
+          </legend>
+
+          <div class="sm-quote__row">
+            <div class="sm-field">
+              <label for="sm-quote-qty">Total quantity <span aria-hidden="true">*</span></label>
+              <input id="sm-quote-qty" type="number" min="1" inputmode="numeric" name="contact[Total quantity]" placeholder="e.g. 25" required>
+            </div>
+            <div class="sm-field">
+              <label for="sm-quote-sizes">Size breakdown <em>(optional)</em></label>
+              <textarea id="sm-quote-sizes" name="contact[Size breakdown]" rows="2" placeholder="e.g. S: 5, M: 10, L: 8, XL: 2"></textarea>
+            </div>
+          </div>
+        </fieldset>
+
+        {%- if places.size > 0 -%}
+          <fieldset class="sm-quote__step">
+            <legend class="sm-quote__legend">
+              <span class="sm-quote__num" aria-hidden="true">3</span>
+              <span>
+                <span class="sm-quote__title">{{ section.settings.step3_title }}</span>
+                <span class="sm-quote__hint">{{ section.settings.step3_hint }}</span>
+              </span>
+            </legend>
+
+            <div class="sm-quote__tiles sm-quote__tiles--places">
+              {%- for block in places -%}
+                <label class="sm-quote__tile" {{ block.shopify_attributes }}>
+                  <input class="visually-hidden" type="checkbox" name="contact[Print location: {{ block.settings.label | escape }}]" value="Yes">
+                  <svg class="sm-quote__tee" viewBox="0 0 48 48" aria-hidden="true">
+                    <path d="M17 6 9 10 4 18l6 3 2-3v24h24V18l2 3 6-3-5-8-8-4c-1.5 2.6-4 4-7 4s-5.5-1.4-7-4Z" fill="#fff" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                    {%- case block.settings.mark -%}
+                      {%- when 'front' -%}<rect x="17" y="17" width="14" height="13" rx="1"/>
+                      {%- when 'back' -%}<rect x="15" y="14" width="18" height="17" rx="1"/>
+                      {%- when 'chest' -%}<rect x="27" y="16" width="6" height="6" rx="1"/>
+                      {%- else -%}<path d="M24 17v14M17 24h14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+                    {%- endcase -%}
+                  </svg>
+                  <span class="sm-quote__tile-label">{{ block.settings.label }}</span>
+                </label>
+              {%- endfor -%}
+            </div>
+          </fieldset>
+        {%- endif -%}
+
+      {%- endform -%}
+
+      {%- comment -%}
+        Steps 4 and 5 sit outside the <form> and join it with `form=""`: the
+        HulkApps upload form in step 4 is a form of its own, and a form inside a
+        form is thrown away by the browser.
+      {%- endcomment -%}
+      <div class="sm-quote__form sm-quote__form--rest">
+        <fieldset class="sm-quote__step">
+          <legend class="sm-quote__legend">
+            <span class="sm-quote__num" aria-hidden="true">4</span>
+            <span>
+              <span class="sm-quote__title">{{ section.settings.step4_title }}</span>
+              {%- if section.settings.upload_form_id != blank -%}
+                <span class="sm-quote__hint">{{ section.settings.step4_hint }}</span>
+              {%- else -%}
+                <span class="sm-quote__hint">{{ section.settings.step4_hint_link }}</span>
+              {%- endif -%}
+            </span>
+          </legend>
+
+          <div class="sm-quote__artwork">
+            {%- if section.settings.upload_form_id != blank -%}
+              {%- comment -%} The HulkApps app embed fills this in: the file goes to the HulkApps inbox. {%- endcomment -%}
+              <div class="sm-quote__upload pxFormGenerator" id="{{ section.settings.upload_form_id | escape }}"></div>
+            {%- endif -%}
+            <div class="sm-field">
+              <label for="sm-quote-link">Or paste a link to your design <em>(optional)</em></label>
+              <input id="sm-quote-link" form="sm-quote-form" type="url" name="contact[Artwork link]" placeholder="Google Drive, Dropbox, Canva…">
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="sm-quote__step">
+          <legend class="sm-quote__legend">
+            <span class="sm-quote__num" aria-hidden="true">5</span>
+            <span>
+              <span class="sm-quote__title">{{ section.settings.step5_title }}</span>
+              <span class="sm-quote__hint">{{ section.settings.step5_hint }}</span>
+            </span>
+          </legend>
+
+          <div class="sm-quote__row">
+            <div class="sm-field">
+              <label for="sm-quote-name">Full name <span aria-hidden="true">*</span></label>
+              <input id="sm-quote-name" form="sm-quote-form" type="text" name="contact[name]" autocomplete="name" placeholder="e.g. Sarah Johnson" value="{{ form.name }}" required>
+            </div>
+            <div class="sm-field">
+              <label for="sm-quote-email">Email address <span aria-hidden="true">*</span></label>
+              <input id="sm-quote-email" form="sm-quote-form" type="email" name="contact[email]" autocomplete="email" placeholder="e.g. sarah@youremail.com" value="{{ form.email }}" required>
+            </div>
+          </div>
+
+          <details class="sm-quote__notes">
+            <summary>
+              <span class="sm-quote__notes-title">Additional notes <em>(optional)</em></span>
+              <span class="sm-quote__hint">Tell us more about your project, timeline, or any special requests.</span>
+            </summary>
+            <div class="sm-field">
+              <label class="visually-hidden" for="sm-quote-body">Additional notes</label>
+              <textarea id="sm-quote-body" form="sm-quote-form" name="contact[body]" rows="4">{{ form.body }}</textarea>
+            </div>
+          </details>
+        </fieldset>
+
+        <button type="submit" form="sm-quote-form" class="sm-button sm-button--primary sm-quote__submit">
+          {{ section.settings.cta }} <span aria-hidden="true">&rarr;</span>
+        </button>
+
+        {%- if section.settings.small_print != blank -%}
+          <p class="sm-quote__small">{{ section.settings.small_print }}</p>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "SHEmakes quote form",
+  "tag": "section",
+  "class": "sm-quote-section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Custom apparel. *Made easy.*" },
+    { "type": "textarea", "id": "body", "label": "Intro", "default": "Tell us what you need, share your design and get a quote within 1 business day." },
+    { "type": "image_picker", "id": "image", "label": "Photo", "info": "A stack of shop-printed shirts ships with the theme; this replaces it." },
+    { "type": "header", "content": "Form" },
+    { "type": "text", "id": "form_heading", "label": "Heading", "default": "Get your custom quote" },
+    { "type": "text", "id": "form_note", "label": "Note beside it", "default": "It's quick and easy!" },
+    { "type": "text", "id": "step1_title", "label": "Step 1", "default": "What are we printing?" },
+    { "type": "text", "id": "step1_hint", "label": "Step 1 hint", "default": "Select all that apply." },
+    { "type": "text", "id": "step2_title", "label": "Step 2", "default": "How many?" },
+    { "type": "text", "id": "step2_hint", "label": "Step 2 hint", "default": "Enter your total quantity. You can add a size breakdown (optional)." },
+    { "type": "text", "id": "step3_title", "label": "Step 3", "default": "Where should we print?" },
+    { "type": "text", "id": "step3_hint", "label": "Step 3 hint", "default": "Select all that apply." },
+    { "type": "text", "id": "step4_title", "label": "Step 4", "default": "Your artwork" },
+    { "type": "textarea", "id": "step4_hint", "label": "Step 4 hint", "default": "Upload your design, logo or idea — PNG, JPG, PDF, AI, EPS or SVG." },
+    { "type": "textarea", "id": "step4_hint_link", "label": "Step 4 hint without the upload form", "default": "Reply to our quote email with your design, logo or idea — PNG, JPG, PDF, AI, EPS or SVG. Already online? Paste the link below." },
+    {
+      "type": "text",
+      "id": "upload_form_id",
+      "label": "HulkApps upload form ID",
+      "info": "A HulkApps form with an Email field and a File upload field. The ID is in its embed code: <div class=\"pxFormGenerator\" id=\"THIS-PART\">. Empty shows the link box only."
+    },
+    { "type": "text", "id": "step5_title", "label": "Step 5", "default": "Your details" },
+    { "type": "text", "id": "step5_hint", "label": "Step 5 hint", "default": "So we can send you your quote." },
+    { "type": "text", "id": "cta", "label": "Button", "default": "Get my free quote" },
+    { "type": "text", "id": "small_print", "label": "Under the button", "default": "No payment required • Reply within 1 business day" },
+    { "type": "text", "id": "success", "label": "Sent message", "default": "Thanks — your request is with us. Watch your inbox: your quote comes back within 1 business day." }
+  ],
+  "blocks": [
+    {
+      "type": "trust",
+      "name": "Hero point",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "leaf", "label": "Maple leaf" },
+            { "value": "flame", "label": "Flame" },
+            { "value": "time", "label": "Clock" },
+            { "value": "group", "label": "People" },
+            { "value": "truck", "label": "Truck" },
+            { "value": "heart", "label": "Heart" }
+          ],
+          "default": "leaf"
+        },
+        { "type": "text", "id": "text", "label": "Text", "default": "Locally printed in Canada" }
+      ]
+    },
+    {
+      "type": "apparel",
+      "name": "Apparel option",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "T-Shirts" },
+        { "type": "image_picker", "id": "image", "label": "Photo" },
+        { "type": "product", "id": "product", "label": "Or a product's photo", "info": "Uses the product's first image when no photo is picked above." },
+        { "type": "text", "id": "image_asset", "label": "Photo (theme file)", "info": "Used when nothing is picked above." },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon when there is no photo",
+          "options": [
+            { "value": "shirt", "label": "Shirt" },
+            { "value": "cap", "label": "Cap" }
+          ],
+          "default": "shirt"
+        }
+      ]
+    },
+    {
+      "type": "location",
+      "name": "Print location",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Front" },
+        {
+          "type": "select",
+          "id": "mark",
+          "label": "Drawing",
+          "options": [
+            { "value": "front", "label": "Front" },
+            { "value": "back", "label": "Back" },
+            { "value": "chest", "label": "Left chest" },
+            { "value": "other", "label": "Other" }
+          ],
+          "default": "front"
+        }
+      ]
+    }
+  ],
+  "presets": [{ "name": "SHEmakes quote form" }]
+}
+{% endschema %}

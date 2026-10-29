@@ -41,13 +41,15 @@ const PATHS = {
     cartAdded: <path d="M10 18a2 2 0 1 0 0 4 2 2 0 1 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 1 0 0-4m4-12H7.05L5.94 2.68A1 1 0 0 0 4.99 2h-3v2h2.28l3.54 10.63A2 2 0 0 0 9.71 16h7.59a2 2 0 0 0 1.87-1.3l2.76-7.35A.997.997 0 0 0 21 6m-8 7.91-2.71-2.71 1.41-1.41 1.29 1.29 3.29-3.29 1.41 1.41-4.71 4.71Z" />,
     search: <><circle cx="11" cy="11" r="7" /><path d="m21 21-4.35-4.35" /></>,
     // Boxicons solid, like the rest of the set: bxs-cloud and bxs-coin-stack.
+    flame: <path d="M16.5 8c0 1.5-.5 3.5-2.9 4.3.7-1.7.8-3.4.3-5-.7-2.1-3-3.7-4.6-4.6-.4-.3-1.1.1-1 .7 0 1.1-.3 2.7-2 4.4C4.1 10 3 12.3 3 14.5 3 17.4 5 21 9 21c-4-4-1-7.5-1-7.5.8 5.9 5 7.5 7 7.5 1.7 0 5-1.2 5-6.4 0-3.1-1.3-5.5-2.4-6.9-.3-.5-1-.2-1.1.3" />,
+    press: <><rect x="2" y="18.5" width="17" height="2.5" rx="1" /><rect x="17.5" y="5" width="3" height="16" rx="1" /><rect x="5" y="4" width="15.5" height="2.6" rx="1.2" /><rect x="1.5" y="3.4" width="5" height="3.8" rx="1.6" /><rect x="10" y="6" width="2.4" height="2.5" /><rect x="4" y="8.5" width="12.5" height="3.6" rx="1" /><rect x="6" y="13.4" width="1.6" height="3.4" rx=".8" /><rect x="9.4" y="13.4" width="1.6" height="3.4" rx=".8" /><rect x="12.8" y="13.4" width="1.6" height="3.4" rx=".8" /></>,
     cloud: <path d="M18.944 11.112C18.507 7.67 15.56 5 12 5 9.244 5 6.85 6.611 5.757 9.15 3.609 9.792 2 11.82 2 14c0 2.757 2.243 5 5 5h11c2.206 0 4-1.794 4-4a4.01 4.01 0 0 0-3.056-3.888z" />,
     coins: <><path d="M12 10c3.976 0 8-1.374 8-4s-4.024-4-8-4-8 1.374-8 4 4.024 4 8 4z" /><path d="M4 10c0 2.626 4.024 4 8 4s8-1.374 8-4V8c0 2.626-4.024 4-8 4s-8-1.374-8-4v2z" /><path d="M4 14c0 2.626 4.024 4 8 4s8-1.374 8-4v-2c0 2.626-4.024 4-8 4s-8-1.374-8-4v2z" /><path d="M4 18c0 2.626 4.024 4 8 4s8-1.374 8-4v-2c0 2.626-4.024 4-8 4s-8-1.374-8-4v2z" /></>,
 };
 
 // Boxicons v3 glyphs are solid: stroking them draws an outline around the
 // shape as well as filling it, which reads as a heavier, muddier icon.
-const FILLED = new Set(['truck', 'shield', 'star', 'bag', 'mail', 'time', 'maple', 'cartAdd', 'cartAdded', 'cloud', 'coins']);
+const FILLED = new Set(['truck', 'shield', 'star', 'bag', 'mail', 'time', 'maple', 'cartAdd', 'cartAdded', 'cloud', 'coins', 'flame', 'press']);
 
 export default function Icon({ name, size = 22, filled = false, className }) {
     const path = PATHS[name];

@@ -30,28 +30,48 @@
           "type": "spec",
           "settings": {
             "label": "Press",
-            "value": "300°F · 10s"
+            "value": "300°F · 10s",
+            "icon": "press"
           }
         },
         "spec_peel": {
           "type": "spec",
           "settings": {
             "label": "Peel",
-            "value": "Hot, instant"
+            "value": "Hot, instant",
+            "icon": "flame"
           }
         },
-        "spec_ships": {
-          "type": "spec",
+        "tab_sizing": {
+          "type": "tab",
           "settings": {
-            "label": "Ships",
-            "value": "Next day"
+            "heading": "Sizing",
+            "icon": "ruler",
+            "content": "<p><strong>DTF Transfer sizes:</strong></p><ul><li>Adult 10.5-11\" wide or tall, whichever number comes first</li><li>Youth 7.5 - 8\" wide or tall, whichever number comes first</li><li>Toddler 6-6.5\" wide or tall, whichever number comes first</li><li>Pocket/Koozie Size 3.5-4\" wide or tall, whichever number comes first<br/><br/><strong>UV DTF:</strong></li><li>Full Wraps 9-9.5\" inches wide by 3.5-4.0\" inches tall</li><li>Decals are 2.85\"-4\" wide or tall, whichever number comes first<br/></li></ul><p><em>These are approximate sizes and sizing will vary based on design.</em></p>"
           }
         },
-        "spec_pickup": {
-          "type": "spec",
+        "tab_pressing": {
+          "type": "tab",
           "settings": {
-            "label": "Pickup",
-            "value": "Free, today"
+            "heading": "Pressing Instructions",
+            "icon": "press",
+            "content": "<p><strong>DTF Pressing Instructions</strong></p><ul><li>Each order comes with pressing instructions<br/></li><li>It’s always a good idea to test your transfer first to find the ideal time + temp that works for your press as <br/>each heat press is made differently.  <br/></li><li>We highly recommend using a commercial heat press. <br/></li><li>Apply HEAVY pressure. It should take two hands to pull your press shut.<br/></li><li><strong>Peel your transfer swiftly, with confidence. Do not peel slowly if peeling hot.</strong> Think of it as ripping off a wax strip when you go to peel.<br/></li><li>Alternatively, you can wait for the transfer to cool and then peel.<strong><br/><br/>Material</strong>\t <strong>      Temp</strong>\t<strong>Time</strong><br/>100% Cotton\t300°F   10secs<br/>50/50 Blends\t300°F   10secs<br/>100% Polyester 275-300F 10secs            <br/><br/><strong>SPECIFIC STEPS: <br/>Follow each step to ensure best results.</strong></li></ul><p>1. Pre press your material at time and temp above (300F for 5-10 seconds)</p><p>2. Apply the transfer face down, ensure heavy pressure, and press at 300F for 10 seconds<br/><br/>3. Swiftly peel the transfer off. Peeling it with confidence (not slowly) while it's hot OR wait for it to cool down and then peel</p><p>4. Give it a second press at 300F for 10 seconds but this time, place a piece of parchment paper/butcher paper or old t-shirt on top of your transfer and press. That's it! A stunning, matte and durable transfer is the end result.</p><p>Ideally, wait 24 hours before washing. </p>"
+          }
+        },
+        "tab_care": {
+          "type": "tab",
+          "settings": {
+            "heading": "Care Instructions",
+            "icon": "heart",
+            "content": "<p><strong>Care Instructions - DTF transfers:</strong></p><ul><li>Wash inside out</li><li>Wait 24 hours before washing</li><li>Do NOT iron over design</li><li>Hang to dry or tumble dry low</li><li>Do NOT bleach</li><li>Do NOT dry clean</li></ul><p><strong>UV DTF application and care</strong></p><p><span style=\"text-decoration:underline\"><strong>INSTRUCTIONS:</strong></span></p><p>Gently peel back the carrier sheet (the bottom layer)</p><p>Apply the sticky decal to your surface</p><p>Use your fingers to rub over the transfer really well. You can also use a squeegee. </p><p>Peel off the top layer</p><p>Do not wash for at least 24 hours to allow for a better cure<br/><br/><strong>For items (i.e. glass cups) using UV DTF:</strong></p><p><strong>Care Instructions:</strong></p><ul><li>Hand wash only</li><li>Use warm water and soft sponge or washcloth</li><li>Avoid abrasive/harsh cleansers</li><li>Do not soak</li></ul>"
+          }
+        },
+        "tab_policy": {
+          "type": "tab",
+          "settings": {
+            "heading": "Store Policy",
+            "icon": "shield",
+            "content": "<ul><li>All orders ship within 1-3 business days</li><li>Free shipping on orders over $150 OR;</li><li>Discounted flat rates </li><li>Free local pickup in London, Ontario or St. Thomas, Ontario</li></ul><p>Due to the custom nature of transfers, <span style=\"text-decoration:underline\">all sales are final</span>. If your items arrive damaged or defective, please contact us within 3 days for a resolution.<br/><br/>All transfer sizes are approximate.<br/><br/>Transfer colours may vary slighty. </p><p><em>For any issue with your order, please contact us at info@shemakestransfers.com. We're always happy to help! </em></p>"
           }
         }
       },
@@ -60,8 +80,10 @@
         "judge_me_reviews_preview_badge_MBWtYV",
         "spec_press",
         "spec_peel",
-        "spec_ships",
-        "spec_pickup"
+        "tab_sizing",
+        "tab_pressing",
+        "tab_care",
+        "tab_policy"
       ],
       "settings": {
         "gang_sheet_url": "/collections/custom?view=choose"
@@ -78,17 +100,10 @@
             "show_shop_reviews": false,
             "empty_state": "empty_widget"
           }
-        },
-        "judge_me_reviews_featured_carousel_iyJNLG": {
-          "type": "shopify://apps/judge-me-reviews/blocks/featured_carousel/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-          "settings": {
-            "maxwidth": 1080
-          }
         }
       },
       "block_order": [
-        "judge_me_reviews_review_widget_TaGfPc",
-        "judge_me_reviews_featured_carousel_iyJNLG"
+        "judge_me_reviews_review_widget_TaGfPc"
       ],
       "settings": {
         "include_margins": true

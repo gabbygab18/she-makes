@@ -214,6 +214,37 @@
     {% render 'sm-heading', text: marked_title, tag: 'h1', class: 'sm-heading sm-heading--lg' %}
 
     {%- comment -%}
+      The collection's siblings, as a row of pills under the title — the
+      shop's own menu for that family ("Custom UV DTF, Cup Wraps + Decals,
+      Keychains…"). Same line format as the filter overrides below.
+    {%- endcomment -%}
+    {%- liquid
+      assign sibling_line = ''
+      assign sibling_rows = section.settings.sibling_links | default: '' | newline_to_br | split: '<br />'
+      for sibling_row in sibling_rows
+        assign sibling_parts = sibling_row | split: ':'
+        assign sibling_handle = sibling_parts[0] | strip
+        if sibling_parts.size > 1 and sibling_handle == collection.handle
+          assign sibling_line = sibling_row | remove_first: sibling_parts[0] | remove_first: ':' | strip
+        endif
+      endfor
+    -%}
+    {%- if sibling_line != blank -%}
+      <nav class="sm-pagehead__siblings" aria-label="Related collections">
+        {%- assign siblings = sibling_line | split: ',' -%}
+        {%- for sibling in siblings -%}
+          {%- assign sibling_bits = sibling | split: '=' -%}
+          {%- assign sibling_url = sibling_bits[1] | strip -%}
+          <a
+            class="sm-button sm-button--secondary sm-pagehead__sibling"
+            href="{{ sibling_url }}"
+            {% if sibling_url == collection.url %}aria-current="page"{% endif %}
+          >{{ sibling_bits[0] | strip }}</a>
+        {%- endfor -%}
+      </nav>
+    {%- endif -%}
+
+    {%- comment -%}
       Straight to the directions at the foot of the page, for anyone who has
       landed here not knowing how to order. `#sm-how` is the steps section.
     {%- endcomment -%}
@@ -660,6 +691,12 @@
       "id": "filter_overrides",
       "label": "A collection's own filter",
       "info": "One line per collection: handle: Label=tag, Label=tag. That collection's first filter shows only these."
+    },
+    {
+      "type": "textarea",
+      "id": "sibling_links",
+      "label": "Related collection links",
+      "info": "One line per collection: handle: Label=/collections/x, Label=/collections/y. Shown as pills under that collection's title."
     },
     {
       "type": "text",

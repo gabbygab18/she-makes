@@ -256,25 +256,26 @@ export default function ProductReviews({ heading = 'Rating & reviews', initial =
                 </p>
             )}
 
-            <ul className="sm-reviews__list" role="list">
+            {/* The same card as the review rail — stars, title, the words, and
+                who wrote it under a hairline — laid out as a grid of three so
+                "Show more" can add rows rather than hide them off to the side. */}
+            <ul className="sm-reviews__rail sm-reviews__rail--grid" role="list">
                 {reviews.slice(0, shown).map((review) => (
-                    <li className="sm-reviews__item" key={review.id}>
-                        <div className="sm-reviews__head">
-                            <span className="sm-reviews__name">{review.author}</span>
-                            <span className="sm-reviews__score">
-                                <span className="sm-reviews__stars" aria-hidden="true">
-                                    {'★★★★★'.slice(0, Math.round(review.rating))}
-                                </span>
-                                {review.rating.toFixed(1)}
-                                <span className="visually-hidden"> out of 5</span>
-                            </span>
-                        </div>
+                    <li className="sm-reviews__slide" key={review.id}>
+                        <span className="sm-reviews__stars" aria-hidden="true">
+                            {'★★★★★'.slice(0, Math.round(review.rating))}
+                        </span>
+                        <span className="visually-hidden">{review.rating} out of 5</span>
 
                         {review.title && <p className="sm-reviews__title">{review.title}</p>}
+                        {review.body && <p className="sm-reviews__body">{review.body}</p>}
 
-                        {review.body && <p className="sm-reviews__body">“{review.body}”</p>}
-
-                        {review.date && <p className="sm-mono sm-reviews__date">Posted {review.date}</p>}
+                        <div className="sm-reviews__by">
+                            <div>
+                                <p className="sm-reviews__name">{review.author}</p>
+                                {review.date && <p className="sm-reviews__product">Posted {review.date}</p>}
+                            </div>
+                        </div>
                     </li>
                 ))}
             </ul>

@@ -15,28 +15,31 @@
         "o1": {
           "type": "option",
           "settings": {
-            "label": "For apparel",
+            "label": "For fabric",
             "title": "DTF Transfers",
-            "note": "Printed on film, heat pressed onto fabric. Upload your artwork and we print, cut and ship it ready to press.",
-            "url": "/collections/custom-dtf-for-fabric",
-            "badge": "Requires heat press",
-            "icon": "shirt",
-            "surfaces": "T-shirts\nHoodies\nSweatpants\nCanvas & tote bags\nHats",
-            "cta_label": "Order custom fabric transfers",
-            "featured": true
+            "note": "",
+            "url": "/products/auto-gang-sheet-builder-tool-custom-dtf-kixxl",
+            "badge": "Heat press needed",
+            "icon": "press",
+            "photo_asset": "sm-option-dtf.webp",
+            "surfaces": "T-shirts\nHats\nTotes\nHoodies",
+            "cta_label": "Build DTF Sheet",
+            "featured": false
           }
         },
         "o2": {
           "type": "option",
           "settings": {
             "label": "For hard surfaces",
-            "title": "UV DTF Decals",
-            "note": "Peel, stick and apply. No heat, no press, and it is on for good.",
-            "url": "/collections/custom-uv-dtf",
-            "badge": "No heat needed",
+            "title": "UV DTF",
+            "note": "",
+            "url": "/products/custom-uv-dtf-sheet-builder-copy",
+            "badge": "Peel, stick & apply",
             "icon": "tumbler",
-            "surfaces": "Glass cans\nStainless tumblers\nMugs & glassware\nAcrylic & hard plastic\nWood & signs",
-            "cta_label": "Order custom hard surface decals"
+            "photo_asset": "sm-option-uv.webp",
+            "surfaces": "Cups\nAcrylic\nGlass\nWood",
+            "cta_label": "Build UV Sheet",
+            "featured": true
           }
         }
       },
@@ -45,9 +48,9 @@
         "o2"
       ],
       "settings": {
-        "eyebrow": "Custom transfers",
-        "heading": "Which custom transfer *do you need*?",
-        "body": "Two ways to print your own artwork. Pick the one that matches what you are putting it on.",
+        "eyebrow": "",
+        "heading": "What are *you* making?",
+        "body": "Choose from custom DTF transfers or UV DTF decals.",
         "compare": true
       }
     },

@@ -60,7 +60,7 @@ export default function ProductPanel({
 
     return (
         <form className="sm-buy" onSubmit={submit}>
-            <div className="sm-buy__price">
+            <div className={`sm-buy__price${compareAt > unit ? ' sm-buy__price--sale' : ''}`}>
                 <span className="sm-buy__amount">{money(unit, currency)}</span>
                 {compareAt > unit && (
                     <span className="sm-buy__compare">{money(compareAt, currency)}</span>
@@ -182,7 +182,12 @@ export default function ProductPanel({
                 <dl className="sm-buy__specs">
                     {specs.map((spec) => (
                         <div key={spec.label}>
-                            <dt>{spec.label}</dt>
+                            <dt>
+                                {spec.icon && spec.icon !== 'none' && (
+                                    <span className="sm-buy__spec-icon" aria-hidden="true"><Icon name={spec.icon} size={20} /></span>
+                                )}
+                                {spec.label}
+                            </dt>
                             <dd>{spec.value}</dd>
                         </div>
                     ))}

@@ -15,33 +15,28 @@
         "f1": {
           "type": "fact",
           "settings": {
-            "label": "Press",
+            "label": "Temperature",
             "value": "300°F",
-            "note": "Medium-firm pressure"
+            "note": "",
+            "icon": "press"
           }
         },
         "f2": {
           "type": "fact",
           "settings": {
-            "label": "Time",
-            "value": "10 seconds",
-            "note": "Per transfer"
+            "label": "Press time",
+            "value": "10 sec",
+            "note": "",
+            "icon": "time"
           }
         },
         "f3": {
           "type": "fact",
           "settings": {
-            "label": "Peel",
-            "value": "Hot, instant",
-            "note": "Do not wait for it to cool"
-          }
-        },
-        "f4": {
-          "type": "fact",
-          "settings": {
-            "label": "Cure",
-            "value": "Re-press 5s",
-            "note": "Under parchment, after peeling"
+            "label": "",
+            "value": "Hot peel",
+            "note": "Peel immediately",
+            "image_asset": "sm-why-3.jpg"
           }
         },
         "s1": {
@@ -110,20 +105,12 @@
             "body": "Anything finer than about 1mm can lift when the film is peeled. Thicken the line or scale the design up."
           }
         },
-        "r4": {
-          "type": "rule",
-          "settings": {
-            "icon": "leaf",
-            "title": "Trim the empty space",
-            "body": "Your transfer prints the size of the box around your image, so extra canvas is paid-for blank film."
-          }
-        },
         "r5": {
           "type": "rule",
           "settings": {
             "icon": "mail",
             "title": "Not sure? Send it over",
-            "body": "Email the file before you order and we will tell you whether it will print well — that check is free."
+            "body": "Email us your file or concern before sending it for print. We'll do our best to help."
           }
         },
         "x1": {
@@ -182,7 +169,6 @@
         "f1",
         "f2",
         "f3",
-        "f4",
         "s1",
         "s2",
         "s3",
@@ -193,7 +179,6 @@
         "r1",
         "r2",
         "r3",
-        "r4",
         "r5",
         "b2",
         "x1",
@@ -203,9 +188,12 @@
         "x5"
       ],
       "settings": {
-        "eyebrow": "Start here",
-        "heading": "Pressing your first transfer, *step by step*",
-        "standfirst": "Never pressed a DTF transfer before? Everything you need, in the order you need it — the settings, what your file has to be, and what to do when it does not come out right.",
+        "eyebrow": "",
+        "heading": "DTF pressing *made simple*",
+        "rules_heading": "Graphic requirements",
+        "standfirst": "Cotton tees • Your 3 must-know settings",
+        "tips": "Firm pressure • Pre-press 5s • Final press 5s",
+        "jump_label": "Full step-by-step pressing guide",
         "cta_url": "/collections/all"
       }
     }

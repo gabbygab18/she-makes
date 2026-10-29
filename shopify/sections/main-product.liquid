@@ -33,6 +33,38 @@
 
   <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.gallery_layout }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
     <div class="grid__item product__media-wrapper">
+    {%- comment -%}
+      SHEmakes: the redesigned product gallery — square frame, arrows, the
+      "1 / 3" counter and big thumbnails — so the builder products' pictures
+      look like every other product's. The theme's own gallery stays in the
+      page, hidden, because its variant script still talks to it.
+    {%- endcomment -%}
+    {%- if product.images.size > 0 -%}
+      {%- liquid
+        assign sm_gallery = ''
+        for image in product.images limit: 8
+          assign thumb = image | image_url: width: 300
+          assign medium = image | image_url: width: 600
+          assign large = image | image_url: width: 1400
+          assign image_alt = image.alt | default: product.title | json
+          assign row = '{"id":' | append: image.id | append: ',"thumb":"' | append: thumb | append: '","medium":"' | append: medium | append: '","large":"' | append: large | append: '","alt":' | append: image_alt | append: ',"width":' | append: image.width | append: ',"height":' | append: image.height | append: '}'
+          if forloop.first
+            assign sm_gallery = row
+          else
+            assign sm_gallery = sm_gallery | append: ',' | append: row
+          endif
+        endfor
+      -%}
+      {%- capture sm_gallery_props -%}{ "images": [{{ sm_gallery }}], "alt": {{ product.title | json }} }{%- endcapture -%}
+      {%- capture sm_gallery_fallback -%}
+        {%- if product.featured_image -%}
+          <img src="{{ product.featured_image | image_url: width: 1200 }}" alt="{{ product.featured_image.alt | escape }}" width="{{ product.featured_image.width }}" height="{{ product.featured_image.height }}" loading="eager">
+        {%- endif -%}
+      {%- endcapture -%}
+      <div class="sm-stock-gallery">
+        {% render 'sm-island', name: 'product-gallery', props: sm_gallery_props, fallback: sm_gallery_fallback %}
+      </div>
+    {%- endif -%}
     {% if product.metafields.custom.badge_text != blank %}
     <div class="custom_badge" style="{% if product.metafields.custom.badge_text_color != blank %} color:{{ product.metafields.custom.badge_text_color }}; {% endif %} {% if product.metafields.custom.badge_color != blank %} background:{{ product.metafields.custom.badge_color }};{% else %}background:#ddfbfe;{% endif %}">{{ product.metafields.custom.badge_text }}</div>
     {% endif %}
@@ -426,14 +458,15 @@ single-gurentee-item svg path{
               <details id="Details-{{ block.id }}-{{ section.id }}">
                 <summary>
                   <div class="summary__title">
-                    {% render 'icon-accordion', icon: block.settings.icon %}
-                    <h2 class="h4 accordion__title">
+                    {%- capture acc_title -%}
                     {% if product.metafields.custom.descsription_title != blank %}
                       {{ product.metafields.custom.descsription_title }}
                       {% else %}
                       {{ block.settings.title }}
                       {% endif %}
-                    </h2>
+                    {%- endcapture -%}
+                    {% render 'icon-accordion', icon: block.settings.icon, title: acc_title %}
+                    <h2 class="h4 accordion__title">{{ acc_title }}</h2>
                   </div>
                   {% render 'icon-caret' %}
                 </summary>
@@ -450,10 +483,11 @@ single-gurentee-item svg path{
               <details id="Details-{{ block.id }}-{{ section.id }}">
                 <summary>
                   <div class="summary__title">
-                    {% render 'icon-accordion', icon: block.settings.icon %}
-                    <h2 class="h4 accordion__title">
+                    {%- capture acc_title -%}
                       {{ block.settings.title }}
-                    </h2>
+                    {%- endcapture -%}
+                    {% render 'icon-accordion', icon: block.settings.icon, title: acc_title %}
+                    <h2 class="h4 accordion__title">{{ acc_title }}</h2>
                   </div>
                   {% render 'icon-caret' %}
                 </summary>
@@ -562,10 +596,11 @@ single-gurentee-item svg path{
               <details id="Details-{{ block.id }}-{{ section.id }}">
                 <summary>
                   <div class="summary__title">
-                    {% render 'icon-accordion', icon: block.settings.icon %}
-                    <h2 class="h4 accordion__title">
+                    {%- capture acc_title -%}
                       {{ block.settings.heading | default: block.settings.page.title }}
-                    </h2>
+                    {%- endcapture -%}
+                    {% render 'icon-accordion', icon: block.settings.icon, title: acc_title %}
+                    <h2 class="h4 accordion__title">{{ acc_title }}</h2>
                   </div>
                   {% render 'icon-caret' %}
                 </summary>
@@ -580,14 +615,15 @@ single-gurentee-item svg path{
               <details id="Details-{{ block.id }}-{{ section.id }}">
                 <summary>
                   <div class="summary__title">
-                    {% render 'icon-accordion', icon: block.settings.icon %}
-                    <h2 class="h4 accordion__title">
+                    {%- capture acc_title -%}
                       {% if product.metafields.custom.tab_title_1 != blank %} 
                       {{ product.metafields.custom.tab_title_1 }}
                       {% else %}
                       {{ block.settings.heading | default: block.settings.page.title }}
                       {% endif %}
-                    </h2>
+                    {%- endcapture -%}
+                    {% render 'icon-accordion', icon: block.settings.icon, title: acc_title %}
+                    <h2 class="h4 accordion__title">{{ acc_title }}</h2>
                   </div>
                   {% render 'icon-caret' %}
                 </summary>
@@ -602,14 +638,15 @@ single-gurentee-item svg path{
               <details id="Details-{{ block.id }}-{{ section.id }}">
                 <summary>
                   <div class="summary__title">
-                    {% render 'icon-accordion', icon: block.settings.icon %}
-                    <h2 class="h4 accordion__title">
+                    {%- capture acc_title -%}
                       {% if product.metafields.custom.tab_title_2 != blank %} 
                       {{ product.metafields.custom.tab_title_2 }}
                       {% else %}
                       {{ block.settings.heading | default: block.settings.page.title }}
                       {% endif %}
-                    </h2>
+                    {%- endcapture -%}
+                    {% render 'icon-accordion', icon: block.settings.icon, title: acc_title %}
+                    <h2 class="h4 accordion__title">{{ acc_title }}</h2>
                   </div>
                   {% render 'icon-caret' %}
                 </summary>
@@ -624,14 +661,15 @@ single-gurentee-item svg path{
               <details id="Details-{{ block.id }}-{{ section.id }}">
                 <summary>
                   <div class="summary__title">
-                    {% render 'icon-accordion', icon: block.settings.icon %}
-                    <h2 class="h4 accordion__title">
+                    {%- capture acc_title -%}
                      {% if product.metafields.custom.tab_title_3 != blank %} 
                       {{ product.metafields.custom.tab_title_3 }}
                       {% else %}
                       {{ block.settings.heading | default: block.settings.page.title }}
                       {% endif %}
-                    </h2>
+                    {%- endcapture -%}
+                    {% render 'icon-accordion', icon: block.settings.icon, title: acc_title %}
+                    <h2 class="h4 accordion__title">{{ acc_title }}</h2>
                   </div>
                   {% render 'icon-caret' %}
                 </summary>
@@ -646,14 +684,15 @@ single-gurentee-item svg path{
               <details id="Details-{{ block.id }}-{{ section.id }}">
                 <summary>
                   <div class="summary__title">
-                    {% render 'icon-accordion', icon: block.settings.icon %}
-                    <h2 class="h4 accordion__title">
+                    {%- capture acc_title -%}
                       {% if product.metafields.custom.tab_title_4 != blank %} 
                       {{ product.metafields.custom.tab_title_4 }}
                       {% else %}
                       {{ block.settings.heading | default: block.settings.page.title }}
                       {% endif %}
-                    </h2>
+                    {%- endcapture -%}
+                    {% render 'icon-accordion', icon: block.settings.icon, title: acc_title %}
+                    <h2 class="h4 accordion__title">{{ acc_title }}</h2>
                   </div>
                   {% render 'icon-caret' %}
                 </summary>
@@ -668,14 +707,15 @@ single-gurentee-item svg path{
               <details id="Details-{{ block.id }}-{{ section.id }}">
                 <summary>
                   <div class="summary__title">
-                    {% render 'icon-accordion', icon: block.settings.icon %}
-                    <h2 class="h4 accordion__title">
+                    {%- capture acc_title -%}
                      {% if product.metafields.custom.tab_title_5 != blank %} 
                       {{ product.metafields.custom.tab_title_5 }}
                       {% else %}
                       {{ block.settings.heading | default: block.settings.page.title }}
                       {% endif %}
-                    </h2>
+                    {%- endcapture -%}
+                    {% render 'icon-accordion', icon: block.settings.icon, title: acc_title %}
+                    <h2 class="h4 accordion__title">{{ acc_title }}</h2>
                   </div>
                   {% render 'icon-caret' %}
                 </summary>

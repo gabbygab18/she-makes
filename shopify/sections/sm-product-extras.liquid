@@ -13,6 +13,21 @@
 
 <div class="sm-section sm-section--tight sm-product-extras">
   <div class="sm-container">
+    {%- comment -%}
+      The description in the redesigned product's cards, full width under the
+      buy box — the stock section printed it as one long column beside the
+      gallery, which is the part that did not look like the other products.
+    {%- endcomment -%}
+    {%- if section.settings.show_description and product.description != blank -%}
+      {%- capture description_props -%}
+{ "html": {{ product.description | json }}, "heading": {{ section.settings.description_heading | json }} }
+      {%- endcapture -%}
+      {%- capture description_fallback -%}
+        <div class="sm-product__description sm-prose rte">{{ product.description }}</div>
+      {%- endcapture -%}
+      {% render 'sm-island', name: 'product-description', props: description_props, fallback: description_fallback %}
+    {%- endif -%}
+
     {% render 'sm-product-tail', opts: section.settings, product: product, collection: collection %}
   </div>
 </div>
@@ -22,6 +37,17 @@
   "name": "SHEmakes product extras",
   "tag": "section",
   "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_description",
+      "label": "Description cards",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "description_heading",
+      "label": "Description heading"
+    },
     {
       "type": "checkbox",
       "id": "show_related",

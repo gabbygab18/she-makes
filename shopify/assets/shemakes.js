@@ -558,3 +558,47 @@ function setUpHeaderSearch() {
 }
 
 setUpHeaderSearch();
+
+/**
+ * Accordions that open and close smoothly.
+ *
+ * A <details> snaps open by default. This lets the browser open it, measures
+ * the content, and animates its height from nothing to that measure — and
+ * back on close, only removing [open] when the animation ends. The product
+ * tabs on both kinds of product page, the referral questions and the policy
+ * folds all route through here, so they move the same way the FAQ does.
+ */
+function setUpSmoothDetails() {
+    const SELECTOR = 'details.sm-tabs__item, .product__accordion details, details.sm-faq__item, details.sm-ref__q, details.sm-browse__group';
+    const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) return;
+
+    document.addEventListener('click', (event) => {
+        const summary = event.target.closest('summary');
+        const details = summary?.parentElement;
+        if (!details || details.tagName !== 'DETAILS' || !details.matches(SELECTOR)) return;
+
+        const body = [...details.children].find((child) => child !== summary);
+        if (!body || !body.animate) return;
+
+        event.preventDefault();
+        if (details.dataset.moving) return;
+        details.dataset.moving = '1';
+
+        const done = () => { delete details.dataset.moving; body.style.height = ''; };
+        const timing = { duration: 280, easing: 'cubic-bezier(0.25, 0.8, 0.3, 1)' };
+
+        if (!details.open) {
+            details.open = true;
+            const height = body.scrollHeight;
+            body.animate([{ height: '0px', opacity: 0 }, { height: `${height}px`, opacity: 1 }], timing).onfinish = done;
+        } else {
+            const height = body.scrollHeight;
+            const anim = body.animate([{ height: `${height}px`, opacity: 1 }, { height: '0px', opacity: 0 }], timing);
+            body.style.height = '0px';
+            anim.onfinish = () => { details.open = false; done(); };
+        }
+    });
+}
+
+setUpSmoothDetails();

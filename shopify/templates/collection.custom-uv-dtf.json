@@ -190,27 +190,27 @@
           "type": "option",
           "settings": {
             "label": "Easiest",
-            "title": "UV DTF Sheet Builder",
-            "note": "Build your UV DTF gang sheet in the free builder — upload your graphics, size them, add quantities.",
-            "url": "/products/custom-uv-dtf-sheet-builder-copy"
+            "title": "Auto Builder Tool",
+            "note": "It builds the sheets for you — upload your graphics, size them, add quantities.",
+            "url": "/products/auto-gang-sheet-builder-tool-custom-dtf-kixxl"
           }
         },
         "o2": {
           "type": "option",
           "settings": {
-            "label": "Built for you",
-            "title": "Gang sheet editing",
-            "note": "No time to build it? Send your graphics and we'll lay the sheet out for you.",
-            "url": "/products/gang-sheet-editing-fee-manual-build"
+            "label": "For beginners",
+            "title": "Build your own gang sheet",
+            "note": "You lay the sheet out yourself in the free builder, with the space shown as you go.",
+            "url": "/products/auto-gang-sheet-builder-tool-custom-dtf"
           }
         },
         "o3": {
           "type": "option",
           "settings": {
-            "label": "Need it fast",
-            "title": "Rush order service",
-            "note": "Reach out first to check availability, then add rush to your order.",
-            "url": "/products/rush-order-fee-must-reach-out-first-for-availability"
+            "label": "For advanced users",
+            "title": "Upload your own",
+            "note": "Already have a finished gang sheet? Send it as it is — no builder needed.",
+            "url": "/products/custom-gang-sheet-22x60-2"
           }
         }
       },
@@ -222,7 +222,7 @@
       "settings": {
         "eyebrow": "Custom orders",
         "heading": "Which listing to *use*",
-        "body": "Pick the listing that matches how you want to work."
+        "body": "All three sheet builders are free to use. Pick the one that matches how you want to work."
       }
     },
     "perks": {
@@ -231,7 +231,7 @@
         "k1": {
           "type": "perk",
           "settings": {
-            "icon": "image",
+            "icon": "shirt",
             "title": "Free transfer mockups",
             "body": "Promote your products with watermark-free mockups."
           }
@@ -269,6 +269,49 @@
         "strip": "Free shipping on orders $150+",
         "strip_url": "/policies/shipping-policy"
       }
+    },
+    "how_to_order": {
+      "type": "sm-steps",
+      "blocks": {
+        "s1": {
+          "type": "step",
+          "settings": {
+            "label": "Step",
+            "title": "Click the auto builder listing",
+            "body": "It sizes and lays out the sheet for you - start there if this is your first order."
+          }
+        },
+        "s2": {
+          "type": "step",
+          "settings": {
+            "label": "Step",
+            "title": "Upload your .PNG files and size them",
+            "body": "Transparent background, 300 DPI at the size you want printed."
+          }
+        },
+        "s3": {
+          "type": "step",
+          "settings": {
+            "label": "Step",
+            "title": "Review your order and pay",
+            "body": "The sheets come through to us automatically once the order is placed."
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "settings": {
+        "eyebrow": "Custom orders",
+        "heading": "How to submit your *custom print*",
+        "tint": true,
+        "cta_label": "How-to guide for beginners",
+        "cta_url": "/pages/faqs?view=guide",
+        "secondary_label": "Open the builder",
+        "secondary_url": "/products/auto-gang-sheet-builder-tool-custom-dtf-kixxl"
+      }
     }
   },
   "order": [
@@ -278,6 +321,7 @@
     "product-grid",
     "perks",
     "options",
+    "how_to_order",
     "how_to_steps"
   ]
 }

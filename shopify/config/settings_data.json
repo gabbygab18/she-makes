@@ -12,7 +12,7 @@
     "sm_free_shipping_threshold": 15000,
     "final_price_color": "#8c0137",
     "final_price_weight": true,
-    "compare_price_color": "#e74a86",
+    "compare_price_color": "#ff0000",
     "compare_price_weight": true,
     "colors_solid_button_labels": "#000",
     "colors_accent_1": "#feeaea",
